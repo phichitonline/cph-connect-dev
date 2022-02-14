@@ -186,7 +186,7 @@ class EmrController extends Controller
         LEFT JOIN lab_items li ON lo.lab_items_code = li.lab_items_code
         LEFT JOIN lab_items_group lg ON li.lab_items_group = lg.lab_items_group_code
         LEFT JOIN lab_specimen_items ls ON li.specimen_code = ls.specimen_code
-        WHERE vn = "'.$id.'" AND lo.lab_order_result IS NOT NULL AND li.specimen_code IN (10,11,15)
+        WHERE vn = "'.$id.'" AND lo.lab_order_result IS NOT NULL AND li.specimen_code IN (9,10,11,12,15)
         ORDER BY li.lab_items_group ASC,li.lab_items_code ASC
         ');
         $visit_lab5 = DB::connection('mysql_hos')->select('
@@ -201,6 +201,18 @@ class EmrController extends Controller
         WHERE vn = "'.$id.'" AND lo.lab_order_result IS NOT NULL AND li.specimen_code IN (5,8)
         ORDER BY li.lab_items_group ASC,li.lab_items_code ASC
         ');
+        $visit_lab_other = DB::connection('mysql_hos')->select('
+        SELECT lh.lab_order_number,lh.hn,lh.vn,lo.lab_items_code,li.lab_items_name,li.lab_items_group,lg.lab_items_group_name
+        ,li.lab_items_normal_value,lo.lab_order_result,li.range_check_min,li.range_check_max,li.range_check_min_female
+        ,li.range_check_max_female,li.specimen_code,ls.specimen_name
+        FROM lab_head lh
+        LEFT JOIN lab_order lo ON lh.lab_order_number = lo.lab_order_number
+        LEFT JOIN lab_items li ON lo.lab_items_code = li.lab_items_code
+        LEFT JOIN lab_items_group lg ON li.lab_items_group = lg.lab_items_group_code
+        LEFT JOIN lab_specimen_items ls ON li.specimen_code = ls.specimen_code
+        WHERE vn = "'.$id.'" AND lo.lab_order_result IS NOT NULL AND li.specimen_code NOT IN (5,8,9,10,11,12,15)
+        ORDER BY li.lab_items_group ASC,li.lab_items_code ASC
+        ');
         $visit_xray = DB::connection('mysql_hos')->select('SELECT vn,hn,xray_list,confirm_all FROM xray_head WHERE vn = "'.$id.'" ');
         
         return view('emr.emr', [
@@ -210,6 +222,7 @@ class EmrController extends Controller
             'visit_drug' => $visit_drug,
             'visit_lab' => $visit_lab,
             'visit_lab5' => $visit_lab5,
+            'visit_lab_other' => $visit_lab_other,
             'visit_xray' => $visit_xray,
             'status_type' => $status_type,
             'hn' => $hn,

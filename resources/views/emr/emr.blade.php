@@ -233,6 +233,48 @@
                 </div>
 
                 <div class="list-group list-custom-small list-icon-0">
+                    <a data-toggle="collapse" href="#collapse-22">
+                        <i class="fa font-14 fa-share-alt color-blue2-dark"></i>
+                        <span class="font-14">อื่นๆ</span>
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                </div>
+                <div class="col-12 collapse" id="collapse-22">
+                    <div class="row mb-3">
+                        <div class="col-4"><p class="font-14 mb-0 font-800 color-theme text-left">รายการ</p></div>
+                        <div class="col-4"><p class="font-14 mb-0 font-800 color-theme text-center">ค่าปกติ</p></div>
+                        <div class="col-4"><p class="font-14 mb-0 font-800 color-theme text-right">ผลตรวจ</p></div>
+                        <div class="divider w-100 mb-0 mt-0"></div>
+                        @foreach ($visit_lab_other as $data)
+                            <div class="col-4"><p class="font-13 mb-0 font-500 color-theme text-left">{{ $data->lab_items_name }}</p></div>
+                            <div class="col-4"><p class="font-13 mb-0 font-800 color-theme text-center">{{ $data->lab_items_normal_value }}</p></div>
+                            @php
+                            if ($data->range_check_max || NULL) {
+                                if ($data->lab_order_result > $data->range_check_max) {
+                                    $r_result = "color-red2-dark";
+                                    $a_result = ""; //fa fa-arrow-up
+                                } else if ($data->lab_order_result < $data->range_check_min) {
+                                    $r_result = "color-green2-dark";
+                                    $a_result = ""; //fa fa-arrow-down
+                                } else {
+                                    $r_result = "";
+                                    $a_result = "";
+                                }
+                            } else {
+                                $r_result = "";
+                                $a_result = "";
+                            }
+                            @endphp
+                            <div class="col-4"><p class="font-13 mb-0 font-800 {{ $r_result }} text-right">
+                                <i class="{{ $a_result }} {{ $r_result }} pr-1"></i> {{ $data->lab_order_result }}
+                            </p></div>
+                            <div class="divider w-100 mb-0 mt-0"></div>
+                        @endforeach
+
+                    </div>
+                </div>
+
+                <div class="list-group list-custom-small list-icon-0">
                     <a data-toggle="collapse" href="#collapse-3">
                         <i class="fa font-14 fa-exclamation-triangle color-red2-dark"></i>
                         <span class="font-14">X-Ray</span>
