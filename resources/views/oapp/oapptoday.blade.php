@@ -84,11 +84,11 @@ $pwd = "ghUD2gES";
 $myPDO = new PDO("mysql:host=$host;dbname=$db", $user, $pwd);
 $myPDO -> exec("set names utf8");
 $myPDO -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	
+
 		try {
-			$sql = "SELECT u.lineid AS line_id,o.*,p.pname,p.fname,p.lname FROM oapp o 
+			$sql = "SELECT u.lineid AS line_id,o.*,p.pname,p.fname,p.lname FROM oapp o
         LEFT OUTER JOIN smarthos2.patientusers u ON u.hn = o.hn
-        LEFT OUTER JOIN patient p ON p.hn = o.hn 
+        LEFT OUTER JOIN patient p ON p.hn = o.hn
 				WHERE o.hn IN ('000035634') AND o.nextdate = DATE_FORMAT(DATE_ADD(NOW(),INTERVAL 0 DAY),'%Y-%m-%d')";
 			$result = $myPDO->query($sql);
 			foreach ($result AS $data) {
@@ -108,7 +108,7 @@ $myPDO -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 				// ********** ส่งข้อมูลนัดใน Line Official *********** //
 				$access_token = "sp7k492nbjfxm3xJPtBc+w0UvesadCjft3LTXjXY6lSq2nIufhr6KEwijysNcBBPrUD5j2EU/CUis+4GJ+CWjeGsNJeyJBNeyNW0ITJfceZYz9Q82c/0vv3NnLAjUFWmr3KaQsPxhlec8COpK/C2dwdB04t89/1O/w1cDnyilFU=";
-				$liff_url_oapp = "https://liff.line.me/1656884358-qko66Epp";
+				$liff_url = "https://liff.line.me/1656884358-qko66Epp";
 				$pushID = $idline;
         $curl = curl_init();
         curl_setopt_array($curl, array(
@@ -386,7 +386,7 @@ $myPDO -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			echo "ไม่มีนัด";
 		}
 		catch(PDOException $e) {echo "Connection failed: " . $e->getMessage();}
-	
+
 	?>
 
 			</div>
