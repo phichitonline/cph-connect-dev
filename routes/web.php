@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/showimag', function () {
+    return view('showimag');
+});
+
 Route::get('/oapptoday', function () {
     return view('oapp.oapptoday');
 });
@@ -68,13 +72,3 @@ Route::get('/showimage', 'ShowimageController@index')->name('showimage');
 Route::get('/notify', 'NotifyController@index')->name('notify');
 Route::get('/notify/today', 'NotifyController@today')->name('notify');
 Route::get('/notify/tomorrow', 'NotifyController@tomorrow')->name('notify');
-
-Route::resource('covaccine', 'CovaccineController');
-Route::get('cocheck', 'CovaccineController@cocheck')->name('cocheck');
-Route::get('coinfo', 'CovaccineController@coinfo')->name('coinfo');
-
-Route::resource('covaccine2', 'Covaccine2Controller');
-Route::get('cocheck2', 'Covaccine2Controller@cocheck')->name('cocheck2');
-Route::get('coinfo2', 'Covaccine2Controller@coinfo')->name('coinfo2');
-
-

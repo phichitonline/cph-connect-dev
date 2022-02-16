@@ -38,12 +38,12 @@ class CardController extends Controller
             }
 
             $images_user = DB::connection('mysql_hos')->select('
-            SELECT pm.image,TIMESTAMPDIFF(YEAR,pt.birthday,CURDATE()) AS age_y,pt.sex 
+            SELECT pm.image,TIMESTAMPDIFF(YEAR,pt.birthday,CURDATE()) AS age_y,pt.sex
             FROM patient pt LEFT OUTER JOIN patient_image pm ON pt.hn = pm.hn WHERE pt.hn = "'.$hn.'"
             ');
             foreach($images_user as $data){
                 if ($data->image || NULL) {
-                    $pic = "show_image.php";
+                    $pic = "/showimage";
                 } else {
                     switch ($data->sex) {
                         case 1 : if ($data->age_y<=15) $pic="images/boy.jpg"; else $pic="images/male.jpg";break;

@@ -17,13 +17,13 @@ class EmrController extends Controller
     {
         session_start();
         $hn = $_SESSION["hn"];
-        
+
         $settingemr = Settingemr::all();
         foreach ($settingemr as $data) {
             $emr_visit_limit = $data->emr_visit_limit;
             $emr_checkup_icd10 = $data->emr_checkup_icd10;
         }
-        
+
         $visit_count = DB::connection('mysql_hos')->select('
         SELECT COUNT(*) AS countvisit FROM (
             SELECT od.icd10,v.vn,v.hn,v.vstdate,v.vsttime,v.doctor,v.ovstist,v.ovstost,v.pttype,v.spclty,v.visit_type,v.staff
@@ -50,7 +50,7 @@ class EmrController extends Controller
         foreach ($visit_count as $data) {
             $countvisit = $data->countvisit;
         }
-        
+
         $visit_list = DB::connection('mysql_hos')->select('
         SELECT t1.*,GROUP_CONCAT(t1.icd10) AS visitdiag,count(*) AS countvisit FROM (
             SELECT od.icd10,v.vn,v.hn,v.vstdate,v.vsttime,v.doctor,v.ovstist,v.ovstost,v.pttype,v.spclty,v.visit_type,v.staff
@@ -87,14 +87,14 @@ class EmrController extends Controller
         } else {
             $ptname = "ไม่พบข้อมูลการรับบริการ";
         }
-            
+
         $images_user = DB::connection('mysql_hos')->select('
         SELECT pm.image,TIMESTAMPDIFF(YEAR,pt.birthday,CURDATE()) AS age_y,pt.sex
         FROM patient pt LEFT OUTER JOIN patient_image pm ON pt.hn = pm.hn WHERE pt.hn = "'.$hn.'"
         ');
         foreach($images_user as $data){
             if ($data->image || NULL) {
-                $pic = "show_image.php";
+                $pic = "/showimage";
             } else {
                 switch ($data->sex) {
                     case 1 : if ($data->age_y<=15) $pic="images/boy.jpg"; else $pic="images/male.jpg";break;
@@ -157,7 +157,7 @@ class EmrController extends Controller
             $vstdate = $data->vstdate;
             $status_type = $data->status_type;
         }
-        
+
         $visit_detail = DB::connection('mysql_hos')->select('
         SELECT v.*,s.*
         FROM ovst v
@@ -214,7 +214,7 @@ class EmrController extends Controller
         ORDER BY li.lab_items_group ASC,li.lab_items_code ASC
         ');
         $visit_xray = DB::connection('mysql_hos')->select('SELECT vn,hn,xray_list,confirm_all FROM xray_head WHERE vn = "'.$id.'" ');
-        
+
         return view('emr.emr', [
             'moduletitle' => "ประวัติรับบริการ",
             'visit_detail' => $visit_detail,
@@ -241,11 +241,11 @@ class EmrController extends Controller
     public function edit($id)
     {
         $settingemr = Settingemr::find($id);
-        
+
         return view('emr.setting', compact('settingemr'));
     }
 
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -256,7 +256,7 @@ class EmrController extends Controller
     public function update(Request $request, $id)
     {
         $settingemr = Settingemr::find($id);
-        
+
         $settingemr->emr_visit_limit =  $request->get('emr_visit_limit');
         $settingemr->emr_checkup_icd10 =  $request->get('emr_checkup_icd10');
         $settingemr->emr_bps =  $request->get('emr_bps');
@@ -268,7 +268,7 @@ class EmrController extends Controller
         $settingemr->emr_bmi1 =  $request->get('emr_bmi1');
         $settingemr->emr_bmi2 =  $request->get('emr_bmi2');
         $settingemr->save();
-        
+
         return redirect()->route('emr.edit', 1)->with('settingemr-updated','บันทึกสำเร็จ');
     }
 
