@@ -30,7 +30,7 @@
         <div class="card" data-card-height="cover">
             <div class="card-center text-center">
                 <div class="content mr-0 ml-0 mb-0">
-                    <img class="preload-img img-fluid pl-3 pr-3" data-src="images/cphconnect/cph-connect-logo5.png">
+                    <img class="preload-img img-fluid pl-3 pr-3" data-src="images/cphconnect/cph-connect-logo.png">
                     <p class="mt-1 mb-0 color-highlight font-12"><b>ยินดีต้อนรับ </b> </p>
                     <h1 id="displayName" class="mt-2 mb-0 font-30"> </h1>
                     {{-- <p id="userId" class="mt-n1 mb-0 color-highlight font-12"><b>LineID:</b> </p> --}}

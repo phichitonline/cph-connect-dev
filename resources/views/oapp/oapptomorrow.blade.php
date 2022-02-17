@@ -66,6 +66,7 @@ function chMonth($find)
             // ********** ส่งข้อมูลนัดใน Line Official *********** //
             $access_token = config('line-bot.channel_access_token');
             $liff_url = config('line-bot.liff_url');
+            $cph_url = config('app.cph_url');
             $pushID = $idline;
     $curl = curl_init();
     curl_setopt_array($curl, array(
@@ -89,7 +90,7 @@ function chMonth($find)
 "size": "mega",
 "hero": {
 "type": "image",
-"url": "https://restful.tphcp.go.th/appointment-tphcp3.jpg",
+"url": "'.$cph_url.'/images/cphconnect/appointment-cph-tomorrow.jpg",
 "size": "full",
 "aspectRatio": "1600:448",
 "aspectMode": "cover",
@@ -318,7 +319,7 @@ function chMonth($find)
     }
   }
 ],
-"backgroundColor": "#FF3333"
+"backgroundColor": "#f39c12"
 }
 
 
