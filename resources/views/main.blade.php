@@ -32,6 +32,14 @@
     $ext_q_name = $data->ext_q_name;
     $ext_q_url = $data->ext_q_url;
     $ext_q_img = $data->ext_q_img;
+    $module_1 = $data->module_1;
+    $module_2 = $data->module_2;
+    $module_3 = $data->module_3;
+    $module_4 = $data->module_4;
+    $module_5 = $data->module_5;
+    $module_6 = $data->module_6;
+    $module_7 = $data->module_7;
+    $module_8 = $data->module_8;
 @endphp
 @endforeach
 
@@ -187,48 +195,64 @@
         @endif
 
         <div class="row text-center mb-0">
+
+            @if ($module_1 == "Y")
             <a href="{{ url('/') }}/card" class="col-6 pr-0">
-                <div class="card card-style mr-2 mb-2">
+                <div class="card card-style mr-2 mb-3">
                     <img class="img-fluid" src="images/menu_v2_card.png">
                 </div>
             </a>
+            @endif
+            @if ($module_2 == "Y")
             <a href="{{ url('/') }}/emr" class="col-6 pl-0">
                 <div class="card card-style ml-2 mb-3">
                     <img class="img-fluid" src="images/menu_v2_emr.png">
                 </div>
             </a>
+            @endif
+            @if ($module_3 == "Y")
             <a href="{{ url('/') }}/oapp" class="col-6 pr-0">
-                <div class="card card-style mr-2 mb-2">
+                <div class="card card-style mr-2 mb-3">
                     <img class="img-fluid" src="images/menu_v2_oapp.png">
                 </div>
             </a>
+            @endif
+            @if ($module_4 == "Y")
             <a href="{{ url('/') }}/vaccine" class="col-6 pl-0">
                 <div class="card card-style ml-2 mb-3">
                     <img class="img-fluid" src="images/menu_v2_vaccine4.png">
                 </div>
             </a>
-
-            <a href="{{ url('/') }}/bookcalendar/?flag=C" class="col-6 pr-0">
-                <div class="card card-style ml-2 mb-3">
+            @endif
+            @if ($module_5 == "Y")
+            <a href="{{ url('/') }}/checkup" class="col-6 pr-0">
+                <div class="card card-style mr-2 mb-3">
                     <img class="img-fluid" src="images/book_healthy2.png">
                 </div>
             </a>
+            @endif
+            @if ($module_6 == "Y")
             <a href="{{ url('/') }}/book" class="col-6 pl-0">
                 <div class="card card-style ml-2 mb-3">
                     <img class="img-fluid" src="images/book.png">
                 </div>
             </a>
-
+            @endif
+            @if ($module_7== "Y")
             <a href="tel:1669" class="col-6 pr-0">
-                <div class="card card-style mr-2 mb-2">
+                <div class="card card-style mr-2">
                     <img class="img-fluid" src="images/1669-4.png">
                 </div>
             </a>
+            @endif
+            @if ($module_8 == "Y")
             <a target="_blank" href="http://eservices.nhso.go.th/eServices/mobile/login.xhtml" class="col-6 pl-0">
                 <div class="card card-style ml-2">
                     <img class="img-fluid" src="images/menu_v2_nhso2.png">
                 </div>
             </a>
+            @endif
+
         </div>
 
         @if ($pr_status == "Y")
@@ -298,17 +322,6 @@
             <p class="footer-copyright">{!! config('app.copyright') !!}</p>
 
             @if ($isadmin == "A")
-
-    <!--            <a href="#" onclick="event.preventDefault();-->
-    <!--document.getElementById('msg-form').submit();"-->
-    <!--class="btn btn-m btn-center-l text-uppercase font-900 bg-pink2-dark rounded-sm shadow-xl mt-4 mb-0">ประกาศข่าวสมาชิก LineOA</a>-->
-    <!--<form id="msg-form" action="https://restful.tphcp.go.th/smarthospital/flex_form.php" method="POST" class="d-none">-->
-    <!--<form id="msg-form" action="https://restful.tphcp.go.th/smarthospital/flex_form_picture.php" method="POST" class="d-none">-->
-    <!--    @csrf-->
-    <!--    <input type="hidden" name="isadmin" value="isadmin">-->
-    <!--</form>-->
-
-            <!--<a href="https://restful.tphcp.go.th/smarthospital/flex_form.php" class="btn btn-m btn-center-l text-uppercase font-900 bg-pink2-dark rounded-sm shadow-xl mt-4 mb-0">ประกาศข่าวสมาชิก LineOA</a>-->
             <a href="{{ url('/') }}/setting" class="btn btn-m btn-center-l text-uppercase font-900 bg-red2-dark rounded-sm shadow-xl mt-4 mb-0">Setting</a>
             <a href="{{ url('/') }}/userman" class="btn btn-m btn-center-l text-uppercase font-900 bg-blue2-dark rounded-sm shadow-xl mt-4 mb-0">จัดการผู้ดูแล</a>
             @endif
@@ -326,49 +339,6 @@
 
 @section('footer_script')
 
-<!-- //LIFF Script -->
-<!-- <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script> -->
 
-<script>
-
-//   async function main() {
-//       await liff.init({ liffId: "1654181242-WLYbaypY" })
-//       if (liff.isLoggedIn()) {
-//         getUserProfile()
-//       } else {
-//         liff.login({ redirectUri: "https://api.tphcp.go.th/sticky-mobile/public/home"})
-//       }
-//   }
-//   main()
-
-  async function scanCode() {
-    const result = await liff.scanCode()
-    $('#scanCode').val(result.value);
-  }
-
-  function openWindowWEB() {
-    liff.openWindow({
-      url: "https://www.tphcp.go.th",
-      external: true
-    })
-  }
-
-  function openWindowNHSO() {
-    liff.openWindow({
-      url: "http://eservices.nhso.go.th/eServices/mobile/login.xhtml",
-      external: true
-    })
-  }
-
-  function getEnvironment() {
-    if (liff.isInClient()) {
-    //   document.getElementById("btnCloseApp").style.display = "none"
-    } else {
-      document.getElementById("btnScanCode").style.display = "none"
-    }
-  }
-
-</script>
-<!-- LIFF Script// -->
 
 @endsection
