@@ -17,8 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/showimag', function () {
-    return view('showimag');
+Route::get('/showimage', function () {
+    return view('showimage');
 });
 
 Route::get('/oapptoday', function () {

@@ -36,13 +36,13 @@
 @endforeach
 
 <div class="page-content header-clear-small">
-            
+
         @if (session('session-alert'))
             <div class="footer card card-style">
                 <a href="#" class="footer-title"><span class="color-highlight">{{ session('session-alert') }}</span></a>
                 <div class="clear"><br></div>
             </div><br>
-        @endif   
+        @endif
 
         <!-- ข้อมูลทั่วไปผู้ป่วย -->
         <div class="card card-style">
@@ -73,24 +73,24 @@
                         <i class="fa font-14 fa-share-alt color-red2-dark"></i>
                         <span class="font-14">กรุ๊ปเลือด/แพ้ยา/โรคประจำตัว</span>
                         <i class="fa fa-angle-down"></i>
-                    </a>        
+                    </a>
                 </div>
                 <div class="collapse" id="collapse-1">
                     <div class="list-group list-custom-small pl-3">
                         <a href="#">
                             <i class="fa font-14 fa-tint color-red2-dark"></i>
                             <span>กรุ๊ปเลือด: <b>{{ $bloodgrp }}</b></span>
-                        </a>        
+                        </a>
                         <a href="#">
                             <i class="fa font-14 fa-pills color-red2-dark"></i>
                             <span>แพ้ยา: <b>{{ $drugallergy }}</b></span>
-                        </a>        
+                        </a>
                         <a href="#">
                             <i class="fa font-14 fa-universal-access color-red2-dark"></i>
                             <span>โรคประจำตัว: <b>{{ $clinic }}</b></span>
-                        </a>        
+                        </a>
                     </div>
-                </div>  
+                </div>
             </div>
         </div>
 
@@ -127,9 +127,9 @@
         @endif
 
         <!-- แสดงคิวเมื่อมี visit วันนี้ -->
-        
+
         @if ($ext_q_status == "Y")
-        
+
         @if (isset($vn))
         <a href="{{ url('/') }}/statusq?oappid={{ $user_app_id }}">
         <div data-card-height="210" class="card card-style rounded-m shadow-xl">
@@ -162,7 +162,7 @@
             <img class="img-fluid" src="images/{{ $ext_q_img }}">
 
         </div>
-        
+
         @endif
 
         @endif
@@ -208,7 +208,7 @@
                 </div>
             </a>
 
-            <a href="#" class="col-6 pr-0">
+            <a href="{{ url('/') }}/bookcalendar/?flag=C" class="col-6 pr-0">
                 <div class="card card-style ml-2 mb-3">
                     <img class="img-fluid" src="images/book_healthy2.png">
                 </div>
@@ -271,12 +271,12 @@
                             <label class="custom-control-label" for="switch-4"></label>
                         </div>
                         <i class="fa fa-angle-right"></i>
-                    </a>    
+                    </a>
                 </div>
             </div>
         </div>
         @endif
-        
+
         <div class="footer card card-style">
             <a href="#" class="footer-title"><span>ติดต่อโรงพยาบาล</span></a>
             <p class="footer-text"><span>บริการด้วยใจ <i class="fa fa-heart color-highlight font-16 pl-2 pr-2"></i> ห่วงใยสุขภาพคุณ</span></p>
@@ -298,7 +298,7 @@
             <p class="footer-copyright">{!! config('app.copyright') !!}</p>
 
             @if ($isadmin == "A")
-            
+
     <!--            <a href="#" onclick="event.preventDefault();-->
     <!--document.getElementById('msg-form').submit();"-->
     <!--class="btn btn-m btn-center-l text-uppercase font-900 bg-pink2-dark rounded-sm shadow-xl mt-4 mb-0">ประกาศข่าวสมาชิก LineOA</a>-->
@@ -307,7 +307,7 @@
     <!--    @csrf-->
     <!--    <input type="hidden" name="isadmin" value="isadmin">-->
     <!--</form>-->
-    
+
             <!--<a href="https://restful.tphcp.go.th/smarthospital/flex_form.php" class="btn btn-m btn-center-l text-uppercase font-900 bg-pink2-dark rounded-sm shadow-xl mt-4 mb-0">ประกาศข่าวสมาชิก LineOA</a>-->
             <a href="{{ url('/') }}/setting" class="btn btn-m btn-center-l text-uppercase font-900 bg-red2-dark rounded-sm shadow-xl mt-4 mb-0">Setting</a>
             <a href="{{ url('/') }}/userman" class="btn btn-m btn-center-l text-uppercase font-900 bg-blue2-dark rounded-sm shadow-xl mt-4 mb-0">จัดการผู้ดูแล</a>
@@ -317,10 +317,10 @@
             @endif
 
             <div class="clear"><br></div>
-        </div> 
-            
+        </div>
+
     </div>
-    <!-- End of Page Content--> 
+    <!-- End of Page Content-->
 
 @endsection
 
