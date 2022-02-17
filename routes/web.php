@@ -66,9 +66,3 @@ Route::get('/checkin', 'OappController@checkin')->name('checkin');
 Route::get('/statusq', 'OappController@statusq')->name('statusq');
 Route::get('/oappman', 'OappController@oappman')->name('oappman');
 Route::get('/oappconfirm', 'OappController@oappconfirm')->name('oappconfirm');
-
-Route::get('/showimage', 'ShowimageController@index')->name('showimage');
-
-Route::get('/notify', 'NotifyController@index')->name('notify');
-Route::get('/notify/today', 'NotifyController@today')->name('notify');
-Route::get('/notify/tomorrow', 'NotifyController@tomorrow')->name('notify');

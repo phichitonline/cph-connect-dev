@@ -13,10 +13,14 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'CPH-Connect'),
+    'name' => env('APPNAME', 'CPH connect'),
     'hosname' => env('APP_HOSNAME', 'รพร.ตะพานหิน'),
+    'cph_url' => env('CPH_URL', 'https://cph-connect.tphcp.go.th'),
     'copyright' => env('APP_COPYRIGHT', 'Copyright &copy; Dr.GHOST'),
 
+    'google_recaptcha_key' => env('GOOGLE_RECAPTCHA_KEY', ''),
+    'google_recaptcha_secret' => env('GOOGLE_RECAPTCHA_SECRET', ''),
+    
     /*
     |--------------------------------------------------------------------------
     | Application Environment

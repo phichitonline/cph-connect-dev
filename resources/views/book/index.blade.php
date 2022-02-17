@@ -50,13 +50,13 @@
     $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channelSecret]);
     $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($book_text_message);
     $response = $bot->pushMessage($pushID, $textMessageBuilder);
-            
+
     @endphp
         <div class="ml-3 mr-3 alert alert-small rounded-s shadow-xl bg-green1-dark" role="alert">
             <span><i class="fa fa-check"></i></span>
             <strong>คุณ{{ $module_name }} สำเร็จ</strong>
             <button type="button" class="close color-white opacity-60 font-16" data-dismiss="alert" aria-label="Close">&times;</button>
-        </div> 
+        </div>
 
         <div data-card-height="220" class="card card-style rounded-m shadow-xl">
             <div class="card-center text-center">
@@ -107,11 +107,11 @@
                 <br><br><b>หากมีปัญหา ข้อสงสัย ต้องการคำแนะนำหรือเลื่อนนัดยกเลิกนัด โปรดติดต่อเจ้าหน้าที่ <br>โทร <a href="tel:{{ $hos_tel }}">{{ $hos_tel }}</a>
             </span>
             </p>
-        </div>  
+        </div>
 
 
     </div>
-    <!-- End of Page Content--> 
+    <!-- End of Page Content-->
 
 @endsection
 
