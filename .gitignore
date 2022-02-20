@@ -5,6 +5,7 @@
 /vendor
 /config/database.php
 /config/line-bot.php
+/Quest Software
 .env
 .env.backup
 .phpunit.result.cache
