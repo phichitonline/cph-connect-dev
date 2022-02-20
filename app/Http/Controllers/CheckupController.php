@@ -13,7 +13,10 @@ class CheckupController extends Controller
      */
     public function index()
     {
-        //
+
+        return view('checkup.index', [
+            'moduletitle' => "ตรวจสุขภาพ",
+        ]);
     }
 
     /**
