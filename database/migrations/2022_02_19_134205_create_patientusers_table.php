@@ -26,6 +26,7 @@ class CreatePatientusersTable extends Migration
             $table->string('email', 255);
             $table->string('tel', 10);
             $table->string('isadmin', 1);
+            $table->string('que_app_flag', 2);
             $table->string('consent', 1);
 
             $table->timestamps();
