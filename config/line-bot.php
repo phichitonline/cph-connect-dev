@@ -17,8 +17,8 @@
  */
 
 return [
-    'channel_access_token' => env('LINE_BOT_CHANNEL_ACCESS_TOKEN', 'sp7k492nbjfxm3xJPtBc+w0UvesadCjft3LTXjXY6lSq2nIufhr6KEwijysNcBBPrUD5j2EU/CUis+4GJ+CWjeGsNJeyJBNeyNW0ITJfceZYz9Q82c/0vv3NnLAjUFWmr3KaQsPxhlec8COpK/C2dwdB04t89/1O/w1cDnyilFU='),
-    'channel_secret' => env('LINE_BOT_CHANNEL_SECRET', 'cbab6f7aea4307006a50aa52197675cb'),
-    'liff_url_oapp' => env('LINE_LIFF_URL_OAPP', 'https://liff.line.me/1656884358-qko66Epp'),
-    'liff_id' => env('LINE_LIFF_ID','1656884358-qko66Epp'),
+    'channel_access_token' => env('LINE_BOT_CHANNEL_ACCESS_TOKEN', ''),
+    'channel_secret' => env('LINE_BOT_CHANNEL_SECRET', ''),
+    'liff_url' => env('LINE_LIFF_URL', ''),
+    'liff_id' => env('LINE_LIFF_ID',''),
 ];
