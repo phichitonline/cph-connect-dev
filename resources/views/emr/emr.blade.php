@@ -131,9 +131,11 @@
     <!--</div>-->
     <div class="card card-style">
         <div class="content mb-0">
-            <h4 class="font-700 text-uppercase font-12 opacity-30 mb-3 mt-n2">ยา</h4>
+            <i class="fa font-14 fa-solid fa-prescription color-black2-dark opacity-30"></i>
+            <!--<h4 class="font-700 text-uppercase font-12 opacity-30 mb-3 mt-n2">ยา</h4>-->
+            <span class="font-700 text-uppercase font-12 opacity-30">ยา</span>
             <div class="row mb-3">
-                <div class="col-8"><p class="font-14 mb-0 font-800 color-theme text-left">รายการยา</p></div>
+                <div class="col-8"><p class="font-14 mb-0 font-800 color-theme text-left"></i> รายการยา</p></div>
                 <div class="col-4"><p class="font-14 mb-0 font-800 color-theme text-right">จำนวน</p></div>
                 <div class="divider w-100 mb-2 mt-2"></div>
                 @foreach ($visit_drug as $data)
@@ -192,7 +194,7 @@
 
                 <div class="list-group list-custom-small list-icon-0">
                     <a data-toggle="collapse" href="#collapse-2">
-                        <i class="fa font-14 fa-share-alt color-blue2-dark"></i>
+                        <i class="fa font-14 fa-solid fa-flask color-blue2-dark"></i>
                         <span class="font-14">ตรวจปัสสาวะ</span>
                         <i class="fa fa-angle-down"></i>
                     </a>
@@ -234,7 +236,7 @@
 
                 <div class="list-group list-custom-small list-icon-0">
                     <a data-toggle="collapse" href="#collapse-22">
-                        <i class="fa font-14 fa-share-alt color-blue2-dark"></i>
+                        <i class="fa font-14 fa-solid fa-vial color-black2-dark"></i>
                         <span class="font-14">อื่นๆ</span>
                         <i class="fa fa-angle-down"></i>
                     </a>
@@ -276,7 +278,7 @@
 
                 <div class="list-group list-custom-small list-icon-0">
                     <a data-toggle="collapse" href="#collapse-3">
-                        <i class="fa font-14 fa-exclamation-triangle color-red2-dark"></i>
+                        <i class="fa font-14 fa-solid fa-radiation color-red2-dark"></i>
                         <span class="font-14">X-Ray</span>
                         <i class="fa fa-angle-down"></i>
                     </a>
@@ -294,70 +296,6 @@
 
         </div>
     </div>
-
-<!--
-    <div class="card card-style">
-        <div class="content mb-3">
-            <h4 class="font-700 text-uppercase font-12 opacity-30 mb-3 mt-n2">ประเมินสุขภาพ</h4>
-            <div class="row mb-0">
-                <div class="col-12">
-                    <div class="mb-3">
-                        <div class="progress mb-4" style="height:7px;">
-                            <div class="progress-bar bg-highlight" role="progressbar" style="width: 40%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <div class="row mb-0">
-                            <div class="col-7">
-                                <h5 class="mt-n3 font-13">Expenses</h5>
-                            </div>
-                            <div class="col-5">
-                                <h5 class="mt-n3 font-13 text-right color-red2-dark">-20%</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="progress mb-4" style="height:7px;">
-                            <div class="progress-bar bg-green1-dark" role="progressbar" style="width: 60%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <div class="row mb-0">
-                            <div class="col-7">
-                                <h5 class="mt-n3 font-13">Earnings</h5>
-                            </div>
-                            <div class="col-5">
-                                <h5 class="mt-n3 font-13 text-right color-green1-dark">+35%</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="progress mb-4" style="height:7px;">
-                            <div class="progress-bar bg-blue2-dark" role="progressbar" style="width: 80%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <div class="row mb-0">
-                            <div class="col-7">
-                                <h5 class="mt-n3 font-13">Savings</h5>
-                            </div>
-                            <div class="col-5">
-                                <h5 class="mt-n3 font-13 text-right color-blue2-dark">+20%</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-0">
-                        <div class="progress mb-4" style="height:7px;">
-                            <div class="progress-bar bg-yellow1-dark" role="progressbar" style="width: 80%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <div class="row mb-0">
-                            <div class="col-7">
-                                <h5 class="mt-n3 font-13">Goals</h5>
-                            </div>
-                            <div class="col-5">
-                                <h5 class="mt-n3 font-13 text-right color-yellow1-dark">+60%</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
--->
 
 
 </div>

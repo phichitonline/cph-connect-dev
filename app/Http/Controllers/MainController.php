@@ -16,21 +16,34 @@ class MainController extends Controller
     public function index()
     {
         session_start();
+
+        $ext_q_status = Setting::where('id', 1)->first(['ext_q_status'])->ext_q_status;
+
+        if ($ext_q_status == "Y") {
+            $q_select = ",w.type,w.qnumber,w.pt_priority,w.room_code,w.time,w.time_complete,k.department,s.name AS spcltyname,w.`status` AS q_status";
+            $q_join = "LEFT OUTER JOIN web_queue w ON w.vn = o.vn LEFT OUTER JOIN kskdepartment k ON k.depcode = w.room_code LEFT OUTER JOIN spclty s ON s.spclty = k.spclty";
+            $q_order = "ORDER BY w.time DESC LIMIT 1";
+        } else {
+            $q_select = "";
+            $q_join = "";
+            $q_order = "";
+        }
+
+
         if (isset($_SESSION["hn"])) {
 
             $view_page = "main";
             $hn = $_SESSION["hn"];
 
             $check_patient = DB::connection('mysql_hos')->select('
-            SELECT p.cid,p.hn,p.pname,p.fname,p.lname,p.birthday,p.bloodgrp,p.drugallergy,p.pttype,ptt.`name` AS pttypename,p.clinic,w.`status` AS q_status
-            ,TIMESTAMPDIFF(YEAR,p.birthday,CURDATE()) AS age_year,o.vn,w.type,w.qnumber,w.pt_priority,w.room_code,k.department,s.name AS spcltyname,w.time,w.time_complete
+            SELECT p.cid,p.hn,p.pname,p.fname,p.lname,p.birthday,p.bloodgrp,p.drugallergy,p.pttype,ptt.`name` AS pttypename,p.clinic
+            ,TIMESTAMPDIFF(YEAR,p.birthday,CURDATE()) AS age_year,o.vn
+			'.$q_select.'
             FROM patient p LEFT OUTER JOIN pttype ptt ON ptt.pttype = p.pttype
             LEFT OUTER JOIN ovst o ON o.hn = p.hn AND o.vstdate = CURDATE()
-            LEFT OUTER JOIN web_queue w ON w.vn = o.vn
-            LEFT OUTER JOIN kskdepartment k ON k.depcode = w.room_code
-            LEFT OUTER JOIN spclty s ON s.spclty = k.spclty
+            '.$q_join.'
             WHERE p.hn = "'.$hn.'"
-            ORDER BY w.time DESC LIMIT 1
+            '.$q_order.'
             ');
             foreach($check_patient as $data){
                 $cid = $data->cid;
@@ -44,23 +57,28 @@ class MainController extends Controller
                 $clinic = $data->clinic;
                 $age_year = $data->age_year;
                 $vn = $data->vn;
-                $webq = $data->type.$data->qnumber;
-                $webqn = $data->qnumber;
-                $department = $data->department;
-                $spcltyname = $data->spcltyname;
-                $pt_priority = $data->pt_priority;
-                $q_status = $data->q_status;
-                $time = $data->time;
-                $time_complete = $data->time_complete;
-                $room_code3 = $data->room_code;
 
-                if ($data->room_code == "999") {
-                    $room_code = 1;
-                } else {
-                    $room_code = 0;
+                if ($ext_q_status == "Y") {
+                    $webq = $data->type.$data->qnumber;
+                    $webqn = $data->qnumber;
+                    $department = $data->department;
+                    $spcltyname = $data->spcltyname;
+                    $pt_priority = $data->pt_priority;
+                    $q_status = $data->q_status;
+                    $time = $data->time;
+                    $time_complete = $data->time_complete;
+                    $room_code3 = $data->room_code;
+
+                    if ($data->room_code == "999") {
+                        $room_code = 1;
+                    } else {
+                        $room_code = 0;
+                    }
                 }
             }
 
+
+        if ($ext_q_status == "Y") {
             $wait_qp = DB::connection('mysql_hos')->select('
             SELECT COUNT(*) AS waitq FROM web_queue
             WHERE room_code = "'.$room_code.'" AND `status` = "1" AND pt_priority <> "0"
@@ -105,6 +123,21 @@ class MainController extends Controller
             foreach($wait_q as $data){
                 $waitq = $data->waitq+$waitqp2;
             }
+
+        } else {
+                $webq = "";
+                $webqn = "";
+                $department = "";
+                $spcltyname = "";
+                $waitq = "";
+                $pri_color = "";
+                $q_status = "";
+                $time = "";
+                $time_complete = "";
+                $room_code = 0;
+                $oapp_wait_confirm = "";
+        }
+
 
             $images_user = DB::connection('mysql_hos')->select('
             SELECT pm.image,TIMESTAMPDIFF(YEAR,pt.birthday,CURDATE()) AS age_y,pt.sex
@@ -162,18 +195,21 @@ class MainController extends Controller
             $pic = "";
             $age_year = "";
             $vn = "";
+            $isadmin = "";
+
+            // if ($ext_q_status == "Y") {
             $webq = "";
             $webqn = "";
             $department = "";
             $spcltyname = "";
             $waitq = "";
             $pri_color = "";
-            $isadmin = "";
             $q_status = "";
             $time = $data->time;
             $time_complete = $data->time_complete;
             $room_code = 0;
             $oapp_wait_confirm = "";
+            // }
         }
 
         $datenow = date("Y-m-d");
@@ -210,22 +246,22 @@ class MainController extends Controller
             'pic' => $pic,
             'age_year' => $age_year,
             'vn' => $vn,
+            'isadmin' => $isadmin,
+            'user_app_check' => $user_app_check,
+            'user_app_id' => $user_app_id,
+
             'webq' => $webq,
             'webqn' => $webqn,
             'department' => $department,
             'spcltyname' => $spcltyname,
             'waitq' => $waitq,
             'pri_color' => $pri_color,
-            'isadmin' => $isadmin,
             'q_status' => $q_status,
             'time' => $time,
             'time_complete' => $time_complete,
             'room_code' => $room_code,
-            'user_app_check' => $user_app_check,
-            'user_app_id' => $user_app_id,
             'oapp_wait_confirm' => $oapp_wait_confirm,
 
-            // 'ssalert' => session('session-alert'),
         ]);
     }
 
