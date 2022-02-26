@@ -41,6 +41,7 @@ class SessionregisterController extends Controller
      */
     public function store(Request $request, UserRegister $model)
     {
+        $cid_encode = strtoupper(md5($request->get('cid'))).":".substr($request->get('cid'),1,1).substr($request->get('cid'),-1);
         $cid = $request->get('cid');
         $bdate = $request->get('birthday');
         session_start();
@@ -48,15 +49,15 @@ class SessionregisterController extends Controller
         $_SESSION["cid"] = $request->get('cid');
         $_SESSION["birthdate"] = $request->get('birthday');
         session_write_close();
-        
+
         $dd = substr($bdate,0,2);
         $mm = substr($bdate,2,2);
         $yyyy = substr($bdate,4,4)-543;
         $birthday = $yyyy."-".$mm."-".$dd;
         $birthday = trim($birthday);
-        
+
         $check_opduser = DB::connection('mysql_hos')->select('
-        SELECT COUNT(*) AS userregist,hn,cid,pname,fname,lname FROM patient 
+        SELECT COUNT(*) AS userregist,hn,cid,pname,fname,lname FROM patient
         WHERE cid = "'.$cid.'" AND birthday = "'.$birthday.'"
         ');
         foreach($check_opduser as $data){
@@ -72,7 +73,7 @@ class SessionregisterController extends Controller
                 $_SESSION["isadmin"] = "";
                 session_write_close();
                 // $model->create($request->all());
-                $model->create($request->merge(['hn' => $data->hn])->all());
+                $model->create($request->merge(['hn' => $data->hn, 'cid' => $cid_encode])->all());
                 return redirect()->route('main')->with('session-alert', 'คุณลงทะเบียนใช้บริการออนไลน์สำเร็จแล้ว');
             } else {
                 session_start();

@@ -18,14 +18,15 @@ class CreatePatientusersTable extends Migration
             $table->charset = 'utf8';
             $table->collation = 'utf8_general_ci';
 
-            $table->string('lineid', 100);
-            $table->string('cid', 13);
-            $table->string('hn', 9);
-            $table->string('hn2', 9);
-            $table->string('hn3', 9);
+            $table->string('lineid', 255);
+            $table->string('cid', 255);
+            $table->string('hn', 25);
+            $table->string('hn2', 25);
+            $table->string('hn3', 25);
             $table->string('email', 255);
-            $table->string('tel', 10);
+            $table->string('tel', 255);
             $table->string('isadmin', 1);
+            $table->string('que_app_flag', 2);
             $table->string('consent', 1);
 
             $table->timestamps();
