@@ -21,6 +21,11 @@
 
 
     <div class="footer card card-style">
+        <a href="{{ url('/') }}/bookcalendar/?flag=C" class="col-6 pr-0">
+            <div class="card card-style mr-2 mb-2">
+                <img class="img-fluid" src="images/book_healthy.png">
+            </div>
+        </a>
         <a href="#" class="footer-title"><span class="color-highlight">หมายเหตุ</span></a>
         <p class="footer-text">
             <span>แสดงประวัติตรวจสุขภาพประจำปีย้อนหลังทุกครั้ง
