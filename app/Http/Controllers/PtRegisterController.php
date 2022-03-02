@@ -117,7 +117,7 @@ class PtRegisterController extends Controller
             $lineid = "";
             $email = "";
         }
-        
+
         if (!isset($_GET['cid'])) {
             $cid = $_SESSION["cid"];
             $birthdate = $_SESSION["birthdate"];
@@ -135,8 +135,8 @@ class PtRegisterController extends Controller
         }
 
         $osbrowser = $_SERVER['HTTP_USER_AGENT'];
-        $cid_encode = strtoupper(md5($cid)).":".substr($cid,1,1).substr($cid,-1);
-        
+        $cid_encode = strtoupper(md5($cid)).":".substr($cid,0,1).substr($cid,-1);
+
         DB::connection('mysql')->insert('INSERT INTO log_ptregister (id,cid,fromip,osbrowser,log_datetime) VALUES (NULL,"'.$cid_encode.'","'.$fromip.'","'.$osbrowser.'",NOW())');
 
         if (!isset($_SESSION["get_uuid"])) {
@@ -207,11 +207,11 @@ class PtRegisterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    
+
     public function store(Request $request, UserRegister $model)
     {
         session_start();
-        
+
         $request->validate(
             [
                 'cid' => ['required', 'string', 'min:13'],
@@ -311,8 +311,8 @@ class PtRegisterController extends Controller
                 'consent' => "R"
             ])->all());
         }
-        
-        
+
+
         $get_ptnote_id = DB::connection('mysql_hos')->select('SELECT MAX(ptnote_id)+1 AS ptnote_id FROM ptnote');
         foreach ($get_ptnote_id as $data) {
             $ptnote_id = $data->ptnote_id;
@@ -330,7 +330,7 @@ class PtRegisterController extends Controller
         DB::connection('mysql_hos')->update('
         UPDATE serial SET serial_no = "'.$ptnote_id.'" WHERE name = "ptnote_id"
         ');
-        
+
         ob_start();
         $_SESSION["patienthn"] = $request->hn;
         $_SESSION["ptbirthday"] = $birthday;
@@ -356,7 +356,7 @@ class PtRegisterController extends Controller
         } else {
             $view_menu = "disable";
         }
-        
+
         return view('patient.ptcard', [
             'moduletitle' => "ลงทะเบียนผู้ป่วยใหม่สำเร็จ",
             'view_menu' => $view_menu,
@@ -366,7 +366,7 @@ class PtRegisterController extends Controller
             'patienthn' => $patienthn,
             'patientname' => $patientname,
         ]);
-        
+
         session_destroy();
     }
 
