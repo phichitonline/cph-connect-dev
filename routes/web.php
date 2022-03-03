@@ -25,6 +25,10 @@ Route::get('/oapptoday', function () {
     return view('oapp.oapptoday');
 });
 
+Route::get('/ptvisit', function () {
+    return view('oapp.ptvisit');
+});
+
 Route::get('/oapptomorrow', function () {
     return view('oapp.oapptomorrow');
 });
