@@ -8,7 +8,7 @@
 
 @if (session('session-alert-store'))
 <div class="header header-fixed header-logo-center bg-red1-dark">
-    <a href="https://liff.line.me/1654103357-zl6xB06Y" class="header-title color-white">หน้าหลักบริการออนไลน์</a>
+    <a href="{{ config('line-bot.liff_url') }}" class="header-title color-white">หน้าหลักบริการออนไลน์</a>
     <a href="#" data-back-button class="header-icon header-icon-1"><i class="fas fa-arrow-left"></i></a>
     <a href="#" data-toggle-theme class="header-icon header-icon-4"><i class="fas fa-bell"></i></a>
 </div>
