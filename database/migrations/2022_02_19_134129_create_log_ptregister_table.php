@@ -19,8 +19,9 @@ class CreateLogPtregisterTable extends Migration
             $table->collation = 'utf8_general_ci';
 
             $table->id();
-            $table->string('userid');
-            $table->string('event');
+            $table->string('cid');
+            $table->string('fromip');
+            $table->string('osbrowser');
             $table->dateTime('log_datetime');
         });
     }

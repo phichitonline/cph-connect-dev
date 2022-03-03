@@ -318,12 +318,12 @@
                 <a href="tel:{{ $hos_tel }}" class="icon icon-xs rounded-sm shadow-l mr-1 bg-phone"><i class="fa fa-phone"></i></a>
                 @endif
             </div>
-            <p class="footer-text">{{ $hos_name }} <br>โทรศัพท์ {{ $hos_tel}}</p>
+            <p class="footer-text">{{ $hos_name }} <br>โทรศัพท์ {{ $hos_tel }}</p>
             <p class="footer-copyright">{!! config('app.copyright') !!}</p>
 
             @if ($isadmin == "A")
             <a href="{{ url('/') }}/setting" class="btn btn-m btn-center-l text-uppercase font-900 bg-red2-dark rounded-sm shadow-xl mt-4 mb-0">Setting</a>
-            <a href="{{ url('/') }}/userman" class="btn btn-m btn-center-l text-uppercase font-900 bg-blue2-dark rounded-sm shadow-xl mt-4 mb-0">จัดการผู้ดูแล</a>
+            {{-- <a href="{{ url('/') }}/userman" class="btn btn-m btn-center-l text-uppercase font-900 bg-blue2-dark rounded-sm shadow-xl mt-4 mb-0">จัดการผู้ดูแล</a> --}}
             @endif
             @if ($isadmin == "A" OR $isadmin == "M")
             <a href="{{ url('/') }}/oappman" class="btn btn-m btn-center-l text-uppercase font-900 bg-green1-dark rounded-sm shadow-xl mt-4 mb-0">นัดออนไลน์รอยืนยัน <span class="badge badge-light">{{ $oapp_wait_confirm }}</span></a>
