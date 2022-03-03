@@ -82,6 +82,10 @@ echo '</script>';
     }
     main()
 
+    function submitform(){
+      document.forms["loginform"].submit();
+    }
+
     async function getUserProfile() {
         const profile = await liff.getProfile()
         document.getElementById("displayName").append(profile.displayName)
@@ -90,6 +94,7 @@ echo '</script>';
         $('#displayName').val(profile.displayName);
         $('#userId').val(profile.userId);
         $('#decodedIDToken2').val(liff.getDecodedIDToken().email);
+        await submitform();
     }
 
 </script>
