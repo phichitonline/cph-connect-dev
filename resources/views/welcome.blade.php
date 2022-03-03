@@ -99,22 +99,6 @@ echo '</script>';
 
 </script>
 
-<script type="text/javascript">
-    window.onload=function(){
-        var auto = setTimeout(function(){ autoRefresh(); }, 100);
-
-        function submitform(){
-        //   alert('Enter');
-          document.forms["loginform"].submit();
-        }
-
-        function autoRefresh(){
-           clearTimeout(auto);
-           auto = setTimeout(function(){ submitform(); autoRefresh(); }, 5000);
-        }
-    }
-</script>
-
 <script type="text/javascript" src="scripts/jquery.js"></script>
 <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
 <script type="text/javascript" src="scripts/custom.js"></script>
