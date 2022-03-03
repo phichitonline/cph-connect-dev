@@ -81,14 +81,14 @@ function chMonth($find)
         "to": "'.$pushID.'",
         "messages": [{
         "type": "flex",
-        "altText": "วันนี้คุณมีนัด",
+        "altText": "คุณกำลังรับบริการ",
         "contents": {
 
             "type": "bubble",
   "size": "mega",
   "hero": {
     "type": "image",
-    "url": "'.$cph_url.'/images/cphconnect/alert-cphconnect.jpg",
+    "url": "'.$cph_url.'/images/cphconnect/alert-cphconnect.jpeg",
     "size": "full",
     "aspectRatio": "1600:448",
     "aspectMode": "cover",
