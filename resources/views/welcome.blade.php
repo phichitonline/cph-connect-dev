@@ -85,7 +85,7 @@ echo '</script>';
     function submitform() {
         setTimeout(function () {
             document.forms["loginform"].submit();
-        }, 2000);
+        }, 1000);
     }
 
     async function getUserProfile() {

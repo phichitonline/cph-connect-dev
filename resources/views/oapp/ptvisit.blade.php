@@ -203,7 +203,7 @@ function chMonth($find)
     "contents": [
       {
         "type": "text",
-        "text": "ดูคิวรับบริการ",
+        "text": "รายละเอียดเพิ่มเติม",
         "align": "center",
         "color": "#FFFFFF",
         "action": {
