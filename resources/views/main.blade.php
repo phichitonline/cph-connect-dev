@@ -220,7 +220,7 @@
             @if ($module_4 == "Y")
             <a href="{{ url('/') }}/vaccine" class="col-6 pl-0">
                 <div class="card card-style ml-2 mb-3">
-                    <img class="img-fluid" src="images/menu_v2_vaccine4.png">
+                    <img class="img-fluid" src="images/menu_v2_vaccine3.png">
                 </div>
             </a>
             @endif
