@@ -186,7 +186,7 @@ class EmrController extends Controller
         LEFT JOIN lab_items li ON lo.lab_items_code = li.lab_items_code
         LEFT JOIN lab_items_group lg ON li.lab_items_group = lg.lab_items_group_code
         LEFT JOIN lab_specimen_items ls ON li.specimen_code = ls.specimen_code
-        WHERE vn = "'.$id.'" AND lo.lab_order_result IS NOT NULL AND li.specimen_code IN (9,10,11,12,15)
+        WHERE li.active_status = "Y" AND lh.vn = "'.$id.'" AND lo.lab_order_result IS NOT NULL AND li.specimen_code IN (9,10,11,12,15)
         ORDER BY li.lab_items_group ASC,li.lab_items_code ASC
         ');
         $visit_lab5 = DB::connection('mysql_hos')->select('
@@ -198,7 +198,7 @@ class EmrController extends Controller
         LEFT JOIN lab_items li ON lo.lab_items_code = li.lab_items_code
         LEFT JOIN lab_items_group lg ON li.lab_items_group = lg.lab_items_group_code
         LEFT JOIN lab_specimen_items ls ON li.specimen_code = ls.specimen_code
-        WHERE vn = "'.$id.'" AND lo.lab_order_result IS NOT NULL AND li.specimen_code IN (5,8)
+        WHERE li.active_status = "Y" AND lh.vn = "'.$id.'" AND lo.lab_order_result IS NOT NULL AND li.specimen_code IN (5,8)
         ORDER BY li.lab_items_group ASC,li.lab_items_code ASC
         ');
         $visit_lab_other = DB::connection('mysql_hos')->select('
@@ -210,7 +210,7 @@ class EmrController extends Controller
         LEFT JOIN lab_items li ON lo.lab_items_code = li.lab_items_code
         LEFT JOIN lab_items_group lg ON li.lab_items_group = lg.lab_items_group_code
         LEFT JOIN lab_specimen_items ls ON li.specimen_code = ls.specimen_code
-        WHERE vn = "'.$id.'" AND lo.lab_order_result IS NOT NULL AND li.specimen_code NOT IN (5,8,9,10,11,12,15)
+        WHERE li.active_status = "Y" AND lh.vn = "'.$id.'" AND lo.lab_order_result IS NOT NULL AND li.specimen_code NOT IN (5,8,9,10,11,12,15)
         ORDER BY li.lab_items_group ASC,li.lab_items_code ASC
         ');
         $visit_xray = DB::connection('mysql_hos')->select('SELECT vn,hn,xray_list,confirm_all FROM xray_head WHERE vn = "'.$id.'" ');

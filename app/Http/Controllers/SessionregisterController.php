@@ -41,7 +41,7 @@ class SessionregisterController extends Controller
      */
     public function store(Request $request, UserRegister $model)
     {
-        $cid_encode = strtoupper(md5($request->get('cid'))).":".substr($request->get('cid'),1,1).substr($request->get('cid'),-1);
+        $cid_encode = strtoupper(md5($request->get('cid'))).":".substr($request->get('cid'),0,1).substr($request->get('cid'),-1);
         $cid = $request->get('cid');
         $bdate = $request->get('birthday');
         session_start();
