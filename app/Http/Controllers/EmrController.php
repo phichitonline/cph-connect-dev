@@ -146,14 +146,18 @@ class EmrController extends Controller
     public function show($id)
     {
         $visit_header = DB::connection('mysql_hos')->select('
-        SELECT v.hn,v.vn,v.vstdate,IF(v.an IS NOT NULL,"IPD",IF(GROUP_CONCAT(d.icd10) LIKE "%Z000%","CHK","NOR")) AS status_type
+        SELECT v.hn,v.vn,v.an,v.vstdate,IF(v.an IS NOT NULL,"IPD",IF(GROUP_CONCAT(d.icd10) LIKE "%Z000%","CHK","NOR")) AS status_type
         FROM ovst v
         LEFT JOIN ovstdiag d ON v.vn = d.vn
         WHERE v.vn = "'.$id.'"
         ');
         foreach ($visit_header as $data) {
             $hn = $data->hn;
-            $vn = $data->vn;
+            if ($data->status_type == "IPD") {
+                $vn = $data->an;
+            } else {
+                $vn = $data->vn;
+            }
             $vstdate = $data->vstdate;
             $status_type = $data->status_type;
         }
@@ -186,7 +190,7 @@ class EmrController extends Controller
         LEFT JOIN lab_items li ON lo.lab_items_code = li.lab_items_code
         LEFT JOIN lab_items_group lg ON li.lab_items_group = lg.lab_items_group_code
         LEFT JOIN lab_specimen_items ls ON li.specimen_code = ls.specimen_code
-        WHERE li.active_status = "Y" AND lh.vn = "'.$id.'" AND lo.lab_order_result IS NOT NULL AND li.specimen_code IN (9,10,11,12,15)
+        WHERE li.active_status = "Y" AND lh.vn = "'.$vn.'" AND lo.lab_order_result IS NOT NULL AND li.specimen_code IN (9,10,11,12,15)
         ORDER BY li.lab_items_group ASC,li.lab_items_code ASC
         ');
         $visit_lab5 = DB::connection('mysql_hos')->select('
@@ -198,7 +202,7 @@ class EmrController extends Controller
         LEFT JOIN lab_items li ON lo.lab_items_code = li.lab_items_code
         LEFT JOIN lab_items_group lg ON li.lab_items_group = lg.lab_items_group_code
         LEFT JOIN lab_specimen_items ls ON li.specimen_code = ls.specimen_code
-        WHERE li.active_status = "Y" AND lh.vn = "'.$id.'" AND lo.lab_order_result IS NOT NULL AND li.specimen_code IN (5,8)
+        WHERE li.active_status = "Y" AND lh.vn = "'.$vn.'" AND lo.lab_order_result IS NOT NULL AND li.specimen_code IN (5,8)
         ORDER BY li.lab_items_group ASC,li.lab_items_code ASC
         ');
         $visit_lab_other = DB::connection('mysql_hos')->select('
@@ -210,7 +214,7 @@ class EmrController extends Controller
         LEFT JOIN lab_items li ON lo.lab_items_code = li.lab_items_code
         LEFT JOIN lab_items_group lg ON li.lab_items_group = lg.lab_items_group_code
         LEFT JOIN lab_specimen_items ls ON li.specimen_code = ls.specimen_code
-        WHERE li.active_status = "Y" AND lh.vn = "'.$id.'" AND lo.lab_order_result IS NOT NULL AND li.specimen_code NOT IN (5,8,9,10,11,12,15)
+        WHERE li.active_status = "Y" AND lh.vn = "'.$vn.'" AND lo.lab_order_result IS NOT NULL AND li.specimen_code NOT IN (5,8,9,10,11,12,15)
         ORDER BY li.lab_items_group ASC,li.lab_items_code ASC
         ');
         $visit_xray = DB::connection('mysql_hos')->select('SELECT vn,hn,xray_list,confirm_all FROM xray_head WHERE vn = "'.$id.'" ');
