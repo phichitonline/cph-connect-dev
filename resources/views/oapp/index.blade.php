@@ -24,7 +24,7 @@
                 <i class="fa fa-bell font-18 color-green1-dark"></i>
                 <strong class="color-gray-dark">คุณสามารถจัดการการนัดหมายเข้ารับบริการได้</strong>
                 <strong class="color-gray-dark">หรือติดต่อเจ้าหน้าที่เพื่อขอคำแนะนำหรือเลื่อนนัด</strong>
-                <strong class="color-gray-dark">และเพิ่มบริการลงทะเบียนรับการแจ้งเตือนนัด ให้บุคคลในครอบครัว หรือคนที่คุณดูแลได้ --> <a href="#">คลิกที่นี่</a></strong>
+                <strong class="color-gray-dark">และเพิ่มบริการลงทะเบียนรับการแจ้งเตือนนัด ให้บุคคลในครอบครัว หรือคนที่คุณดูแลได้ --> <a href="{{ route('oapp') }}/create">คลิกที่นี่</a></strong>
             </span>
 
             <div class="divider mb-0"></div>
