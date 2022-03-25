@@ -64,6 +64,7 @@ Route::post('/bookstore', 'BookController@store')->name('bookstore');
 
 Route::get('/card', 'CardController@index')->name('card');
 
+Route::resource('oapp', 'OappController');
 Route::get('/oapp', 'OappController@index')->name('oapp');
 Route::get('/oappdetail', 'OappController@detail')->name('oappdetail');
 Route::get('/checkin', 'OappController@checkin')->name('checkin');

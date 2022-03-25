@@ -47,9 +47,9 @@ class OappController extends Controller
         $check_patient = DB::connection('mysql_hos')->select('
             SELECT p.cid,p.hn,p.pname,p.fname,p.lname,p.birthday,p.bloodgrp,p.drugallergy,p.pttype,ptt.`name` AS pttypename,p.clinic,w.`status` AS q_status
             ,TIMESTAMPDIFF(YEAR,p.birthday,CURDATE()) AS age_year,o.vn,w.type,w.qnumber,w.pt_priority,w.room_code,k.department,s.name AS spcltyname,w.time,w.time_complete
-            FROM patient p LEFT OUTER JOIN pttype ptt ON ptt.pttype = p.pttype 
-            LEFT OUTER JOIN ovst o ON o.hn = p.hn AND o.vstdate = CURDATE() 
-            LEFT OUTER JOIN web_queue w ON w.vn = o.vn 
+            FROM patient p LEFT OUTER JOIN pttype ptt ON ptt.pttype = p.pttype
+            LEFT OUTER JOIN ovst o ON o.hn = p.hn AND o.vstdate = CURDATE()
+            LEFT OUTER JOIN web_queue w ON w.vn = o.vn
             LEFT OUTER JOIN kskdepartment k ON k.depcode = w.room_code
             LEFT OUTER JOIN spclty s ON s.spclty = k.spclty
             WHERE p.hn = "'.$hn.'"
@@ -77,7 +77,7 @@ class OappController extends Controller
         }
 
         $images_user = DB::connection('mysql_hos')->select('
-        SELECT pm.image,TIMESTAMPDIFF(YEAR,pt.birthday,CURDATE()) AS age_y,pt.sex 
+        SELECT pm.image,TIMESTAMPDIFF(YEAR,pt.birthday,CURDATE()) AS age_y,pt.sex
         FROM patient pt LEFT OUTER JOIN patient_image pm ON pt.hn = pm.hn WHERE pt.hn = "'.$hn.'"
         ');
         foreach($images_user as $data){
@@ -168,44 +168,44 @@ class OappController extends Controller
         SET @vsttime := DATE_FORMAT(NOW(),'%H:%i:%s');
         SET @visitlocktest := CONCAT('visit-lock-test-',DATE_FORMAT(NOW(),'%d%m'),DATE_FORMAT(NOW(),'%Y')+543);
         SET @serialovstq := CONCAT('ovst-q-',SUBSTR(DATE_FORMAT(NOW(),'%Y')+543,3,2),DATE_FORMAT(NOW(),'%m%d'));
-        
+
         INSERT INTO vn_insert (vn,clinic_list,hos_guid) VALUES (@visitnumber,NULL,NULL);
         update serial set serial_no=serial_no+1 where name = @visitlocktest;
         update serial set serial_no=serial_no+1 where name = @serialovstq;
-        
+
         INSERT INTO ovst (hos_guid,vn,hn,an,vstdate,vsttime,doctor,hospmain,hospsub,oqueue,ovstist,ovstost,pttype,pttypeno,rfrics,rfrilct,rfrocs,rfrolct
         ,spclty,rcpt_disease,hcode,cur_dep,cur_dep_busy,last_dep,cur_dep_time,rx_queue,diag_text,pt_subtype,main_dep,main_dep_queue,finance_summary_date
         ,visit_type,node_id,contract_id,waiting,rfri_icd10,o_refer_number,has_insurance,i_refer_number,refer_type,o_refer_dep,staff,command_doctor
-        ,send_person,pt_priority,finance_lock,oldcode,sign_doctor,anonymous_visit,anonymous_vn,pt_capability_type_id,at_hospital) 
+        ,send_person,pt_priority,finance_lock,oldcode,sign_doctor,anonymous_visit,anonymous_vn,pt_capability_type_id,at_hospital)
         VALUES (upper(concat('{',uuid(),'}')),@visitnumber,".$hn.",NULL,@vstdate,@vsttime,NULL,'',''
         ,(SELECT serial_no+1 FROM serial WHERE name = CONCAT('ovst-q-',SUBSTR(DATE_FORMAT(NOW(),'%Y')+543,3,2),DATE_FORMAT(NOW(),'%m%d')))
         ,'02','00',".$pttype.",".$pttypeno."
         ,NULL,NULL,NULL,NULL,".$spclty.",NULL,".$hcode.",NULL,NULL,".$depcode.",NULL,NULL,NULL,0,NULL,2,NULL,'O','',NULL,'Y',NULL,NULL,'N',NULL
         ,NULL,NULL,".$staff.",NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-        
-        INSERT INTO ptdepart (vn,depcode,hn,intime,outdepcode,outtime,status,staff,outdate,hos_guid,hos_guid_ext) 
+
+        INSERT INTO ptdepart (vn,depcode,hn,intime,outdepcode,outtime,status,staff,outdate,hos_guid,hos_guid_ext)
         VALUES (@visitnumber,".$depcode.",".$hn.",@vsttime,".$depcode.",@vsttime,NULL,".$staff.",@vstdate,NULL,NULL);
-        
+
         INSERT INTO visit_pttype (vn,pttype,staff,rcpt_amount,debt_amount,discount_amount,begin_date,expire_date
         ,hospmain,hospsub,pttypeno,pttype_number,pttype_order,discount_percent,company_id,contract_id,max_debt_amount
         ,paid_amount,Claim_Code,hos_guid,limit_hour,check_limit_hour,finance_clear_ok,hos_guid_ext
         ,confirm_and_locked_datetime,confirm_and_locked,confirm_and_locked_staff,nhso_govcode,nhso_govname,nhso_docno
         ,nhso_ownright_pid,nhso_ownright_name,update_datetime,emp_privilege,emp_id,pttype_service_charge,pttype_note
-        ,auth_code,rcpno_list) 
+        ,auth_code,rcpno_list)
         VALUES (@visitnumber,".$pttype.",NULL,NULL,NULL,NULL,".$pttypebegin.",".$pttypeexpire.",'','',".$pttypeno.",1,NULL,NULL
         ,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
         ,NULL,NULL,NULL);
-        
+
         INSERT INTO ovst_finance (vn,finance_status,department_type,check_pttype,hos_guid,ed_amount,ned_amount
-        ,other_amount,paidst_01_amount,paidst_02_amount,paidst_03_amount,paidst_01_03_wait_amount,paidst_04_amount) 
+        ,other_amount,paidst_01_amount,paidst_02_amount,paidst_03_amount,paidst_01_03_wait_amount,paidst_04_amount)
         VALUES (@visitnumber,1,'OPD',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-        
+
         update serial set serial_no=serial_no+1 where name='opd_regist_sendlist_id';
-        
+
         INSERT INTO opd_regist_sendlist (opd_regist_sendlist_id,vn,staff,send_to_depcode,send_datetime,send_from_depcode
-        ,send_to_spclty,hos_guid) 
+        ,send_to_spclty,hos_guid)
         VALUES ((SELECT serial_no FROM serial WHERE name='opd_regist_sendlist_id'),@visitnumber,".$staff.",".$depcode.",NOW(),".$depcode.",".$spclty.",NULL);
-        
+
         INSERT INTO opdscreen (hos_guid,vn,hn,vstdate,vsttime,begintime,outtime,endtime,bpd,bps,bw,cc,hr,pe,pulse
         ,temperature,note,rr,cc_begin_date,cc_cause_of_visit,cc_sign,cc_duration,cc_position,cc_note,his_begin_date
         ,his_frequency,his_severity,his_cause,his_expand,his_cause_increase,his_cause_decrease,his_related_sign,height
@@ -221,7 +221,7 @@ class OappController extends Controller
         ,pe_skin,pe_skin_text,g6pd,pe_rtf,o2sat,pe_pv,pe_pv_text,pe_pr,pe_pr_text,pe_gen,pe_gen_text,pre_pain_score
         ,post_pain_score,head_cricumference,fev1_percent,pe_rtf_blob,bp_stable,pe_chest,pe_chest_text,lmp_date
         ,opdscreen_bp_loc_type_id,menstrual_cycle_type_id,adherence_percent,fev1_fevc,vaccine_screen_type_id
-        ,development_screen_type_id,ambu,update_datetime) 
+        ,development_screen_type_id,ambu,update_datetime)
         VALUES (upper(concat('{',uuid(),'}')),@visitnumber,".$hn.",@vstdate,@vsttime,NULL
         ,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
         ,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
@@ -231,7 +231,7 @@ class OappController extends Controller
         ,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
         ,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
         ,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-        
+
         INSERT INTO vn_stat (vn,hn,pdx,gr504,lastvisit,accident_code,dx_doctor,dx0,dx1,dx2,dx3,dx4,dx5,sex,age_y
         ,age_m,age_d,aid,moopart,count_in_month,count_in_year,pttype,income,paid_money,remain_money,uc_money
         ,item_money,dba,spclty,vstdate,op0,op1,op2,op3,op4,op5,rcp_no,print_count,print_done,pttype_in_region
@@ -239,16 +239,16 @@ class OappController extends Controller
         ,inc13,inc14,inc15,inc16,hospmain,hospsub,pttypeno,pttype_expire,cid,main_pdx,inc17,inc_drug,inc_nondrug
         ,pt_subtype,rcpno_list,ym,node_id,ill_visit,count_in_day,pttype_begin,lastvisit_hour,rcpt_money
         ,discount_money,old_diagnosis,debt_id_list,vn_guid,lastvisit_vn,hos_guid,rx_license_no,lab_paid_ok
-        ,xray_paid_ok) 
+        ,xray_paid_ok)
         VALUES (@visitnumber,".$hn.",'',NULL,NULL,NULL,'','','','','','','',".sex.",".$age_y.",".$age_m.",".$age_d.",".$aid.",".$moopart.",'','',".$pttype."
         ,0,0,0,0,0,NULL,".$spclty.",@vstdate,'','','','','','',NULL,NULL,NULL,'Y','N',".$pcode.",".$hcode.",0,0,0,0,0,0,0,0,0,0
         ,0,0,0,0,0,0,'','',".$pttypeno.",".$pttypeexpire.",".$cid.",'',0,0,0,0,'\"\"',DATE_FORMAT(NOW(),'%Y-%m'),NULL,'Y',0
         ,".$pttypebegin.",NULL,0,0,'Y','',NULL,NULL,NULL,NULL,NULL,NULL);
-        
+
         INSERT INTO inc_opd_stat (vn,hn,vstdate,pttype,pcode,inc01,inc02,inc03,inc04,inc05,inc06,inc07,inc08,inc09
         ,inc10,inc11,inc12,inc13,inc14,inc15,inc16,inc17,income,inc_drug,inc_nondrug,uinc01,uinc02,uinc03,uinc04
         ,uinc05,uinc06,uinc07,uinc08,uinc09,uinc10,uinc11,uinc12,uinc13,uinc14,uinc15,uinc16,uinc17,uincome,uinc_drug
-        ,uinc_nondrug,hos_guid) 
+        ,uinc_nondrug,hos_guid)
         VALUES (@visitnumber,".$hn.",@vstdate,".$pttype.",NULL,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
         ,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,NULL);
 
@@ -273,9 +273,9 @@ class OappController extends Controller
         $check_patient = DB::connection('mysql_hos')->select('
         SELECT p.cid,p.hn,p.pname,p.fname,p.lname,p.birthday,p.bloodgrp,p.drugallergy,p.pttype,ptt.`name` AS pttypename,p.clinic,w.`status` AS q_status,o.vstdate,o.vsttime
         ,TIMESTAMPDIFF(YEAR,p.birthday,CURDATE()) AS age_year,o.vn,w.type,w.qnumber,w.pt_priority,w.room_code,k.department,s.name AS spcltyname,w.time,w.time_complete
-        FROM patient p LEFT OUTER JOIN pttype ptt ON ptt.pttype = p.pttype 
-        LEFT OUTER JOIN ovst o ON o.hn = p.hn AND o.vstdate = CURDATE() 
-        LEFT OUTER JOIN web_queue w ON w.vn = o.vn 
+        FROM patient p LEFT OUTER JOIN pttype ptt ON ptt.pttype = p.pttype
+        LEFT OUTER JOIN ovst o ON o.hn = p.hn AND o.vstdate = CURDATE()
+        LEFT OUTER JOIN web_queue w ON w.vn = o.vn
         LEFT OUTER JOIN kskdepartment k ON k.depcode = w.room_code
         LEFT OUTER JOIN spclty s ON s.spclty = k.spclty
         WHERE p.hn = "'.$hn.'"
@@ -304,8 +304,8 @@ class OappController extends Controller
         }
 
         $wait_qp = DB::connection('mysql_hos')->select('
-        SELECT COUNT(*) AS waitq FROM web_queue 
-        WHERE room_code = "'.$room_code.'" AND `status` = "1" AND pt_priority <> "0" 
+        SELECT COUNT(*) AS waitq FROM web_queue
+        WHERE room_code = "'.$room_code.'" AND `status` = "1" AND pt_priority <> "0"
         AND type IN ("A","S")
         ');
         foreach($wait_qp as $data){
@@ -339,8 +339,8 @@ class OappController extends Controller
             $pri_color = "green";
         }
         $wait_q = DB::connection('mysql_hos')->select('
-        SELECT COUNT(*) AS waitq FROM web_queue 
-        WHERE room_code = "'.$room_code2.'" AND `status` = "1" AND pt_priority = "'.$priority.'" 
+        SELECT COUNT(*) AS waitq FROM web_queue
+        WHERE room_code = "'.$room_code2.'" AND `status` = "1" AND pt_priority = "'.$priority.'"
         AND type IN ("A","S") AND qnumber < '.$webqn2.'
         ');
         foreach($wait_q as $data){
@@ -404,8 +404,8 @@ class OappController extends Controller
 
         $que_pt_man = DB::connection('mysql')->select('
         SELECT q.*,pt.*,f.*,t.*
-        FROM que_card q 
-        LEFT OUTER JOIN patientusers pt ON pt.hn = q.hn 
+        FROM que_card q
+        LEFT OUTER JOIN patientusers pt ON pt.hn = q.hn
         LEFT OUTER JOIN que_app_flag f ON f.que_app_flag = q.que_app_flag
         LEFT OUTER JOIN que_time t ON t.que_app_flag = q.que_app_flag AND t.que_time = q.que_time
         WHERE q.`status` IS NULL '.$user_flag.'
@@ -423,7 +423,7 @@ class OappController extends Controller
         // $que_add_oapp_table = DB::connection('mysql_hos')->select('');
 
         DB::connection('mysql')->update('
-        UPDATE que_card SET status = "'.$_GET['status'].'" WHERE id = "'.$_GET['id'].'" 
+        UPDATE que_card SET status = "'.$_GET['status'].'" WHERE id = "'.$_GET['id'].'"
         ');
 
         $lineidpt = $_GET['lineid'];
@@ -470,7 +470,29 @@ class OappController extends Controller
      */
     public function create()
     {
-        //
+        session_start();
+        $lineid = $_SESSION["lineid"];
+        $patientuser = DB::connection('mysql')->select('SELECT * FROM patientusers WHERE lineid = "'.$lineid.'" ');
+        foreach($patientuser as $data){
+            $patientuser_hn2 = $data->hn2;
+            $patientuser_hn3 = $data->hn3;
+        }
+
+        if ($patientuser_hn2 == "") {
+            $regist_number = "ลงทะเบียนคนที่ 1";
+        } else if ($patientuser_hn3 == "") {
+            $regist_number = "ลงทะเบียนคนที่ 2";
+        } else {
+            $regist_number = "คุณลงทะเบียนครบแล้ว";
+        }
+
+        return view('oapp.oapp_regist_another', [
+            'setting' => Setting::all(),
+            'app_regist_another' => "ลงทะเบียนบุคคลอื่น",
+            'patientuser_hn2' => $patientuser_hn2,
+            'patientuser_hn3' => $patientuser_hn3,
+            'regist_number' => $regist_number,
+        ]);
     }
 
     /**
