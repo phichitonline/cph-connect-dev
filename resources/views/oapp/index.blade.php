@@ -18,13 +18,15 @@
 
     <div class="card card-style shadow-xl rounded-m">
         <div class="cal-footer">
-            
+
             <h4 class="cal-title text-center text-uppercase font-25 bg-green1-dark color-white">วันนัดของคุณ</h6>
             <span class="cal-message mt-3 mb-3">
                 <i class="fa fa-bell font-18 color-green1-dark"></i>
                 <strong class="color-gray-dark">คุณสามารถจัดการการนัดหมายเข้ารับบริการได้</strong>
                 <strong class="color-gray-dark">หรือติดต่อเจ้าหน้าที่เพื่อขอคำแนะนำหรือเลื่อนนัด</strong>
             </span>
+            <a href="#" class="btn btn-m btn-full btn-block bg-green1-dark rounded-s shadow-l text-uppercase font-900" type="submit"  name="submit">ลงทะเบียนรับเตือนนัดให้ผู้อื่น</a>
+
             <div class="divider mb-0"></div>
 
             <div class="content">
@@ -96,10 +98,10 @@ if ($data->oapp_status_id == 9) {
             <br><br><b>หากมีปัญหา ข้อสงสัย ต้องการคำแนะนำหรือเลื่อนนัดยกเลิกนัด โปรดติดต่อเจ้าหน้าที่ <br>โทร <a href="tel:{{ $hos_tel }}">{{ $hos_tel }}</a>
         </span>
         </p>
-    </div> 
+    </div>
 
 </div>
-<!-- End of Page Content--> 
+<!-- End of Page Content-->
 
 @endsection
 
