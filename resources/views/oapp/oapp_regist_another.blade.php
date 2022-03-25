@@ -27,10 +27,10 @@
             <div class="cal-header">
                 <h4 class="cal-title text-center text-uppercase font-25 bg-green2-dark color-white">{{ $app_regist_another }}</h4>
                 @if ($patientuser_hn2 || "")
-                <h4 class="cal-title text-center text-uppercase font-25 bg-green2-dark color-white">คนที่ 1 : {{ $patientuser_hn2 }}</h4>
+                <h4 class="cal-title text-center text-uppercase font-20 bg-green2-dark color-white">คนที่ 1 HN : {{ $patientuser_hn2 }}</h4>
                 @endif
                 @if ($patientuser_hn3 || "")
-                <h4 class="cal-title text-center text-uppercase font-25 bg-green2-dark color-white">คนที่ 2 : {{ $patientuser_hn3 }}</h4>
+                <h4 class="cal-title text-center text-uppercase font-20 bg-green2-dark color-white">คนที่ 2 HN : {{ $patientuser_hn3 }}</h4>
                 @endif
                 @if ($regist_number == "คุณลงทะเบียนครบแล้ว")
                 <h4 class="cal-title text-center text-uppercase font-25 bg-red2-dark color-white">{{ $regist_number }}</h4>
@@ -57,6 +57,7 @@
                         <span>วันเดือนปีเกิด</span>
                         <em>(required)</em>
                         <input type="number" name="abirthday" placeholder="วันเดือนปีเกิด 05122540" required>
+                        <input type="hidden" name="regist_number" value="{{ $regist_number }}">
                     </div>
 
 					<div class="clearfix"></div>
@@ -70,6 +71,7 @@
                     </p>
 
                 </form>
+
             </div>
         @endif
 
@@ -79,7 +81,7 @@
         <a class="footer-title"><span class="color-highlight">หมายเหตุ</span></a>
         <p class="footer-text">
         <span class="font-14">
-            <br>คุณสามารถลงทะเบียนรับการแจ้งเตือนให้กับคนในครอบครัว หรือผู้ที่เราต้องการดูแลได้เพียง 2 คนเท่านั้น
+            <br>คุณสามารถลงทะเบียนรับการแจ้งเตือนให้กับคนในครอบครัว หรือผู้ที่เราต้องการดูได้ได้เพียง 2 คนเท่านั้น
         </span>
         <span class="font-16">
             <br><br><b>หากมีปัญหา ข้อสงสัย ต้องการคำแนะนำ โปรดติดต่อเจ้าหน้าที่ <br>โทร <a href="tel:{{ $hos_tel }}">

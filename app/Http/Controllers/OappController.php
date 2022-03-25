@@ -556,7 +556,11 @@ class OappController extends Controller
 
         foreach($check_opduser as $data){
             if ($data->userregist > 0) {
-                DB::connection('mysql')->update('UPDATE patientusers SET hn2 = "'.$data->hn.'" WHERE lineid = "'.$lineid.'" ');
+                if ($request->regist_number == "ลงทะเบียนคนที่ 1") {
+                    DB::connection('mysql')->update('UPDATE patientusers SET hn2 = "'.$data->hn.'" WHERE lineid = "'.$lineid.'" ');
+                } else {
+                    DB::connection('mysql')->update('UPDATE patientusers SET hn3 = "'.$data->hn.'" WHERE lineid = "'.$lineid.'" ');
+                }
                 return redirect()->route('oapp')->with('session-alert', 'คุณลงทะเบียนบุคคลอื่นสำเร็จแล้ว');
             } else {
                 return redirect()->route('ptregister.index')->with('session-alert', 'ไม่พบข้อมูลทะเบียนผู้ป่วยของคุณ หรือคุณอาจกรอกข้อมูลไม่ถูกต้อง ! กรุณาตรวจสอบเลขบัตรประชาชน และวันเดือนปีเกิดให้ถูกต้อง... หรือกรอกข้อมูลเพื่อลงทะเบียนทำบัตรใหม่');
