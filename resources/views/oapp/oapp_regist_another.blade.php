@@ -42,9 +42,9 @@
         @if ($patientuser_hn3 || "")
         @else
             <div class="content mb-0">
-                <form method="post" action="{{ route('oapp.store') }}" autocomplete="off" class="form-horizontal">
+                <form method="POST" action="{{ route('oapp.update', $lineid) }}">
                     @csrf
-                    @method('post')
+                    @method('put')
 
                     <div class="input-style has-icon input-style-1 input-required">
                         <i class="input-icon fa fa-user color-theme"></i>
@@ -61,7 +61,7 @@
 
 					<div class="clearfix"></div>
 
-                    <button class="btn btn-m btn-full btn-block rounded-s shadow-l bg-green2-dark text-uppercase font-900" type="submit"  name="submit">ลงทะเบียน</button>
+                    <button class="btn btn-m btn-full btn-block rounded-s shadow-l bg-green2-dark text-uppercase font-900" type="submit"  name="submit">ตรวจสอบลงทะเบียน</button>
 
                     <div class="clearfix"></div>
 

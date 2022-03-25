@@ -46,7 +46,13 @@ function chMonth($find)
         $sql = "SELECT u.lineid AS line_id,o.*,p.pname,p.fname,p.lname FROM ".$db_hos.".oapp o
             LEFT OUTER JOIN patientusers u ON u.hn = o.hn
             LEFT OUTER JOIN ".$db_hos.".patient p ON p.hn = o.hn
-            WHERE o.hn IN (SELECT hn FROM patientusers) AND o.nextdate = DATE_FORMAT(DATE_ADD(NOW(),INTERVAL 0 DAY),'%Y-%m-%d')";
+            WHERE o.hn IN (
+                SELECT hn AS hn FROM patientusers
+                UNION ALL
+                SELECT hn2 AS hn FROM patientusers WHERE hn2 <> ""
+                UNION ALL
+                SELECT hn3 AS hn FROM patientusers WHERE hn3 <> ""
+            ) AND o.nextdate = DATE_FORMAT(DATE_ADD(NOW(),INTERVAL 0 DAY),'%Y-%m-%d')";
         $result = $myPDO->query($sql);
         foreach ($result AS $data) {
             $idline = $data['line_id'];

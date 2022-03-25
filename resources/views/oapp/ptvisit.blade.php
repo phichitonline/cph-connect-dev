@@ -49,7 +49,13 @@ function chMonth($find)
                     LEFT JOIN ".$db_hos.".patient p ON p.hn = o.hn
                     LEFT JOIN patientusers pt ON o.hn = pt.hn
                     WHERE o.vstdate = CURDATE() AND CONCAT(o.vstdate,' ',o.vsttime) >= DATE_ADD(NOW(), INTERVAL -5 MINUTE)
-                    AND o.hn IN (SELECT hn FROM patientusers)";
+                    AND o.hn IN (
+                        SELECT hn AS hn FROM patientusers
+                        UNION ALL
+                        SELECT hn2 AS hn FROM patientusers WHERE hn2 <> ""
+                        UNION ALL
+                        SELECT hn3 AS hn FROM patientusers WHERE hn3 <> ""
+                    )";
         $result = $myPDO->query($sql);
         foreach ($result AS $data) {
             $idline = $data['lineid'];

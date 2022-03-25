@@ -492,6 +492,7 @@ class OappController extends Controller
             'patientuser_hn2' => $patientuser_hn2,
             'patientuser_hn3' => $patientuser_hn3,
             'regist_number' => $regist_number,
+            'lineid' => $lineid,
         ]);
     }
 
@@ -535,10 +536,32 @@ class OappController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Book $book)
+    public function update(Request $request)
     {
-        // $book->update($request->all());
-        // return redirect()->route('oapp.oappman')->with('oapp-updated','บันทึกสำเร็จ');
+        session_start();
+        $lineid = $_SESSION["lineid"];
+
+        $acid = $request->get('acid');
+        $bdate = $request->get('abirthday');
+        $dd = substr($bdate,0,2);
+        $mm = substr($bdate,2,2);
+        $yyyy = substr($bdate,4,4)-543;
+        $birthday = $yyyy."-".$mm."-".$dd;
+        $birthday = trim($birthday);
+
+        $check_opduser = DB::connection('mysql_hos')->select('
+        SELECT COUNT(*) AS userregist,hn,cid,pname,fname,lname FROM patient
+        WHERE cid = "'.$acid.'" AND birthday = "'.$birthday.'"
+        ');
+
+        foreach($check_opduser as $data){
+            if ($data->userregist > 0) {
+                DB::connection('mysql')->update('UPDATE patientusers SET hn2 = "'.$data->hn.'" WHERE lineid = "'.$lineid.'" ');
+                return redirect()->route('oapp')->with('session-alert', 'คุณลงทะเบียนบุคคลอื่นสำเร็จแล้ว');
+            } else {
+                return redirect()->route('ptregister.index')->with('session-alert', 'ไม่พบข้อมูลทะเบียนผู้ป่วยของคุณ หรือคุณอาจกรอกข้อมูลไม่ถูกต้อง ! กรุณาตรวจสอบเลขบัตรประชาชน และวันเดือนปีเกิดให้ถูกต้อง... หรือกรอกข้อมูลเพื่อลงทะเบียนทำบัตรใหม่');
+            }
+        }
     }
 
     /**
