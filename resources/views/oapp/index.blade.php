@@ -24,8 +24,8 @@
                 <i class="fa fa-bell font-18 color-green1-dark"></i>
                 <strong class="color-gray-dark">คุณสามารถจัดการการนัดหมายเข้ารับบริการได้</strong>
                 <strong class="color-gray-dark">หรือติดต่อเจ้าหน้าที่เพื่อขอคำแนะนำหรือเลื่อนนัด</strong>
+                <a href="#" class="btn btn-m btn-full btn-block bg-yellow2-dark rounded-s shadow-l text-uppercase font-900" type="submit"  name="submit">ลงทะเบียนรับเตือนนัดให้ผู้อื่น</a>
             </span>
-            <a href="#" class="btn btn-m btn-full btn-block bg-green1-dark rounded-s shadow-l text-uppercase font-900" type="submit"  name="submit">ลงทะเบียนรับเตือนนัดให้ผู้อื่น</a>
 
             <div class="divider mb-0"></div>
 
