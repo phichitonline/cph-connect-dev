@@ -1,7 +1,7 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 
-## About Laravel 7
+## About CPH connect
 
 CPH connect พัฒนาด้วย Laravel framework version 7 และ Line LIFF SDK 2.1
 เพื่อให้บริการแก่ผู้รับบริการของโรงพยาบาล ...ร่วมพัฒนาโดยเครือข่ายโรงพยาบาลสมเด็จพระยุพราช
