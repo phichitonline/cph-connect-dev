@@ -27,10 +27,10 @@
             <div class="cal-header">
                 <h4 class="cal-title text-center text-uppercase font-25 bg-green2-dark color-white">{{ $app_regist_another }}</h4>
                 @if ($patientuser_hn2 || "")
-                <h4 class="cal-title text-center text-uppercase font-20 bg-green2-dark color-white">คนที่ 1 HN : {{ $patientuser_hn2 }}</h4>
+                <h4 class="cal-title text-center text-uppercase font-20 bg-green2-dark color-white">คนที่ 1 HN : {{ $patientuser_hn2 }} <a href="#" data-menu="ad-timed-2" data-timed-ad="5"><i class="fa font-20 fa-info-circle color-white2-dark"></i></a></h4>
                 @endif
                 @if ($patientuser_hn3 || "")
-                <h4 class="cal-title text-center text-uppercase font-20 bg-green2-dark color-white">คนที่ 2 HN : {{ $patientuser_hn3 }}</h4>
+                <h4 class="cal-title text-center text-uppercase font-20 bg-green2-dark color-white">คนที่ 2 HN : {{ $patientuser_hn3 }} <a href="#" data-menu="ad-timed-3" data-timed-ad="5"><i class="fa font-20 fa-info-circle color-white2-dark"></i></a></h4>
                 @endif
                 @if ($regist_number == "คุณลงทะเบียนครบแล้ว")
                 <h4 class="cal-title text-center text-uppercase font-25 bg-red2-dark color-white">{{ $regist_number }}</h4>
@@ -93,6 +93,42 @@
 
     </div>
     <!-- End of Page Content-->
+
+    <div id="ad-timed-2" class="menu menu-box-modal menu-box-detached round-large" data-menu-width="340" data-menu-height="340" data-menu-effect="menu-over">
+        <div class="card" data-card-height="340">
+            <div class="card-top">
+                <span class="color-white bg-black font-10 opacity-50 pb-1 pt-1 pl-2 pr-2 ml-1">HN : {{ $patientuser_hn2 }}</span>
+            </div>
+            <div class="card-center ml-2 mr-2">
+                <h1 class="color-white text-center mb-3">{{ $pname2.$fname2." ".$lname2 }}</h1>
+                <div class="content mb-0">
+                    <h4 class="color-white">วันเกิด : {{ DateThaiFull($birthday2) }}</h4>
+                    <h4 class="color-white">เลขบัตรประชาชน : {{ $cid2 }}</h4>
+                    <h4 class="color-white">เลขที่โรงพยาบาล (HN) : {{ $hn2 }}</h4>
+                </div>
+                <a href="#" class="close-menu mr-3 ml-3 mt-5 btn btn-m btn-full rounded-s shadow-xl text-uppercase font-900 bg-red2-dark">ปิด</a>
+            </div>
+            <div class="card-overlay bg-black opacity-50"></div>
+        </div>
+    </div>
+
+    <div id="ad-timed-3" class="menu menu-box-modal menu-box-detached round-large" data-menu-width="340" data-menu-height="340" data-menu-effect="menu-over">
+        <div class="card" data-card-height="340">
+            <div class="card-top">
+                <span class="color-white bg-black font-10 opacity-50 pb-1 pt-1 pl-2 pr-2 ml-1">HN : {{ $patientuser_hn3 }}</span>
+            </div>
+            <div class="card-center ml-2 mr-2">
+                <h1 class="color-white text-center mb-3">{{ $pname3.$fname3." ".$lname3 }}</h1>
+                <div class="content mb-0">
+                    <h4 class="color-white">วันเกิด : {{ DateThaiFull($birthday3) }}</h4>
+                    <h4 class="color-white">เลขบัตรประชาชน : {{ $cid3 }}</h4>
+                    <h4 class="color-white">เลขที่โรงพยาบาล (HN) : {{ $hn3 }}</h4>
+                </div>
+                <a href="#" class="close-menu mr-3 ml-3 mt-5 btn btn-m btn-full rounded-s shadow-xl text-uppercase font-900 bg-red2-dark">ปิด</a>
+            </div>
+            <div class="card-overlay bg-black opacity-50"></div>
+        </div>
+    </div>
 
 @endsection
 

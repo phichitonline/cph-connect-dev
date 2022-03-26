@@ -44,7 +44,6 @@
         @else
             <div class="content mb-0">
 
-                <div class="clear"><br></div>
                 <h4>ชื่อ : {{ $pname }}{{ $fname }}  {{ $lname }}</h4>
                 <h4>วันเกิด : {{ DateThaiFull($birthday) }}</h4>
                 <h4>เลขบัตรประชาชน : {{ $cid }}</h4>
@@ -58,6 +57,7 @@
                         <input type="hidden" name="acid" value="{{ $cid }}">
                         <input type="hidden" name="abirthday" value="{{ $birthday }}">
                         <input type="hidden" name="regist_number" value="{{ $regist_number }}">
+
 
 					<div class="clearfix"></div>
 

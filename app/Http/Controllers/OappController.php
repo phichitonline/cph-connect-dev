@@ -481,8 +481,50 @@ class OappController extends Controller
         if ($patientuser_hn2 == "") {
             $regist_number = "ลงทะเบียนคนที่ 1";
         } else if ($patientuser_hn3 == "") {
+            $pt_hn2 = DB::connection('mysql_hos')->select('
+                SELECT COUNT(*) AS userregist,hn,cid,pname,fname,lname,birthday FROM patient
+                WHERE hn = "'.$patientuser_hn2.'"
+                ');
+            foreach($pt_hn2 as $data){
+                $pname2 = $data->pname;
+                $fname2 = $data->fname;
+                $lname2 = $data->lname;
+                $birthday2 = $data->birthday;
+                $cid2 = $data->cid;
+                $hn2 = $data->hn;
+                $pname3 = "";
+                $fname3 = "";
+                $lname3 = "";
+                $birthday3 = "";
+                $cid3 = "";
+                $hn3 = "";
+            }
             $regist_number = "ลงทะเบียนคนที่ 2";
         } else {
+            $pt_hn2 = DB::connection('mysql_hos')->select('
+                SELECT COUNT(*) AS userregist,hn,cid,pname,fname,lname,birthday FROM patient
+                WHERE hn = "'.$patientuser_hn2.'"
+                ');
+            foreach($pt_hn2 as $data){
+                $pname2 = $data->pname;
+                $fname2 = $data->fname;
+                $lname2 = $data->lname;
+                $birthday2 = $data->birthday;
+                $cid2 = $data->cid;
+                $hn2 = $data->hn;
+            }
+            $pt_hn3 = DB::connection('mysql_hos')->select('
+                SELECT COUNT(*) AS userregist,hn,cid,pname,fname,lname,birthday FROM patient
+                WHERE hn = "'.$patientuser_hn3.'"
+                ');
+            foreach($pt_hn3 as $data){
+                $pname3 = $data->pname;
+                $fname3 = $data->fname;
+                $lname3 = $data->lname;
+                $birthday3 = $data->birthday;
+                $cid3 = $data->cid;
+                $hn3 = $data->hn;
+            }
             $regist_number = "คุณลงทะเบียนครบแล้ว";
         }
 
@@ -493,6 +535,18 @@ class OappController extends Controller
             'patientuser_hn3' => $patientuser_hn3,
             'regist_number' => $regist_number,
             'lineid' => $lineid,
+            'pname2' => $pname2,
+            'fname2' => $fname2,
+            'lname2' => $lname2,
+            'birthday2' => $birthday2,
+            'cid2' => $cid2,
+            'hn2' => $hn2,
+            'pname3' => $pname3,
+            'fname3' => $fname3,
+            'lname3' => $lname3,
+            'birthday3' => $birthday3,
+            'cid3' => $cid3,
+            'hn3' => $hn3,
         ]);
     }
 
@@ -604,6 +658,7 @@ class OappController extends Controller
                 return redirect()->route('ptregister.index')->with('session-alert', 'ไม่พบข้อมูลทะเบียนผู้ป่วยของคุณ หรือคุณอาจกรอกข้อมูลไม่ถูกต้อง ! กรุณาตรวจสอบเลขบัตรประชาชน และวันเดือนปีเกิดให้ถูกต้อง... หรือกรอกข้อมูลเพื่อลงทะเบียนทำบัตรใหม่');
             }
         }
+
     }
 
     /**
