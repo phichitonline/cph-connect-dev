@@ -496,6 +496,49 @@ class OappController extends Controller
         ]);
     }
 
+    public function updatecheck(Request $request)
+    {
+        session_start();
+        $lineid = $_SESSION["lineid"];
+        $regist_number = $request->get('regist_number');
+        $patientuser_hn2 = $request->get('patientuser_hn2');
+        $patientuser_hn3 = $request->get('patientuser_hn3');
+
+        $acid = $request->get('acid');
+        $bdate = $request->get('abirthday');
+        $dd = substr($bdate,0,2);
+        $mm = substr($bdate,2,2);
+        $yyyy = substr($bdate,4,4)-543;
+        $birthday = $yyyy."-".$mm."-".$dd;
+        $birthday = trim($birthday);
+
+        $check_opduser = DB::connection('mysql_hos')->select('
+        SELECT COUNT(*) AS userregist,hn,cid,pname,fname,lname,birthday FROM patient
+        WHERE cid = "'.$acid.'" AND birthday = "'.$birthday.'"
+        ');
+
+        foreach($check_opduser as $data){
+            if ($data->userregist > 0) {
+                return view('oapp.oapp_regist_check', [
+                    'setting' => Setting::all(),
+                    'app_regist_another' => "ลงทะเบียนบุคคลอื่น",
+                    'patientuser_hn2' => $patientuser_hn2,
+                    'patientuser_hn3' => $patientuser_hn3,
+                    'regist_number' => $regist_number,
+                    'lineid' => $lineid,
+                    'pname' => $data->pname,
+                    'fname' => $data->fname,
+                    'lname' => $data->lname,
+                    'birthday' => $data->birthday,
+                    'cid' => $data->cid,
+                    'hn' => $data->hn,
+                ]);
+            } else {
+                return redirect()->route('ptregister.index')->with('session-alert', 'ไม่พบข้อมูลทะเบียนผู้ป่วยของคุณ หรือคุณอาจกรอกข้อมูลไม่ถูกต้อง ! กรุณาตรวจสอบเลขบัตรประชาชน และวันเดือนปีเกิดให้ถูกต้อง... หรือกรอกข้อมูลเพื่อลงทะเบียนทำบัตรใหม่');
+            }
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -542,12 +585,7 @@ class OappController extends Controller
         $lineid = $_SESSION["lineid"];
 
         $acid = $request->get('acid');
-        $bdate = $request->get('abirthday');
-        $dd = substr($bdate,0,2);
-        $mm = substr($bdate,2,2);
-        $yyyy = substr($bdate,4,4)-543;
-        $birthday = $yyyy."-".$mm."-".$dd;
-        $birthday = trim($birthday);
+        $birthday = $request->get('abirthday');
 
         $check_opduser = DB::connection('mysql_hos')->select('
         SELECT COUNT(*) AS userregist,hn,cid,pname,fname,lname FROM patient

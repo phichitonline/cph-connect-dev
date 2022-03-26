@@ -20,6 +20,7 @@
         <a href="#" data-toggle-theme class="header-icon header-icon-4"><i class="fas fa-bell"></i></a>
     </div>
 
+
     <div class="page-content header-clear-large">
 
 
@@ -42,28 +43,25 @@
         @if ($patientuser_hn3 || "")
         @else
             <div class="content mb-0">
-                <form method="GET" action="{{ route('oappupdatecheck') }}" autocomplete="off" class="form-horizontal">
-                    @csrf
 
-                    <div class="input-style has-icon input-style-1 input-required">
-                        <i class="input-icon fa fa-user color-theme"></i>
-                        <span>เลขบัตรประชาชน</span>
-                        <em>(required)</em>
-                        <input type="number" name="acid" placeholder="เลขบัตรประชาชน 13 หลัก" required autofocus>
-                    </div>
-                    <div class="input-style has-icon input-style-1 input-required">
-                        <i class="input-icon fa fa-lock color-theme"></i>
-                        <span>วันเดือนปีเกิด</span>
-                        <em>(required)</em>
-                        <input type="number" name="abirthday" placeholder="" required>
+                <div class="clear"><br></div>
+                <h4>ชื่อ : {{ $pname }}{{ $fname }}  {{ $lname }}</h4>
+                <h4>วันเกิด : {{ DateThaiFull($birthday) }}</h4>
+                <h4>เลขบัตรประชาชน : {{ $cid }}</h4>
+                <h4>เลขที่โรงพยาบาล (HN) : {{ $hn }}</h4>
+                <div class="clear"><br></div>
+
+                <form method="POST" action="{{ route('oapp.update', $lineid) }}">
+                    @csrf
+                    @method('put')
+
+                        <input type="hidden" name="acid" value="{{ $cid }}">
+                        <input type="hidden" name="abirthday" value="{{ $birthday }}">
                         <input type="hidden" name="regist_number" value="{{ $regist_number }}">
-                        <input type="hidden" name="patientuser_hn2" value="{{ $patientuser_hn2 }}">
-                        <input type="hidden" name="patientuser_hn3" value="{{ $patientuser_hn3 }}">
-                    </div>
 
 					<div class="clearfix"></div>
 
-                    <button class="btn btn-m btn-full btn-block rounded-s shadow-l bg-green2-dark text-uppercase font-900" type="submit"  name="submit">ตรวจสอบลงทะเบียน</button>
+                    <button class="btn btn-m btn-full btn-block rounded-s shadow-l bg-red2-dark text-uppercase font-900" type="submit"  name="submit">ยืนยันลงทะเบียน</button>
 
                     <div class="clearfix"></div>
 

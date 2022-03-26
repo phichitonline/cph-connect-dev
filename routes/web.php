@@ -66,6 +66,7 @@ Route::get('/card', 'CardController@index')->name('card');
 
 Route::resource('oapp', 'OappController');
 Route::get('/oapp', 'OappController@index')->name('oapp');
+Route::get('/oappupdatecheck', 'OappController@updatecheck')->name('oappupdatecheck');
 Route::get('/oappdetail', 'OappController@detail')->name('oappdetail');
 Route::get('/checkin', 'OappController@checkin')->name('checkin');
 Route::get('/statusq', 'OappController@statusq')->name('statusq');
