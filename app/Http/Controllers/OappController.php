@@ -479,6 +479,18 @@ class OappController extends Controller
         }
 
         if ($patientuser_hn2 == "") {
+            $pname2 = "";
+            $fname2 = "";
+            $lname2 = "";
+            $birthday2 = "";
+            $cid2 = "";
+            $hn2 = "";
+            $pname3 = "";
+            $fname3 = "";
+            $lname3 = "";
+            $birthday3 = "";
+            $cid3 = "";
+            $hn3 = "";
             $regist_number = "ลงทะเบียนคนที่ 1";
         } else if ($patientuser_hn3 == "") {
             $pt_hn2 = DB::connection('mysql_hos')->select('
@@ -588,7 +600,7 @@ class OappController extends Controller
                     'hn' => $data->hn,
                 ]);
             } else {
-                return redirect()->route('ptregister.index')->with('session-alert', 'ไม่พบข้อมูลทะเบียนผู้ป่วยของคุณ หรือคุณอาจกรอกข้อมูลไม่ถูกต้อง ! กรุณาตรวจสอบเลขบัตรประชาชน และวันเดือนปีเกิดให้ถูกต้อง... หรือกรอกข้อมูลเพื่อลงทะเบียนทำบัตรใหม่');
+                return redirect()->route('oapp')->with('session-alert', 'ไม่พบข้อมูลทะเบียนผู้ป่วย หรือคุณอาจกรอกข้อมูลไม่ถูกต้อง ! กรุณาตรวจสอบเลขบัตรประชาชน และวันเดือนปีเกิดให้ถูกต้อง...');
             }
         }
     }
