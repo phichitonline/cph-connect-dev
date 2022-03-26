@@ -7,14 +7,19 @@ CPH connect พัฒนาด้วย Laravel framework version 7 และ Li
 เพื่อให้บริการแก่ผู้รับบริการของโรงพยาบาล ...ร่วมพัฒนาโดยเครือข่ายโรงพยาบาลสมเด็จพระยุพราช
 
 - [ข้อมูลเพิ่มเติมและรายละเอียดการติดตั้ง](https://drive.google.com/drive/folders/1QXJuYPB84ae705tz5QmkZ7hK0dJY2DbZ?usp=sharing)
-- [Laravel web](https://laravel.com).
+- [พัฒนาโดย Dr.GHOST รพร.ตะพานหิน](https://line.me/ti/p/Xu3TXschDY).
 
+## คุณสมบัติของโปรแกรม
 
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- [แจ้งเตือนนัด]
+- [บัตรผู้ป่วยอิเล็คทรอนิกส์]
+- [ประวัติการรับบริการ รายการยา ผลตรวจทางห้องปฏิบัติการ]
+- [รายการนัดต่างๆ]
+- [ประวัติการรับวัคซีน COVID-19 พร้อมลิงก์ใบรับรองจากหมอพร้อม และประวัติวัคซีนอื่นๆ]
+- [ลงทะเบียนรับการแจ้งเตือนนัดของบุคคลอื่นได้ (แต่ไม่สามารถดูประวัติได้)]
+- [ระบบจองนัดคลินิกต่างๆ (ตามที่โรงพยาบาลกำหนด)]
+- [ออกคิวรับบริการแทนระบบตู้ Kiosk]
+- [แสดงคิวและแจ้งเตือนคิวรับบริการ]
 
 
 ## License
