@@ -29,6 +29,10 @@ Route::get('/ptvisit', function () {
     return view('oapp.ptvisit');
 });
 
+Route::get('/ptresult', function () {
+    return view('oapp.ptresult');
+});
+
 Route::get('/oapptomorrow', function () {
     return view('oapp.oapptomorrow');
 });

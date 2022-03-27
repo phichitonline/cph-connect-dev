@@ -93,14 +93,14 @@ function chMonth($find)
         "to": "'.$pushID.'",
         "messages": [{
         "type": "flex",
-        "altText": "คุณกำลังรับบริการ",
+        "altText": "สรุปรับบริการ",
         "contents": {
 
             "type": "bubble",
   "size": "mega",
   "hero": {
     "type": "image",
-    "url": "'.$cph_url.'/images/cphconnect/alert-cphconnect.jpeg",
+    "url": "'.$cph_url.'/images/cphconnect/med-cphconnect.jpg",
     "size": "full",
     "aspectRatio": "1600:448",
     "aspectMode": "cover",
@@ -126,7 +126,7 @@ function chMonth($find)
           },
           {
             "type": "text",
-            "text": "คุณกำลังรับบริการ",
+            "text": "สรุปรับบริการ",
             "color": "#FF0000",
             "margin": "md",
             "weight": "bold",
