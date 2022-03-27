@@ -56,7 +56,7 @@ function chMonth($find)
                 ) AS t1
                 WHERE t1.hn IN (
                     SELECT o.hn FROM ".$db_hos.".oapp o
-                    WHERE o.nextdate = DATE_FORMAT(DATE_ADD(NOW(),INTERVAL 1 DAY),'%Y-%m-%d')
+                    WHERE o.nextdate = DATE_FORMAT(DATE_ADD(NOW(),INTERVAL 0 DAY),'%Y-%m-%d')
                 )) t2 ON t2.hn = o.hn
 
             WHERE o.nextdate = DATE_FORMAT(DATE_ADD(NOW(),INTERVAL 0 DAY),'%Y-%m-%d')";

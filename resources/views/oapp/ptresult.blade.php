@@ -66,6 +66,7 @@ function chMonth($find)
         foreach ($result AS $data) {
             $idline = $data['lineid'];
             $cc = " ";
+            $med = "Paracetamol 500mg. 1 tab/PRN ";
             $spcltyname = $data['spcltyname'];
             $vstdate = "วันที่ ".date("j",strtotime($data['vstdate']))." ".chMonth($data['vstdate'])." ".chYear($data['vstdate'])."";
             $vsttime = " เวลา ".substr($data['vsttime'],0,5)." น.";
@@ -186,7 +187,7 @@ function chMonth($find)
           },
           {
             "type": "text",
-            "text": "'.$spcltyname.' ",
+            "text": "'.$med.' ",
             "gravity": "center",
             "flex": 4,
             "size": "sm"
