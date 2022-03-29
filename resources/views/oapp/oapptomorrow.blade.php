@@ -69,7 +69,7 @@
 "size": "mega",
 "hero": {
 "type": "image",
-"url": "'.$cph_url.'/images/cphconnect/appointment-cph-tomorrow.jpg",
+"url": "'.$cph_url.'/images/cphconnect/appointment-cph-tomorrow.jpeg",
 "size": "full",
 "aspectRatio": "1600:448",
 "aspectMode": "cover",
