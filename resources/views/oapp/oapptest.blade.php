@@ -25,10 +25,10 @@
                 ) AS t1
                 WHERE t1.hn IN (
                     SELECT o.hn FROM ".$db_hos.".oapp o
-                    WHERE o.vstdate BETWEEN '2022-02-25' AND '2022-02-25' AND o.hn IN ('000035634')
+                    WHERE o.nextdate BETWEEN '2022-02-24' AND '2022-02-24' AND o.hn IN ('000035634')
                 )) t2 ON t2.hn = o.hn
 
-            WHERE o.vstdate BETWEEN '2022-02-25' AND '2022-02-25' AND o.hn IN ('000035634')";
+            WHERE o.nextdate BETWEEN '2022-02-24' AND '2022-02-24' AND o.hn IN ('000035634')";
         $result = $myPDO->query($sql);
         foreach ($result AS $data) {
             $idline = $data['line_id'];
