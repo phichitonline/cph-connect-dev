@@ -21,6 +21,14 @@ Route::get('/showimage', function () {
     return view('showimage');
 });
 
+Route::get('/oapptest', function () {
+    return view('oapp.oapptest');
+});
+
+Route::get('/oapptomorrow', function () {
+    return view('oapp.oapptomorrow');
+});
+
 Route::get('/oapptoday', function () {
     return view('oapp.oapptoday');
 });
@@ -33,8 +41,8 @@ Route::get('/ptresult', function () {
     return view('oapp.ptresult');
 });
 
-Route::get('/oapptomorrow', function () {
-    return view('oapp.oapptomorrow');
+Route::get('/tracktime', function () {
+    return view('servicealert.tracktime');
 });
 
 Route::resource('emr', 'EmrController');

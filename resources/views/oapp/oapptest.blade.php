@@ -25,10 +25,10 @@
                 ) AS t1
                 WHERE t1.hn IN (
                     SELECT o.hn FROM ".$db_hos.".oapp o
-                    WHERE o.nextdate = DATE_FORMAT(DATE_ADD(NOW(),INTERVAL 1 DAY),'%Y-%m-%d')
+                    WHERE o.vstdate BETWEEN '2022-03-21' AND '2022-03-25' AND o.hn IN ('000035634')
                 )) t2 ON t2.hn = o.hn
 
-            WHERE o.nextdate = DATE_FORMAT(DATE_ADD(NOW(),INTERVAL 1 DAY),'%Y-%m-%d')";
+            WHERE o.vstdate BETWEEN '2022-03-21' AND '2022-03-25' AND o.hn IN ('000035634')";
         $result = $myPDO->query($sql);
         foreach ($result AS $data) {
             $idline = $data['line_id'];
@@ -69,7 +69,7 @@
 "size": "mega",
 "hero": {
 "type": "image",
-"url": "'.$cph_url.'/images/cphconnect/appointment-cph-tomorrow.jpg",
+"url": "'.$cph_url.'/images/cphconnect/appointment-cph-today.jpg",
 "size": "full",
 "aspectRatio": "1600:448",
 "aspectMode": "cover",
@@ -298,7 +298,7 @@
     }
   }
 ],
-"backgroundColor": "#f39c12"
+"backgroundColor": "#FF3333"
 }
 
 
@@ -320,7 +320,7 @@
             // ********************************************** //
 
         }
-        echo "ไม่มีนัด";
+        echo "ไม่มีนัด ";
     }
     catch(PDOException $e) {echo "Connection failed: " . $e->getMessage();}
 

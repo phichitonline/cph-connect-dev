@@ -43,18 +43,18 @@ function chMonth($find)
     $myPDO -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     try {
-        $sql = "SELECT pt.lineid,o.hn,o.an,o.vstdate,o.vsttime,o.spclty,s.`name` AS spcltyname,p.pname,p.fname,p.lname
+        $sql = "SELECT t2.lineid,o.hn,o.an,o.vstdate,o.vsttime,o.spclty,s.`name` AS spcltyname,p.pname,p.fname,p.lname
                     FROM ".$db_hos.".ovst o
                     LEFT JOIN ".$db_hos.".spclty s ON o.spclty = s.spclty
                     LEFT JOIN ".$db_hos.".patient p ON p.hn = o.hn
                     LEFT JOIN patientusers pt ON o.hn = pt.hn
                     INNER JOIN (
-                    	SELECT t1.hn FROM (
-                    		SELECT hn AS hn FROM patientusers
+                    	SELECT t1.lineid,t1.hn FROM (
+                    		SELECT lineid,hn AS hn FROM patientusers
                     		UNION ALL
-                    		SELECT hn2 AS hn FROM patientusers WHERE hn2 <> ''
+                    		SELECT lineid,hn2 AS hn FROM patientusers WHERE hn2 <> ''
                     		UNION ALL
-                    		SELECT hn3 AS hn FROM patientusers WHERE hn3 <> ''
+                    		SELECT lineid,hn3 AS hn FROM patientusers WHERE hn3 <> ''
                     	) AS t1
                     	WHERE t1.hn IN (
                     		SELECT o.hn FROM ".$db_hos.".ovst o
@@ -66,7 +66,7 @@ function chMonth($find)
         foreach ($result AS $data) {
             $idline = $data['lineid'];
             $cc = " ";
-            $med = "Paracetamol 500mg. 1 tab/PRN ";
+            $med = "รับยาจำนวน 5 รายการ";
             $spcltyname = $data['spcltyname'];
             $vstdate = "วันที่ ".date("j",strtotime($data['vstdate']))." ".chMonth($data['vstdate'])." ".chYear($data['vstdate'])."";
             $vsttime = " เวลา ".substr($data['vsttime'],0,5)." น.";

@@ -1,36 +1,4 @@
 <?php
-function chYear($find)
-{
-    return date("Y", strtotime($find)) + 543;
-}
-function chMonth($find)
-{
-    if (date("m", strtotime($find)) == 1) {
-        return "มกราคม ";
-    } elseif (date("m", strtotime($find)) == 2) {
-        return "กุมภาพันธ์ ";
-    } elseif (date("m", strtotime($find)) == 3) {
-        return "มีนาคม ";
-    } elseif (date("m", strtotime($find)) == 4) {
-        return "เมษายน";
-    } elseif (date("m", strtotime($find)) == 5) {
-        return "พฤษภาคม ";
-    } elseif (date("m", strtotime($find)) == 6) {
-        return "มิถุนายน ";
-    } elseif (date("m", strtotime($find)) == 7) {
-        return "กรกฎาคม ";
-    } elseif (date("m", strtotime($find)) == 8) {
-        return "สิงหาคม";
-    } elseif (date("m", strtotime($find)) == 9) {
-        return "กันยายน ";
-    } elseif (date("m", strtotime($find)) == 10) {
-        return "ตุลาคม ";
-    } elseif (date("m", strtotime($find)) == 11) {
-        return "พฤศจิกายน ";
-    } elseif (date("m", strtotime($find)) == 12) {
-        return "ธันวาคม ";
-    }
-}
 
     $host = config('database.connections.mysql.host');
     $db = config('database.connections.mysql.database');
@@ -43,16 +11,17 @@ function chMonth($find)
     $myPDO -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     try {
-        $sql = "SELECT u.lineid AS line_id,o.*,p.pname,p.fname,p.lname FROM ".$db_hos.".oapp o
+        $sql = "SELECT t2.lineid AS line_id,o.*,p.pname,p.fname,p.lname
+            FROM ".$db_hos.".oapp o
             LEFT OUTER JOIN patientusers u ON u.hn = o.hn
             LEFT OUTER JOIN ".$db_hos.".patient p ON p.hn = o.hn
             INNER JOIN (
-                SELECT t1.hn FROM (
-                    SELECT hn AS hn FROM patientusers
+                SELECT t1.lineid,t1.hn FROM (
+                    SELECT lineid,hn AS hn FROM patientusers
                     UNION ALL
-                    SELECT hn2 AS hn FROM patientusers WHERE hn2 <> ''
+                    SELECT lineid,hn2 AS hn FROM patientusers WHERE hn2 <> ''
                     UNION ALL
-                    SELECT hn3 AS hn FROM patientusers WHERE hn3 <> ''
+                    SELECT lineid,hn3 AS hn FROM patientusers WHERE hn3 <> ''
                 ) AS t1
                 WHERE t1.hn IN (
                     SELECT o.hn FROM ".$db_hos.".oapp o
@@ -64,17 +33,14 @@ function chMonth($find)
         foreach ($result AS $data) {
             $idline = $data['line_id'];
             $app_cause = str_replace("\r\n"," ",$data['note'])." ".str_replace("\r\n"," ",$data['app_cause']);
-            $nextdate = "".date("j",strtotime($data['nextdate']))." ".chMonth($data['nextdate'])." ".chYear($data['nextdate'])."";
-            $nexttime = " เวลา ".substr($data['nexttime'],0,5)." - ".substr($data['endtime'],0,5)." น.";
-            $nexttime1 = substr($data['nexttime'],0,5);
+            $nextdate = "วันที่ ".DateThaiFull($data['nextdate'])."";
+            $nexttime = " เวลา ".TimeThai($data['nexttime'])." - ".TimeThai($data['endtime'])." น.";
+            $nexttime1 = TimeThai($data['nexttime']);
             $notetext = str_replace("\r\n"," ",$data['note'])." ".str_replace("\r\n"," ",$data['note1']);
             $ptname = $data['pname'].$data['fname']." ".$data['lname'];
             $note = str_replace("\r\n"," ",$data['note']);
             $note1 = str_replace("\r\n"," ",$data['note1']);
             $contact_point = str_replace("\r\n"," ",$data['contact_point']);
-
-            echo "วันนี้คุณมีนัด วันที่ ".date("j",strtotime($data['nextdate']))." ".chMonth($data['nextdate'])." ".chYear($data['nextdate'])." เวลา ".substr($data['nexttime'],0,5)." น.\n".$data['note']."\n(ตรวจสอบรายละเอียดการนัดจากเมนูบริการออนไลน์อีกครั้ง)"; // ข้อความ
-            $txtmessage = "วันนี้คุณมีนัด \nวันที่ ".date("j",strtotime($data['nextdate']))." ".chMonth($data['nextdate'])." ".chYear($data['nextdate'])."\nเวลา ".substr($data['nexttime'],0,5)." น.\n\n".$data['note']."\n\n(ตรวจสอบรายละเอียดการนัดจากเมนูบริการออนไลน์อีกครั้ง)"; // ข้อความ
 
             // ********** ส่งข้อมูลนัดใน Line Official *********** //
             $access_token = config('line-bot.channel_access_token');
