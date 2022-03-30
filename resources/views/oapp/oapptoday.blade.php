@@ -103,7 +103,15 @@
       },
       {
         "type": "text",
-        "text": "'.$nextdate.$nexttime.' ",
+        "text": "'.$nextdate.' ",
+        "margin": "none",
+        "size": "sm",
+        "color": "#FF0000",
+        "wrap": true
+      },
+      {
+        "type": "text",
+        "text": "'.$nexttime.' ",
         "margin": "none",
         "size": "sm",
         "color": "#FF0000",

@@ -20,7 +20,7 @@
     </div>
 
     <a href="{{ url('/') }}/bookcalendar/?flag=C" class="col-6 pr-0">
-        <div class="card card-style mr-2 mb-2">
+        <div class="card card-style">
             <img class="img-fluid" src="images/book_healthy.png">
         </div>
     </a>
