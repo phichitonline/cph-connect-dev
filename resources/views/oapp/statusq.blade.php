@@ -20,6 +20,12 @@
     @endphp
     @endforeach
 
+    @if (session('session-alert'))
+        <div class="footer card card-style">
+            <a href="#" class="footer-title"><span class="color-highlight">{{ session('session-alert') }}</span></a>
+            <div class="clear"><br></div>
+        </div><br>
+    @endif
 				<div class="card card-overflow card-style">
 					<div class="content">
 						<div class="d-flex">

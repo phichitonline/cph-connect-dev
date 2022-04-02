@@ -140,174 +140,183 @@ class OappController extends Controller
         session_start();
         $hn = $_SESSION["hn"];
         // $lineid = $_SESSION["lineid"];
-        $oappid = $_GET['oappid'];
 
-        $oappdata = DB::connection('mysql_hos')->select('
-        SELECT * FROM oapp WHERE oapp_id = "'.$oappid.'"');
-        foreach($oappdata as $data){
-            $cc = $data->note;
-            $spclty = $data->spclty;
-            $depcode = $data->depcode;
+        $islocation = "false";
+
+        // ไม่ทำงานหากไม่ได้อยู่ในพิกัดของโรงพยาบาล
+        if ($islocation == "true") {
+
+            $oappid = $_GET['oappid'];
+
+            $oappdata = DB::connection('mysql_hos')->select('
+            SELECT * FROM oapp WHERE oapp_id = "'.$oappid.'"');
+            foreach($oappdata as $data){
+                $cc = $data->note;
+                $spclty = $data->spclty;
+                $depcode = $data->depcode;
+            }
+            $pttypedata = DB::connection('mysql_hos')->select('
+            SELECT p.pttype,ptt.pttypeno,ptt.begindate,ptt.expiredate,ptt.hospmain,ptt.hospsub,ptt1.pcode,p.addressid,p.moopart,p.cid,p.birthday,p.sex
+            ,timestampdiff(year,p.birthday,curdate()) AS cnt_year
+            ,timestampdiff(month,p.birthday,curdate())-(timestampdiff(year,p.birthday,curdate())*12) AS cnt_month
+            ,timestampdiff(day,date_add(p.birthday,interval (timestampdiff(month,p.birthday,curdate())) month),curdate()) AS cnt_day
+            FROM patient p
+            LEFT JOIN pttype ptt1 ON p.pttype = ptt1.pttype
+            LEFT JOIN pttypeno ptt ON p.hn = ptt.hn
+            WHERE p.hn = "'.$hn.'" AND ptt.pttype = p.pttype
+            ');
+            foreach($pttypedata as $data){
+                $pttype = $data->pttype;
+                $pttypeno = $data->pttypeno;
+                $pttypebegin = $data->begindate;
+                $pttypeexpire = $data->expiredate;
+                $hospmain = $data->hospmain;
+                $hospsub = $data->hospsub;
+                $pcode = $data->pcode;
+                $aid = $data->addressid;
+                $moopart = $data->moopart;
+                $cid = $data->cid;
+                $sex = $data->sex;
+                $age_y = $data->cnt_year;
+                $age_m = $data->cnt_month;
+                $age_d = $data->cnt_day;
+            }
+
+            $staff = 'onlineapp';   // รหัสผู้ใช้ opduser
+            $hcode = '11456';       // รหัส 5 หลักหน่วยบริการ
+
+            $visitvar = DB::connection('mysql_hos')->select("SELECT
+            CONCAT(SUBSTR(DATE_FORMAT(NOW(),'%Y')+543,3,2),DATE_FORMAT(NOW(),'%m%d'),DATE_FORMAT(NOW(),'%H%i%s')) AS visitnumber
+            ,DATE_FORMAT(NOW(),'%Y-%m-%d') AS vstdate
+            ,DATE_FORMAT(NOW(),'%H:%i:%s') AS vsttime
+            ,CONCAT('visit-lock-test-',DATE_FORMAT(NOW(),'%d%m'),DATE_FORMAT(NOW(),'%Y')+543) AS visitlocktest
+            ,upper(concat('{',uuid(),'}')) AS hos_guid
+            ");
+            foreach($visitvar as $data){
+                $visitnumber = $data->visitnumber;
+                $vstdate = $data->vstdate;
+                $vsttime = $data->vsttime;
+                $visitlocktest = $data->visitlocktest;
+                $hos_guid = $data->hos_guid;
+            }
+            $visitvar = DB::connection('mysql_hos')->select("SELECT
+            upper(concat('{',uuid(),'}')) AS hos_guid2
+            ");
+            foreach($visitvar as $data){
+                $hos_guid2 = $data->hos_guid2;
+            }
+
+            $serialvar = DB::connection('mysql_hos')->select('
+            SELECT serial_no FROM serial WHERE name = CONCAT("ovst-q-",SUBSTR(DATE_FORMAT(NOW(),"%Y")+543,3,2),DATE_FORMAT(NOW(),"%m%d"))
+            ');
+            foreach($serialvar as $data){
+                $serialovstq = $data->serial_no+1;
+            }
+
+            DB::connection('mysql_hos')->insert('INSERT INTO vn_insert (vn,clinic_list,hos_guid) VALUES ("'.$visitnumber.'",NULL,NULL) ');
+            DB::connection('mysql_hos')->update('UPDATE serial set serial_no = serial_no+1 where name = "'.$visitlocktest.'" ');
+            DB::connection('mysql_hos')->update('UPDATE serial set serial_no = serial_no+1 where name = "'.$serialovstq.'" ');
+            DB::connection('mysql_hos')->insert('
+            INSERT INTO ovst (hos_guid,vn,hn,an,vstdate,vsttime,doctor,hospmain,hospsub,oqueue,ovstist,ovstost,pttype,pttypeno,rfrics,rfrilct,rfrocs,rfrolct
+            ,spclty,rcpt_disease,hcode,cur_dep,cur_dep_busy,last_dep,cur_dep_time,rx_queue,diag_text,pt_subtype,main_dep,main_dep_queue,finance_summary_date
+            ,visit_type,node_id,contract_id,waiting,rfri_icd10,o_refer_number,has_insurance,i_refer_number,refer_type,o_refer_dep,staff,command_doctor
+            ,send_person,pt_priority,finance_lock,oldcode,sign_doctor,anonymous_visit,anonymous_vn,pt_capability_type_id,at_hospital)
+            VALUES ("'.$hos_guid.'","'.$visitnumber.'","'.$hn.'",NULL,"'.$vstdate.'","'.$vsttime.'",NULL,"","","'.$serialovstq.'","02","00","'.$pttype.'","'.$pttypeno.'",NULL,NULL,NULL,NULL,"'.$spclty.'",NULL,"'.$hcode.'",NULL,NULL,"'.$depcode.'",NULL,NULL,NULL,0,NULL,2,NULL,"O","",NULL,"Y",NULL,NULL,"N",NULL,NULL,NULL,"'.$staff.'",NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+            ');
+
+            DB::connection('mysql_hos')->insert('
+            INSERT INTO ptdepart (vn,depcode,hn,intime,outdepcode,outtime,status,staff,outdate,hos_guid,hos_guid_ext)
+            VALUES ("'.$visitnumber.'","'.$depcode.'","'.$hn.'","'.$vsttime.'","'.$depcode.'","'.$vsttime.'",NULL,"'.$staff.'","'.$vstdate.'",NULL,NULL)
+            ');
+            DB::connection('mysql_hos')->insert('
+            INSERT INTO visit_pttype (vn,pttype,staff,rcpt_amount,debt_amount,discount_amount,begin_date,expire_date
+            ,hospmain,hospsub,pttypeno,pttype_number,pttype_order,discount_percent,company_id,contract_id,max_debt_amount
+            ,paid_amount,Claim_Code,hos_guid,limit_hour,check_limit_hour,finance_clear_ok,hos_guid_ext
+            ,confirm_and_locked_datetime,confirm_and_locked,confirm_and_locked_staff,nhso_govcode,nhso_govname,nhso_docno
+            ,nhso_ownright_pid,nhso_ownright_name,update_datetime,emp_privilege,emp_id,pttype_service_charge,pttype_note
+            ,auth_code,rcpno_list)
+            VALUES ("'.$visitnumber.'","'.$pttype.'",NULL,NULL,NULL,NULL,"'.$pttypebegin.'","'.$pttypeexpire.'","","","'.$pttypeno.'",1,NULL,NULL
+            ,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+            ,NULL,NULL,NULL)
+            ');
+            DB::connection('mysql_hos')->insert('
+            INSERT INTO ovst_finance (vn,finance_status,department_type,check_pttype,hos_guid,ed_amount,ned_amount
+            ,other_amount,paidst_01_amount,paidst_02_amount,paidst_03_amount,paidst_01_03_wait_amount,paidst_04_amount)
+            VALUES ("'.$visitnumber.'",1,"OPD","'.$pttype.'",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+            ');
+
+            DB::connection('mysql_hos')->update('UPDATE serial set serial_no = serial_no+1 where name="opd_regist_sendlist_id" ');
+
+            DB::connection('mysql_hos')->insert('
+            INSERT INTO opd_regist_sendlist (opd_regist_sendlist_id,vn,staff,send_to_depcode,send_datetime,send_from_depcode
+            ,send_to_spclty,hos_guid)
+            VALUES ((SELECT serial_no FROM serial WHERE name="opd_regist_sendlist_id"),"'.$visitnumber.'","'.$staff.'","'.$depcode.'",NOW(),"'.$depcode.'","'.$spclty.'",NULL)
+            ');
+
+            DB::connection('mysql_hos')->insert('
+            INSERT INTO opdscreen (hos_guid,vn,hn,vstdate,vsttime,begintime,outtime,endtime,bpd,bps,bw,cc,hr,pe,pulse
+            ,temperature,note,rr,cc_begin_date,cc_cause_of_visit,cc_sign,cc_duration,cc_position,cc_note,his_begin_date
+            ,his_frequency,his_severity,his_cause,his_expand,his_cause_increase,his_cause_decrease,his_related_sign,height
+            ,screen_dep,waiting,fbs,help1,help2,help3,help4,help1_time,help1_bps,help1_bpd,help2_time,help2_temp,help3_icode
+            ,help3_time,help3_qty,help4_note,advice1,advice2,advice3,advice4,advice5,advice6,advice7,cradle,pe_ga,pe_heent
+            ,pe_heart,pe_lung,pe_ab,pe_ext,pe_neuro,pe_ga_text,pe_heent_text,pe_heart_text,pe_lung_text,pe_ab_text
+            ,pe_neuro_text,pe_ext_text,bmi,tg,hdl,glucurine,blank1,bun,creatinine,ua,hba1c,riskdm,skin_color,found_amphetamine
+            ,pregnancy,advice7_note,checkup,er_note,found_allergy,hpi,pmh,fh,sh,ros,tc,ldl,ast,alt,symptom,walk_id,peak_flow
+            ,cholesterol,waist,advice8,breast_feeding,cradle_lie,pain_score,pefr,opdscreen_patient_type_id
+            ,creatinine_kidney_percent,sodium,chloride,potassium,tco2,smoking_type_id,drinking_type_id
+            ,pulse_regulation_type_id,spo2,urine_albumin,urine_creatinine,pefr_percent,macro_albumin,micro_albumin,egfr
+            ,hb,upcr,bicarb,phosphate,pth,pe_gy,pe_gy_text,pe_gu,pe_gu_text,pe_gi,pe_gi_text,bsa,pe_head,pe_head_text
+            ,pe_skin,pe_skin_text,g6pd,pe_rtf,o2sat,pe_pv,pe_pv_text,pe_pr,pe_pr_text,pe_gen,pe_gen_text,pre_pain_score
+            ,post_pain_score,head_cricumference,fev1_percent,pe_rtf_blob,bp_stable,pe_chest,pe_chest_text,lmp_date
+            ,opdscreen_bp_loc_type_id,menstrual_cycle_type_id,adherence_percent,fev1_fevc,vaccine_screen_type_id
+            ,development_screen_type_id,ambu,update_datetime)
+            VALUES ("'.$hos_guid2.'","'.$visitnumber.'","'.$hn.'","'.$vstdate.'","'.$vsttime.'",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+            ,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+            ,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+            ,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+            ,NULL,NULL,NULL,NULL,NULL,NULL,NULL,"'.$cc.'",1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+            ,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+            ,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+            ,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+            ');
+
+            DB::connection('mysql_hos')->insert('
+            INSERT INTO vn_stat (vn,hn,pdx,gr504,lastvisit,accident_code,dx_doctor,dx0,dx1,dx2
+                    ,dx3,dx4,dx5,sex,age_y,age_m,age_d,aid,moopart,count_in_month
+                    ,count_in_year,pttype,income,paid_money,remain_money,uc_money,item_money
+                    ,dba,spclty,vstdate,op0,op1,op2,op3,op4,op5
+                    ,rcp_no,print_count,print_done,pttype_in_region,pttype_in_chwpart,pcode,hcode
+                    ,inc01,inc02,inc03,inc04,inc05,inc06,inc07,inc08,inc09,inc10,inc11,inc12,inc13,inc14,inc15,inc16
+                    ,hospmain,hospsub,pttypeno,pttype_expire,cid,main_pdx
+                    ,inc17,inc_drug,inc_nondrug,pt_subtype,rcpno_list,ym,node_id
+                    ,ill_visit,count_in_day,pttype_begin,lastvisit_hour,rcpt_money,discount_money,old_diagnosis,debt_id_list,vn_guid,lastvisit_vn
+                    ,hos_guid,rx_license_no,lab_paid_ok,xray_paid_ok)
+
+            VALUES ("'.$visitnumber.'","'.$hn.'","",NULL,NULL,NULL,"","","","","","",""
+                    ,"'.$sex.'","'.$age_y.'","'.$age_m.'","'.$age_d.'","'.$aid.'","'.$moopart.'",""
+                    ,"","'.$pttype.'",0,0,0,0,0
+                    ,NULL,"'.$spclty.'","'.$vstdate.'","","","","","",""
+                    ,NULL,NULL,NULL,"Y","N","'.$pcode.'","'.$hcode.'"
+                    ,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+                    ,"'.$hospmain.'","'.$hospsub.'","'.$pttypeno.'","'.$pttypeexpire.'","'.$cid.'",""
+                    ,0,0,0,0,"",DATE_FORMAT(NOW(),"%Y-%m"),NULL
+                    ,"Y",0,"'.$pttypebegin.'",NULL,0,0,"N","",NULL,""
+                    ,NULL,NULL,NULL,NULL)
+            ');
+
+            DB::connection('mysql_hos')->insert('
+            INSERT INTO inc_opd_stat (vn,hn,vstdate,pttype,pcode,inc01,inc02,inc03,inc04,inc05,inc06,inc07,inc08,inc09
+            ,inc10,inc11,inc12,inc13,inc14,inc15,inc16,inc17,income,inc_drug,inc_nondrug,uinc01,uinc02,uinc03,uinc04
+            ,uinc05,uinc06,uinc07,uinc08,uinc09,uinc10,uinc11,uinc12,uinc13,uinc14,uinc15,uinc16,uinc17,uincome,uinc_drug
+            ,uinc_nondrug,hos_guid)
+            VALUES ("'.$visitnumber.'","'.$hn.'","'.$vstdate.'","'.$pttype.'",NULL,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+            ,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,NULL)
+            ');
+
+            // DB::connection('mysql_hos')->insert('');
+        } else {
+            $oappid = "ขออภัย... คุณยังไม่ได้อยู่ที่โรงพยาบาล กรุณายืนยันเข้ารับบริการเมื่อมาถึงโรงพยาบาลแล้วเท่านั้น";
         }
-        $pttypedata = DB::connection('mysql_hos')->select('
-        SELECT p.pttype,ptt.pttypeno,ptt.begindate,ptt.expiredate,ptt.hospmain,ptt.hospsub,ptt1.pcode,p.addressid,p.moopart,p.cid,p.birthday,p.sex
-        ,timestampdiff(year,p.birthday,curdate()) AS cnt_year
-        ,timestampdiff(month,p.birthday,curdate())-(timestampdiff(year,p.birthday,curdate())*12) AS cnt_month
-        ,timestampdiff(day,date_add(p.birthday,interval (timestampdiff(month,p.birthday,curdate())) month),curdate()) AS cnt_day
-        FROM patient p
-        LEFT JOIN pttype ptt1 ON p.pttype = ptt1.pttype
-        LEFT JOIN pttypeno ptt ON p.hn = ptt.hn
-        WHERE p.hn = "'.$hn.'" AND ptt.pttype = p.pttype
-        ');
-        foreach($pttypedata as $data){
-            $pttype = $data->pttype;
-            $pttypeno = $data->pttypeno;
-            $pttypebegin = $data->begindate;
-            $pttypeexpire = $data->expiredate;
-            $hospmain = $data->hospmain;
-            $hospsub = $data->hospsub;
-            $pcode = $data->pcode;
-            $aid = $data->addressid;
-            $moopart = $data->moopart;
-            $cid = $data->cid;
-            $sex = $data->sex;
-            $age_y = $data->cnt_year;
-            $age_m = $data->cnt_month;
-            $age_d = $data->cnt_day;
-        }
-
-        $staff = 'onlineapp';
-        $hcode = '11456';
-
-        $visitvar = DB::connection('mysql_hos')->select("SELECT
-        CONCAT(SUBSTR(DATE_FORMAT(NOW(),'%Y')+543,3,2),DATE_FORMAT(NOW(),'%m%d'),DATE_FORMAT(NOW(),'%H%i%s')) AS visitnumber
-        ,DATE_FORMAT(NOW(),'%Y-%m-%d') AS vstdate
-        ,DATE_FORMAT(NOW(),'%H:%i:%s') AS vsttime
-        ,CONCAT('visit-lock-test-',DATE_FORMAT(NOW(),'%d%m'),DATE_FORMAT(NOW(),'%Y')+543) AS visitlocktest
-        ,upper(concat('{',uuid(),'}')) AS hos_guid
-        ");
-        foreach($visitvar as $data){
-            $visitnumber = $data->visitnumber;
-            $vstdate = $data->vstdate;
-            $vsttime = $data->vsttime;
-            $visitlocktest = $data->visitlocktest;
-            $hos_guid = $data->hos_guid;
-        }
-        $visitvar = DB::connection('mysql_hos')->select("SELECT
-        upper(concat('{',uuid(),'}')) AS hos_guid2
-        ");
-        foreach($visitvar as $data){
-            $hos_guid2 = $data->hos_guid2;
-        }
-
-        $serialvar = DB::connection('mysql_hos')->select('
-        SELECT serial_no FROM serial WHERE name = CONCAT("ovst-q-",SUBSTR(DATE_FORMAT(NOW(),"%Y")+543,3,2),DATE_FORMAT(NOW(),"%m%d"))
-        ');
-        foreach($serialvar as $data){
-            $serialovstq = $data->serial_no+1;
-        }
-
-        DB::connection('mysql_hos')->insert('INSERT INTO vn_insert (vn,clinic_list,hos_guid) VALUES ("'.$visitnumber.'",NULL,NULL) ');
-        DB::connection('mysql_hos')->update('UPDATE serial set serial_no = serial_no+1 where name = "'.$visitlocktest.'" ');
-        DB::connection('mysql_hos')->update('UPDATE serial set serial_no = serial_no+1 where name = "'.$serialovstq.'" ');
-        DB::connection('mysql_hos')->insert('
-        INSERT INTO ovst (hos_guid,vn,hn,an,vstdate,vsttime,doctor,hospmain,hospsub,oqueue,ovstist,ovstost,pttype,pttypeno,rfrics,rfrilct,rfrocs,rfrolct
-        ,spclty,rcpt_disease,hcode,cur_dep,cur_dep_busy,last_dep,cur_dep_time,rx_queue,diag_text,pt_subtype,main_dep,main_dep_queue,finance_summary_date
-        ,visit_type,node_id,contract_id,waiting,rfri_icd10,o_refer_number,has_insurance,i_refer_number,refer_type,o_refer_dep,staff,command_doctor
-        ,send_person,pt_priority,finance_lock,oldcode,sign_doctor,anonymous_visit,anonymous_vn,pt_capability_type_id,at_hospital)
-        VALUES ("'.$hos_guid.'","'.$visitnumber.'","'.$hn.'",NULL,"'.$vstdate.'","'.$vsttime.'",NULL,"","","'.$serialovstq.'","02","00","'.$pttype.'","'.$pttypeno.'",NULL,NULL,NULL,NULL,"'.$spclty.'",NULL,"'.$hcode.'",NULL,NULL,"'.$depcode.'",NULL,NULL,NULL,0,NULL,2,NULL,"O","",NULL,"Y",NULL,NULL,"N",NULL,NULL,NULL,"'.$staff.'",NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
-        ');
-
-        DB::connection('mysql_hos')->insert('
-        INSERT INTO ptdepart (vn,depcode,hn,intime,outdepcode,outtime,status,staff,outdate,hos_guid,hos_guid_ext)
-        VALUES ("'.$visitnumber.'","'.$depcode.'","'.$hn.'","'.$vsttime.'","'.$depcode.'","'.$vsttime.'",NULL,"'.$staff.'","'.$vstdate.'",NULL,NULL)
-        ');
-        DB::connection('mysql_hos')->insert('
-        INSERT INTO visit_pttype (vn,pttype,staff,rcpt_amount,debt_amount,discount_amount,begin_date,expire_date
-        ,hospmain,hospsub,pttypeno,pttype_number,pttype_order,discount_percent,company_id,contract_id,max_debt_amount
-        ,paid_amount,Claim_Code,hos_guid,limit_hour,check_limit_hour,finance_clear_ok,hos_guid_ext
-        ,confirm_and_locked_datetime,confirm_and_locked,confirm_and_locked_staff,nhso_govcode,nhso_govname,nhso_docno
-        ,nhso_ownright_pid,nhso_ownright_name,update_datetime,emp_privilege,emp_id,pttype_service_charge,pttype_note
-        ,auth_code,rcpno_list)
-        VALUES ("'.$visitnumber.'","'.$pttype.'",NULL,NULL,NULL,NULL,"'.$pttypebegin.'","'.$pttypeexpire.'","","","'.$pttypeno.'",1,NULL,NULL
-        ,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
-        ,NULL,NULL,NULL)
-        ');
-        DB::connection('mysql_hos')->insert('
-        INSERT INTO ovst_finance (vn,finance_status,department_type,check_pttype,hos_guid,ed_amount,ned_amount
-        ,other_amount,paidst_01_amount,paidst_02_amount,paidst_03_amount,paidst_01_03_wait_amount,paidst_04_amount)
-        VALUES ("'.$visitnumber.'",1,"OPD","'.$pttype.'",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
-        ');
-
-        DB::connection('mysql_hos')->update('UPDATE serial set serial_no = serial_no+1 where name="opd_regist_sendlist_id" ');
-
-        DB::connection('mysql_hos')->insert('
-        INSERT INTO opd_regist_sendlist (opd_regist_sendlist_id,vn,staff,send_to_depcode,send_datetime,send_from_depcode
-        ,send_to_spclty,hos_guid)
-        VALUES ((SELECT serial_no FROM serial WHERE name="opd_regist_sendlist_id"),"'.$visitnumber.'","'.$staff.'","'.$depcode.'",NOW(),"'.$depcode.'","'.$spclty.'",NULL)
-        ');
-
-        DB::connection('mysql_hos')->insert('
-        INSERT INTO opdscreen (hos_guid,vn,hn,vstdate,vsttime,begintime,outtime,endtime,bpd,bps,bw,cc,hr,pe,pulse
-        ,temperature,note,rr,cc_begin_date,cc_cause_of_visit,cc_sign,cc_duration,cc_position,cc_note,his_begin_date
-        ,his_frequency,his_severity,his_cause,his_expand,his_cause_increase,his_cause_decrease,his_related_sign,height
-        ,screen_dep,waiting,fbs,help1,help2,help3,help4,help1_time,help1_bps,help1_bpd,help2_time,help2_temp,help3_icode
-        ,help3_time,help3_qty,help4_note,advice1,advice2,advice3,advice4,advice5,advice6,advice7,cradle,pe_ga,pe_heent
-        ,pe_heart,pe_lung,pe_ab,pe_ext,pe_neuro,pe_ga_text,pe_heent_text,pe_heart_text,pe_lung_text,pe_ab_text
-        ,pe_neuro_text,pe_ext_text,bmi,tg,hdl,glucurine,blank1,bun,creatinine,ua,hba1c,riskdm,skin_color,found_amphetamine
-        ,pregnancy,advice7_note,checkup,er_note,found_allergy,hpi,pmh,fh,sh,ros,tc,ldl,ast,alt,symptom,walk_id,peak_flow
-        ,cholesterol,waist,advice8,breast_feeding,cradle_lie,pain_score,pefr,opdscreen_patient_type_id
-        ,creatinine_kidney_percent,sodium,chloride,potassium,tco2,smoking_type_id,drinking_type_id
-        ,pulse_regulation_type_id,spo2,urine_albumin,urine_creatinine,pefr_percent,macro_albumin,micro_albumin,egfr
-        ,hb,upcr,bicarb,phosphate,pth,pe_gy,pe_gy_text,pe_gu,pe_gu_text,pe_gi,pe_gi_text,bsa,pe_head,pe_head_text
-        ,pe_skin,pe_skin_text,g6pd,pe_rtf,o2sat,pe_pv,pe_pv_text,pe_pr,pe_pr_text,pe_gen,pe_gen_text,pre_pain_score
-        ,post_pain_score,head_cricumference,fev1_percent,pe_rtf_blob,bp_stable,pe_chest,pe_chest_text,lmp_date
-        ,opdscreen_bp_loc_type_id,menstrual_cycle_type_id,adherence_percent,fev1_fevc,vaccine_screen_type_id
-        ,development_screen_type_id,ambu,update_datetime)
-        VALUES ("'.$hos_guid2.'","'.$visitnumber.'","'.$hn.'","'.$vstdate.'","'.$vsttime.'",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
-        ,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
-        ,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
-        ,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
-        ,NULL,NULL,NULL,NULL,NULL,NULL,NULL,"'.$cc.'",1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
-        ,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
-        ,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
-        ,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
-        ');
-
-        DB::connection('mysql_hos')->insert('
-        INSERT INTO vn_stat (vn,hn,pdx,gr504,lastvisit,accident_code,dx_doctor,dx0,dx1,dx2
-				,dx3,dx4,dx5,sex,age_y,age_m,age_d,aid,moopart,count_in_month
-				,count_in_year,pttype,income,paid_money,remain_money,uc_money,item_money
-				,dba,spclty,vstdate,op0,op1,op2,op3,op4,op5
-				,rcp_no,print_count,print_done,pttype_in_region,pttype_in_chwpart,pcode,hcode
-				,inc01,inc02,inc03,inc04,inc05,inc06,inc07,inc08,inc09,inc10,inc11,inc12,inc13,inc14,inc15,inc16
-				,hospmain,hospsub,pttypeno,pttype_expire,cid,main_pdx
-				,inc17,inc_drug,inc_nondrug,pt_subtype,rcpno_list,ym,node_id
-				,ill_visit,count_in_day,pttype_begin,lastvisit_hour,rcpt_money,discount_money,old_diagnosis,debt_id_list,vn_guid,lastvisit_vn
-				,hos_guid,rx_license_no,lab_paid_ok,xray_paid_ok)
-
-        VALUES ("'.$visitnumber.'","'.$hn.'","",NULL,NULL,NULL,"","","","","","",""
-				,"'.$sex.'","'.$age_y.'","'.$age_m.'","'.$age_d.'","'.$aid.'","'.$moopart.'",""
-				,"","'.$pttype.'",0,0,0,0,0
-				,NULL,"'.$spclty.'","'.$vstdate.'","","","","","",""
-				,NULL,NULL,NULL,"Y","N","'.$pcode.'","'.$hcode.'"
-				,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-				,"'.$hospmain.'","'.$hospsub.'","'.$pttypeno.'","'.$pttypeexpire.'","'.$cid.'",""
-				,0,0,0,0,"",DATE_FORMAT(NOW(),"%Y-%m"),NULL
-				,"Y",0,"'.$pttypebegin.'",NULL,0,0,"N","",NULL,""
-				,NULL,NULL,NULL,NULL)
-        ');
-
-        DB::connection('mysql_hos')->insert('
-        INSERT INTO inc_opd_stat (vn,hn,vstdate,pttype,pcode,inc01,inc02,inc03,inc04,inc05,inc06,inc07,inc08,inc09
-        ,inc10,inc11,inc12,inc13,inc14,inc15,inc16,inc17,income,inc_drug,inc_nondrug,uinc01,uinc02,uinc03,uinc04
-        ,uinc05,uinc06,uinc07,uinc08,uinc09,uinc10,uinc11,uinc12,uinc13,uinc14,uinc15,uinc16,uinc17,uincome,uinc_drug
-        ,uinc_nondrug,hos_guid)
-        VALUES ("'.$visitnumber.'","'.$hn.'","'.$vstdate.'","'.$pttype.'",NULL,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-        ,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,NULL)
-        ');
-
-        // DB::connection('mysql_hos')->insert('');
 
         return redirect()->route('statusq')->with('oapp-statusq',$oappid);
 
