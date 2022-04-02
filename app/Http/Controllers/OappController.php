@@ -323,8 +323,7 @@ class OappController extends Controller
 
             // DB::connection('mysql_hos')->insert('');
         } else {
-            // $oappid = "ขออภัย... คุณยังไม่ได้อยู่ที่โรงพยาบาล กรุณายืนยันเข้ารับบริการเมื่อมาถึงโรงพยาบาลแล้วเท่านั้น";
-            $oappid = $islocation." = ".$gps_latitude.",".$gps_longitude." (".$gps_stamp.")";
+            $oappid = "ขออภัย... คุณยังไม่ได้อยู่ที่โรงพยาบาล กรุณายืนยันเข้ารับบริการเมื่อมาถึงโรงพยาบาลแล้วเท่านั้น";
         }
 
         return redirect()->route('statusq')->with('oapp-statusq',$oappid);
