@@ -196,7 +196,7 @@ class OappController extends Controller
             $hos_guid = $data->hos_guid;
         }
 
-        DB::connection('mysql_hos')->insert('INSERT INTO vn_insert (vn,clinic_list,hos_guid) VALUES ("'.$visitnumber.'",NULL,NULL)) ');
+        DB::connection('mysql_hos')->insert('INSERT INTO vn_insert (vn,clinic_list,hos_guid) VALUES ("'.$visitnumber.'",NULL,NULL) ');
         DB::connection('mysql_hos')->update('UPDATE serial set serial_no = serial_no+1 where name = "'.$visitlocktest.'" ');
         DB::connection('mysql_hos')->update('UPDATE serial set serial_no = serial_no+1 where name = "'.$serialovstq.'" ');
         DB::connection('mysql_hos')->insert('
