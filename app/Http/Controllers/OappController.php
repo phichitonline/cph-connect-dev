@@ -150,7 +150,7 @@ class OappController extends Controller
             $depcode = $data->depcode;
         }
         $pttypedata = DB::connection('mysql_hos')->select('
-        SELECT p.pttype,ptt.pttypeno,ptt.begindate,ptt.expiredate,hospmain,ptt1.pcode,p.addressid,p.moopart,p.cid,p.birthday,p.sex
+        SELECT p.pttype,ptt.pttypeno,ptt.begindate,ptt.expiredate,ptt.hospmain,ptt.hospsub,ptt1.pcode,p.addressid,p.moopart,p.cid,p.birthday,p.sex
         ,timestampdiff(year,p.birthday,curdate()) AS cnt_year
         ,timestampdiff(month,p.birthday,curdate())-(timestampdiff(year,p.birthday,curdate())*12) AS cnt_month
         ,timestampdiff(day,date_add(p.birthday,interval (timestampdiff(month,p.birthday,curdate())) month),curdate()) AS cnt_day
@@ -165,6 +165,7 @@ class OappController extends Controller
             $pttypebegin = $data->begindate;
             $pttypeexpire = $data->expiredate;
             $hospmain = $data->hospmain;
+            $hospsub = $data->hospsub;
             $pcode = $data->pcode;
             $aid = $data->addressid;
             $moopart = $data->moopart;
@@ -235,7 +236,7 @@ class OappController extends Controller
         DB::connection('mysql_hos')->insert('
         INSERT INTO ovst_finance (vn,finance_status,department_type,check_pttype,hos_guid,ed_amount,ned_amount
         ,other_amount,paidst_01_amount,paidst_02_amount,paidst_03_amount,paidst_01_03_wait_amount,paidst_04_amount)
-        VALUES ("'.$visitnumber.'",1,"OPD",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+        VALUES ("'.$visitnumber.'",1,"OPD","'.$pttype.'",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
         ');
 
         DB::connection('mysql_hos')->update('UPDATE serial set serial_no = serial_no+1 where name="opd_regist_sendlist_id" ');
@@ -274,18 +275,27 @@ class OappController extends Controller
         ');
 
         DB::connection('mysql_hos')->insert('
-        INSERT INTO vn_stat (vn,hn,pdx,gr504,lastvisit,accident_code,dx_doctor,dx0,dx1,dx2,dx3,dx4,dx5,sex,age_y
-        ,age_m,age_d,aid,moopart,count_in_month,count_in_year,pttype,income,paid_money,remain_money,uc_money
-        ,item_money,dba,spclty,vstdate,op0,op1,op2,op3,op4,op5,rcp_no,print_count,print_done,pttype_in_region
-        ,pttype_in_chwpart,pcode,hcode,inc01,inc02,inc03,inc04,inc05,inc06,inc07,inc08,inc09,inc10,inc11,inc12
-        ,inc13,inc14,inc15,inc16,hospmain,hospsub,pttypeno,pttype_expire,cid,main_pdx,inc17,inc_drug,inc_nondrug
-        ,pt_subtype,rcpno_list,ym,node_id,ill_visit,count_in_day,pttype_begin,lastvisit_hour,rcpt_money
-        ,discount_money,old_diagnosis,debt_id_list,vn_guid,lastvisit_vn,hos_guid,rx_license_no,lab_paid_ok
-        ,xray_paid_ok)
-        VALUES ("'.$visitnumber.'","'.$hn.'","",NULL,NULL,NULL,"","'.$sex.'","'.$age_y.'","'.$age_m.'","'.$age_d.'","'.$aid.'","'.$moopart.'","","'.$pttype.'"
-        ,0,0,0,0,0,NULL,"'.$spclty.'","'.$vstdate.'","",NULL,NULL,NULL,"Y","N","'.$pcode.'","'.$hcode.'",0,0,0,0,0,0,0,0,0,0
-        ,0,0,0,0,0,0,"","'.$pttypeno.'","'.$pttypeexpire.'","'.$cid.'","",0,0,0,0,"\'\'",DATE_FORMAT(NOW(),"%Y-%m"),NULL,"Y",0
-        ,"'.$pttypebegin.'",NULL,0,0,"Y","",NULL,NULL,NULL,NULL,NULL,NULL)
+        INSERT INTO vn_stat (vn,hn,pdx,gr504,lastvisit,accident_code,dx_doctor,dx0,dx1,dx2
+				,dx3,dx4,dx5,sex,age_y,age_m,age_d,aid,moopart,count_in_month
+				,count_in_year,pttype,income,paid_money,remain_money,uc_money,item_money
+				,dba,spclty,vstdate,op0,op1,op2,op3,op4,op5
+				,rcp_no,print_count,print_done,pttype_in_region,pttype_in_chwpart,pcode,hcode
+				,inc01,inc02,inc03,inc04,inc05,inc06,inc07,inc08,inc09,inc10,inc11,inc12,inc13,inc14,inc15,inc16
+				,hospmain,hospsub,pttypeno,pttype_expire,cid,main_pdx
+				,inc17,inc_drug,inc_nondrug,pt_subtype,rcpno_list,ym,node_id
+				,ill_visit,count_in_day,pttype_begin,lastvisit_hour,rcpt_money,discount_money,old_diagnosis,debt_id_list,vn_guid,lastvisit_vn
+				,hos_guid,rx_license_no,lab_paid_ok,xray_paid_ok)
+
+        VALUES ("'.$visitnumber.'","'.$hn.'","",NULL,NULL,NULL,"","","","","","",""
+				,"'.$sex.'","'.$age_y.'","'.$age_m.'","'.$age_d.'","'.$aid.'","'.$moopart.'",""
+				,"","'.$pttype.'",0,0,0,0,0
+				,NULL,"'.$spclty.'","'.$vstdate.'","","","","","",""
+				,NULL,NULL,NULL,"Y","N","'.$pcode.'","'.$hcode.'"
+				,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+				,"'.$hospmain.'","'.$hospsub.'","'.$pttypeno.'","'.$pttypeexpire.'","'.$cid.'",""
+				,0,0,0,0,"",DATE_FORMAT(NOW(),"%Y-%m"),NULL
+				,"Y",0,"'.$pttypebegin.'",NULL,0,0,"N","",NULL,""
+				,NULL,NULL,NULL,NULL)
         ');
 
         DB::connection('mysql_hos')->insert('
