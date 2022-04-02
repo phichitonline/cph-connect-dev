@@ -183,7 +183,6 @@ class OappController extends Controller
         ,DATE_FORMAT(NOW(),'%Y-%m-%d') AS vstdate
         ,DATE_FORMAT(NOW(),'%H:%i:%s') AS vsttime
         ,CONCAT('visit-lock-test-',DATE_FORMAT(NOW(),'%d%m'),DATE_FORMAT(NOW(),'%Y')+543) AS visitlocktest
-        ,CONCAT('ovst-q-',SUBSTR(DATE_FORMAT(NOW(),'%Y')+543,3,2),DATE_FORMAT(NOW(),'%m%d')) AS serialovstq
         ,upper(concat('{',uuid(),'}')) AS hos_guid
 
         ");
@@ -192,8 +191,13 @@ class OappController extends Controller
             $vstdate = $data->vstdate;
             $vsttime = $data->vsttime;
             $visitlocktest = $data->visitlocktest;
-            $serialovstq = $data->serialovstq;
             $hos_guid = $data->hos_guid;
+        }
+        $serialvar = DB::connection('mysql_hos')->select('
+        SELECT serial_no FROM serial WHERE name = CONCAT("ovst-q-",SUBSTR(DATE_FORMAT(NOW(),"%Y")+543,3,2),DATE_FORMAT(NOW(),"%m%d"))
+        ');
+        foreach($serialvar as $data){
+            $serialovstq = $data->serial_no;
         }
 
         DB::connection('mysql_hos')->insert('INSERT INTO vn_insert (vn,clinic_list,hos_guid) VALUES ("'.$visitnumber.'",NULL,NULL) ');
@@ -204,11 +208,7 @@ class OappController extends Controller
         ,spclty,rcpt_disease,hcode,cur_dep,cur_dep_busy,last_dep,cur_dep_time,rx_queue,diag_text,pt_subtype,main_dep,main_dep_queue,finance_summary_date
         ,visit_type,node_id,contract_id,waiting,rfri_icd10,o_refer_number,has_insurance,i_refer_number,refer_type,o_refer_dep,staff,command_doctor
         ,send_person,pt_priority,finance_lock,oldcode,sign_doctor,anonymous_visit,anonymous_vn,pt_capability_type_id,at_hospital)
-        VALUES "'.$hos_guid.'","'.$visitnumber.'","'.$hn.'",NULL,"'.$vstdate.'","'.$vsttime.'",NULL,"",""
-        ,"'.$serialovstq.'"
-        ,"02","00","'.$pttype.'","'.$pttypeno.'"
-        ,NULL,NULL,NULL,NULL,"'.$spclty.'",NULL,"'.$hcode.'",NULL,NULL,"'.$depcode.'",NULL,NULL,NULL,0,NULL,2,NULL,"O","",NULL,"Y",NULL,NULL,"N",NULL
-        ,NULL,NULL,"'.$staff.'",NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+        VALUES "'.$hos_guid.'","'.$visitnumber.'","'.$hn.'",NULL,"'.$vstdate.'","'.$vsttime.'",NULL,"","","'.$serialovstq.'","02","00","'.$pttype.'","'.$pttypeno.'",NULL,NULL,NULL,NULL,"'.$spclty.'",NULL,"'.$hcode.'",NULL,NULL,"'.$depcode.'",NULL,NULL,NULL,0,NULL,2,NULL,"O","",NULL,"Y",NULL,NULL,"N",NULL,NULL,NULL,"'.$staff.'",NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
         ');
 
         DB::connection('mysql_hos')->insert('
