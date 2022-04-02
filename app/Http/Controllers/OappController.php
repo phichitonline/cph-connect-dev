@@ -161,7 +161,7 @@ class OappController extends Controller
         $spclty = '01';
         $hcode = '11456';
 
-        $visitnumber = DB::connection('mysql_hos')->select("
+        $visitnumber = DB::connection('mysql_hos')->select("SELECT 
         CONCAT(SUBSTR(DATE_FORMAT(NOW(),'%Y')+543,3,2),DATE_FORMAT(NOW(),'%m%d'),DATE_FORMAT(NOW(),'%H%i%s')) AS visitnumber
         ");
         foreach($visitnumber as $data){
