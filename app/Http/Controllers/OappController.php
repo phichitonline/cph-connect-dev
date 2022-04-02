@@ -139,10 +139,10 @@ class OappController extends Controller
     {
         session_start();
         $hn = $_SESSION["hn"];
-        $lineid = $_SESSION["lineid"];
+        // $lineid = $_SESSION["lineid"];
         $oappid = $_GET['oappid'];
 
-/*
+
         $depcode = '307';
         $staff = 'ghost';
         $cc = '';
@@ -240,7 +240,7 @@ class OappController extends Controller
         ,pt_subtype,rcpno_list,ym,node_id,ill_visit,count_in_day,pttype_begin,lastvisit_hour,rcpt_money
         ,discount_money,old_diagnosis,debt_id_list,vn_guid,lastvisit_vn,hos_guid,rx_license_no,lab_paid_ok
         ,xray_paid_ok)
-        VALUES (@visitnumber,".$hn.",'',NULL,NULL,NULL,'','','','','','','',".sex.",".$age_y.",".$age_m.",".$age_d.",".$aid.",".$moopart.",'','',".$pttype."
+        VALUES (@visitnumber,".$hn.",'',NULL,NULL,NULL,'','','','','','','',".$sex.",".$age_y.",".$age_m.",".$age_d.",".$aid.",".$moopart.",'','',".$pttype."
         ,0,0,0,0,0,NULL,".$spclty.",@vstdate,'','','','','','',NULL,NULL,NULL,'Y','N',".$pcode.",".$hcode.",0,0,0,0,0,0,0,0,0,0
         ,0,0,0,0,0,0,'','',".$pttypeno.",".$pttypeexpire.",".$cid.",'',0,0,0,0,'\"\"',DATE_FORMAT(NOW(),'%Y-%m'),NULL,'Y',0
         ,".$pttypebegin.",NULL,0,0,'Y','',NULL,NULL,NULL,NULL,NULL,NULL);
@@ -253,7 +253,7 @@ class OappController extends Controller
         ,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,NULL);
 
         ");
-*/
+
         // DB::connection('mysql_hos')->insert('INSERT INTO ovst (hn,vn) VALUES ('.$hn.'","'.$vn.') ');
 
         return redirect()->route('statusq')->with('oapp-statusq',$oappid);
