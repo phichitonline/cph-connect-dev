@@ -143,7 +143,7 @@
 						@if (!isset($vn))
 
                     <div class="clear">
-                        <form id="myform" action="{{route('checkin')}}" method="GET">
+                        <form name="checkinform" id="checkinform" action="{{route('checkin')}}" method="GET">
                             {{-- @csrf --}}
                             <input type="text" class="text-center" name="gps_stamp1" id="locationPoint1" value="{{ old('gps_stamp') }}" placeholder="พิกัด GPS" disabled>
                             <input type="hidden" name="gps_stamp" id="locationPoint" value="{{ old('gps_stamp') }}" required>
@@ -151,13 +151,16 @@
                             <a href="#" class="btn btn-m btn-full rounded-s shadow-l text-center text-uppercase font-25 bg-blue2-dark color-white" id="btnScanCode" onclick="getLocation()">
                                 <i class="fa font-14 fa-check"></i> อ่านพิกัด GPS
                             </a>
-                            <input type="submit" value=" ยืนยัน ">
+                            {{-- <input type="submit" value=" ยืนยัน "> --}}
+
+                            <a href="#" id="btnScanCode" onclick="getLocation()" class="btn btn-m btn-full rounded-s shadow-l text-center text-uppercase font-25 bg-red2-dark color-white">
+                                <i class="fa font-14 fa-check"></i> CHECKIN ยืนยันเข้ารับบริการ
+                            </a>
+
                         </form>
                     </div>
 
-                        <a href="{{ url('/') }}/checkin/?oappid={{ $oappid }}" class="btn btn-m btn-full rounded-s shadow-l text-center text-uppercase font-25 bg-red2-dark color-white">
-                            <i class="fa font-14 fa-check"></i> CHECKIN ยืนยันเข้ารับบริการ
-                        </a>
+
 
                         <h1 class="font-20 color-highlight text-center mt-4">คำแนะนำ</h1>
                         <p class="footer-text mt-0">
@@ -190,12 +193,19 @@
         var x = document.getElementById("locationPoint");
         var x1 = document.getElementById("locationPoint1");
 
-        function getLocation() {
+        function submitform() {
+            setTimeout(function () {
+                document.forms["checkinform"].submit();
+            }, 100);
+        }
+
+        async function getLocation() {
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
           } else {
             x.innerHTML = "Geolocation is not supported by this browser.";
           }
+          await submitform();
         }
 
         function showPosition(position) {
