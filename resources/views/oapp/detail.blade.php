@@ -142,6 +142,13 @@
 						@if($oapp_status_color == "green")
 						@if (!isset($vn))
 
+                        <span class="glyphicon glyphicon-map-marker" aria-hidden="true" id="btnScanCode" onclick="getLocation()"></span>
+                        <input type="hidden" name="scanCode" id="scanCode" value="{{ old('scanCode') }}" required>
+                        <small class="text-danger">{{ $errors->first('gps_stamp') }}</small>
+                        <input type="text" class="text-center" name="gps_stamp1" id="locationPoint1" value="{{ old('gps_stamp') }}" placeholder="อ่านพิกัด GPS" disabled>
+                        <input type="hidden" name="gps_stamp" id="locationPoint" value="{{ old('gps_stamp') }}" required>
+
+
                         <a href="{{ url('/') }}/checkin/?oappid={{ $oappid }}" class="btn btn-m btn-full rounded-s shadow-l text-center text-uppercase font-25 bg-red2-dark color-white">
                             <i class="fa font-14 fa-check"></i> CHECKIN ยืนยันเข้ารับบริการ
                         </a>
@@ -173,5 +180,23 @@
 
 @section('footer_script')
 
+    <script>
+        var x = document.getElementById("locationPoint");
+        var x1 = document.getElementById("locationPoint1");
+
+        function getLocation() {
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+          } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+          }
+        }
+
+        function showPosition(position) {
+            x.value = position.coords.latitude + "," + position.coords.longitude;
+            x1.value = position.coords.latitude + "," + position.coords.longitude;
+        }
+
+    </script>
 
 @endsection
