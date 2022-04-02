@@ -21,12 +21,12 @@
     @endforeach
 
     @if (session('oapp-statusq'))
-    @if ($oappid == "ขออภัย... คุณยังไม่ได้อยู่ที่โรงพยาบาล กรุณายืนยันเข้ารับบริการเมื่อมาถึงโรงพยาบาลแล้วเท่านั้น")
+    {{-- @if ($oappid == "ขออภัย... คุณยังไม่ได้อยู่ที่โรงพยาบาล กรุณายืนยันเข้ารับบริการเมื่อมาถึงโรงพยาบาลแล้วเท่านั้น") --}}
         <div class="footer card card-style">
             <a href="#" class="footer-title"><span class="color-highlight">{{ session('oapp-statusq') }}</span></a>
             <div class="clear"><br></div>
         </div><br>
-    @endif
+    {{-- @endif --}}
     @endif
 				<div class="card card-overflow card-style">
 					<div class="content">
