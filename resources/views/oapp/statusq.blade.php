@@ -34,7 +34,7 @@
 							<div class="col-12">
 								<span class="font-11">เข้ารับบริการ</span>
 								<p class="mt-n2 mb-0">
-									<strong class="color-theme">{{ DateThaiFull($vstdate) }} เวลา {{ TimeThai($time) }} น.</strong>
+									<strong class="color-theme">{{ DateThaiFull($vstdate) }} เวลา {{ TimeThai($vsttime) }} น.</strong>
 								</p>
 							</div>
 

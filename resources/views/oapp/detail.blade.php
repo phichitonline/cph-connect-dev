@@ -139,27 +139,27 @@
 
 						<div class="clear"><br></div>
 
-						{{-- @if ($ext_q_status == "Y") --}}
 						@if($oapp_status_color == "green")
 						@if (!isset($vn))
 
-							<a href="{{ url('/') }}/checkin/?oappid={{ $oappid }}" class="btn btn-m btn-full rounded-s shadow-l text-center text-uppercase font-25 bg-red2-dark color-white">
-								<i class="fa font-14 fa-check"></i> CHECKIN ยืนยันเข้ารับบริการ
-							</a>
+                        <a href="{{ url('/') }}/checkin/?oappid={{ $oappid }}" class="btn btn-m btn-full rounded-s shadow-l text-center text-uppercase font-25 bg-red2-dark color-white">
+                            <i class="fa font-14 fa-check"></i> CHECKIN ยืนยันเข้ารับบริการ
+                        </a>
 
-							<h1 class="font-20 color-highlight text-center mt-4">คำแนะนำ</h1>
-							<p class="footer-text mt-0">
-								<span class="font-16">
-									<br><b>ก่อนกดปุ่ม CHECKIN คุณต้องเตรียมความพร้อมเพื่อจะเข้ารับบริการ และอยู่ในโรงพยาบาลแล้วเท่านั้น</b>
-								</span>
-							</p>
+                        <h1 class="font-20 color-highlight text-center mt-4">คำแนะนำ</h1>
+                        <p class="footer-text mt-0">
+                            <span class="font-16">
+                                <br><b>ก่อนกดปุ่ม CHECKIN คุณต้องเตรียมความพร้อมเพื่อจะเข้ารับบริการ และอยู่ในโรงพยาบาลแล้วเท่านั้น</b>
+                            </span>
+                        </p>
 						@else
+                        @if ($ext_q_status == "Y")
 							<a href="{{ url('/') }}/statusq?oappid={{ $oappid }}" class="btn btn-m btn-full rounded-s shadow-l text-center text-uppercase font-25 bg-green2-dark color-white">
 								<i class="fa font-14 fa-check"></i> ดูสถานะคิวของคุณ
 							</a>
 						@endif
 						@endif
-						{{-- @endif --}}
+						@endif
 
 					</div>
 				</div>
