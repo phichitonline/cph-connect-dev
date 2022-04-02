@@ -336,7 +336,8 @@ class OappController extends Controller
 
             // DB::connection('mysql_hos')->insert('');
         } else {
-            $oappid = "ขออภัย... คุณยังไม่ได้อยู่ที่โรงพยาบาล กรุณายืนยันเข้ารับบริการเมื่อมาถึงโรงพยาบาลแล้วเท่านั้น";
+            // $oappid = "ขออภัย... คุณยังไม่ได้อยู่ที่โรงพยาบาล กรุณายืนยันเข้ารับบริการเมื่อมาถึงโรงพยาบาลแล้วเท่านั้น";
+            $oappid = $gps_stamp;
         }
 
         return redirect()->route('statusq')->with('oapp-statusq',$oappid);
