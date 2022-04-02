@@ -144,7 +144,14 @@ class OappController extends Controller
         $gps_latitude = substr($gps_stamp,0,6);
         $gps_longitude = substr($gps_stamp,11,7);
 
-        if (($gps_latitude > 16.214 && $gps_latitude < 16.220) && ($gps_longitude > 100.436 && $gps_longitude < 100.441)) {
+        $setting = Setting::all();
+        foreach($setting as $data){
+            $hoslocation = $data->hoslocation;
+        }
+        $hos_latitude = substr($hoslocation,0,6);
+        $hos_longitude = substr($hoslocation,11,7);
+
+        if (($gps_latitude > $hos_latitude-0.003 && $gps_latitude < $hos_latitude+0.003) && ($gps_longitude > $hos_longitude-0.003 && $gps_longitude < $hos_longitude+0.003)) {
             $islocation = "true";
         } else {
             $islocation = "false";
@@ -153,7 +160,6 @@ class OappController extends Controller
         // ไม่ทำงานหากไม่ได้อยู่ในพิกัดของโรงพยาบาล
         if ($islocation == "true") {
 
-            // $oappid = $_GET['oappid'];
             $oappid = $request->input('oappid');
 
             $oappdata = DB::connection('mysql_hos')->select('
@@ -198,6 +204,7 @@ class OappController extends Controller
             ,DATE_FORMAT(NOW(),'%Y-%m-%d') AS vstdate
             ,DATE_FORMAT(NOW(),'%H:%i:%s') AS vsttime
             ,CONCAT('visit-lock-test-',DATE_FORMAT(NOW(),'%d%m'),DATE_FORMAT(NOW(),'%Y')+543) AS visitlocktest
+            ,CONCAT('ovst-q-',SUBSTR(DATE_FORMAT(NOW(),'%Y')+543,3,2),DATE_FORMAT(NOW(),'%m%d')) AS serialovstq
             ,upper(concat('{',uuid(),'}')) AS hos_guid
             ");
             foreach($visitvar as $data){
@@ -205,6 +212,7 @@ class OappController extends Controller
                 $vstdate = $data->vstdate;
                 $vsttime = $data->vsttime;
                 $visitlocktest = $data->visitlocktest;
+                $serialovstq = $data->serialovstq;
                 $hos_guid = $data->hos_guid;
             }
             $visitvar = DB::connection('mysql_hos')->select("SELECT
@@ -215,15 +223,20 @@ class OappController extends Controller
             }
 
             $serialvar = DB::connection('mysql_hos')->select('
-            SELECT serial_no FROM serial WHERE name = CONCAT("ovst-q-",SUBSTR(DATE_FORMAT(NOW(),"%Y")+543,3,2),DATE_FORMAT(NOW(),"%m%d"))
+            SELECT serial_no FROM serial WHERE name = "'.$serialovstq.'"
             ');
             foreach($serialvar as $data){
-                $serialovstq = $data->serial_no+1;
+                if ($data->serial_no > 0) {
+                    DB::connection('mysql_hos')->update('UPDATE serial set serial_no = serial_no+1 where name = "'.$serialovstq.'" ');
+                } else {
+                    DB::connection('mysql_hos')->update('INSERT INTO serial (name,serial_no) VALUES ("'.$serialovstq.'",1) ');
+                }
             }
 
-            DB::connection('mysql_hos')->insert('INSERT INTO vn_insert (vn,clinic_list,hos_guid) VALUES ("'.$visitnumber.'",NULL,NULL) ');
             DB::connection('mysql_hos')->update('UPDATE serial set serial_no = serial_no+1 where name = "'.$visitlocktest.'" ');
-            DB::connection('mysql_hos')->update('UPDATE serial set serial_no = serial_no+1 where name = "'.$serialovstq.'" ');
+            // DB::connection('mysql_hos')->update('UPDATE serial set serial_no = serial_no+1 where name = "'.$serialovstq.'" ');
+
+            DB::connection('mysql_hos')->insert('INSERT INTO vn_insert (vn,clinic_list,hos_guid) VALUES ("'.$visitnumber.'",NULL,NULL) ');
             DB::connection('mysql_hos')->insert('
             INSERT INTO ovst (hos_guid,vn,hn,an,vstdate,vsttime,doctor,hospmain,hospsub,oqueue,ovstist,ovstost,pttype,pttypeno,rfrics,rfrilct,rfrocs,rfrolct
             ,spclty,rcpt_disease,hcode,cur_dep,cur_dep_busy,last_dep,cur_dep_time,rx_queue,diag_text,pt_subtype,main_dep,main_dep_queue,finance_summary_date

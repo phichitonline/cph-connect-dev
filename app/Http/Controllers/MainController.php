@@ -205,8 +205,10 @@ class MainController extends Controller
             $waitq = "";
             $pri_color = "";
             $q_status = "";
-            $time = $data->time;
-            $time_complete = $data->time_complete;
+            // $time = $data->time;
+            // $time_complete = $data->time_complete;
+            $time = "";
+            $time_complete = "";
             $room_code = 0;
             $oapp_wait_confirm = "";
             // }
