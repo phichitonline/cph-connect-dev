@@ -145,7 +145,7 @@
                     <div class="clear">
                         <form name="checkinform" id="checkinform" action="{{route('checkin')}}" method="GET">
                             {{-- @csrf --}}
-                            <input type="text" class="text-center" name="gps_stamp1" id="locationPoint1" value="{{ old('gps_stamp') }}" placeholder="พิกัด GPS" disabled>
+                            {{-- <input type="text" class="text-center" name="gps_stamp1" id="locationPoint1" value="{{ old('gps_stamp') }}" placeholder="พิกัด GPS" disabled> --}}
                             <input type="hidden" name="gps_stamp" id="locationPoint" value="{{ old('gps_stamp') }}" required>
                             <input type="hidden" name="oappid" value="{{ $oappid }}">
                             {{-- <a href="#" class="btn btn-m btn-full rounded-s shadow-l text-center text-uppercase font-25 bg-blue2-dark color-white" id="btnScanCode" onclick="getLocation()">
