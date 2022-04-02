@@ -143,7 +143,7 @@
 						@if (!isset($vn))
 
                     <div class="clear">
-                        <form id="myform" action="{{route('timetour.store')}}" method="POST">
+                        <form id="myform" action="{{route('checkin')}}" method="POST">
                             @csrf
                             <input type="text" class="text-center" name="gps_stamp1" id="locationPoint1" value="{{ old('gps_stamp') }}" placeholder="พิกัด GPS" disabled>
                             <input type="hidden" name="gps_stamp" id="locationPoint" value="{{ old('gps_stamp') }}" required>
