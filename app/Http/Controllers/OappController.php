@@ -151,7 +151,7 @@ class OappController extends Controller
         $hos_latitude = substr($hoslocation,0,6);
         $hos_longitude = substr($hoslocation,11,7);
 
-        if (($gps_latitude > 16.215 && $gps_latitude < 16.220) && ($gps_longitude > 100.437 && $gps_longitude < 100.441)) {
+        if (($gps_latitude > 16.215 && $gps_latitude < 16.219) && ($gps_longitude > 100.437 && $gps_longitude < 100.441)) {
             $islocation = "true";
         } else {
             $islocation = "false";
@@ -336,8 +336,8 @@ class OappController extends Controller
 
             // DB::connection('mysql_hos')->insert('');
         } else {
-            // $oappid = "ขออภัย... คุณยังไม่ได้อยู่ที่โรงพยาบาล กรุณายืนยันเข้ารับบริการเมื่อมาถึงโรงพยาบาลแล้วเท่านั้น";
-            $oappid = $gps_stamp." : ".$hoslocation;
+            $oappid = "ขออภัย... คุณยังไม่ได้อยู่ที่โรงพยาบาล กรุณายืนยันเข้ารับบริการเมื่อมาถึงโรงพยาบาลแล้วเท่านั้น";
+            // $oappid = $gps_stamp." : ".$hoslocation;
         }
 
         return redirect()->route('statusq')->with('oapp-statusq',$oappid);
