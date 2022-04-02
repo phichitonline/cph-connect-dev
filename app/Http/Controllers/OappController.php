@@ -184,7 +184,6 @@ class OappController extends Controller
         ,DATE_FORMAT(NOW(),'%H:%i:%s') AS vsttime
         ,CONCAT('visit-lock-test-',DATE_FORMAT(NOW(),'%d%m'),DATE_FORMAT(NOW(),'%Y')+543) AS visitlocktest
         ,upper(concat('{',uuid(),'}')) AS hos_guid
-
         ");
         foreach($visitvar as $data){
             $visitnumber = $data->visitnumber;
@@ -193,11 +192,18 @@ class OappController extends Controller
             $visitlocktest = $data->visitlocktest;
             $hos_guid = $data->hos_guid;
         }
+        $visitvar = DB::connection('mysql_hos')->select("SELECT
+        upper(concat('{',uuid(),'}')) AS hos_guid2
+        ");
+        foreach($visitvar as $data){
+            $hos_guid2 = $data->hos_guid2;
+        }
+
         $serialvar = DB::connection('mysql_hos')->select('
         SELECT serial_no FROM serial WHERE name = CONCAT("ovst-q-",SUBSTR(DATE_FORMAT(NOW(),"%Y")+543,3,2),DATE_FORMAT(NOW(),"%m%d"))
         ');
         foreach($serialvar as $data){
-            $serialovstq = $data->serial_no;
+            $serialovstq = $data->serial_no+1;
         }
 
         DB::connection('mysql_hos')->insert('INSERT INTO vn_insert (vn,clinic_list,hos_guid) VALUES ("'.$visitnumber.'",NULL,NULL) ');
@@ -257,8 +263,7 @@ class OappController extends Controller
         ,post_pain_score,head_cricumference,fev1_percent,pe_rtf_blob,bp_stable,pe_chest,pe_chest_text,lmp_date
         ,opdscreen_bp_loc_type_id,menstrual_cycle_type_id,adherence_percent,fev1_fevc,vaccine_screen_type_id
         ,development_screen_type_id,ambu,update_datetime)
-        VALUES upper(concat("{",uuid(),"}")),"'.$visitnumber.'","'.$hn.'","'.$vstdate.'","'.$vsttime.'",NULL
-        ,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+        VALUES ("'.$hos_guid2.'","'.$visitnumber.'","'.$hn.'","'.$vstdate.'","'.$vsttime.'",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
         ,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
         ,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
         ,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
