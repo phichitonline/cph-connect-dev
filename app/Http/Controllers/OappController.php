@@ -135,18 +135,20 @@ class OappController extends Controller
 
     }
 
-    public function checkin()
+    public function checkin(Request $request)
     {
         session_start();
         $hn = $_SESSION["hn"];
         // $lineid = $_SESSION["lineid"];
+        $gps_stamp = $request->input('gps_stamp');
 
         $islocation = "false";
 
         // ไม่ทำงานหากไม่ได้อยู่ในพิกัดของโรงพยาบาล
         if ($islocation == "true") {
 
-            $oappid = $_GET['oappid'];
+            // $oappid = $_GET['oappid'];
+            $oappid = $request->input('oappid');
 
             $oappdata = DB::connection('mysql_hos')->select('
             SELECT * FROM oapp WHERE oapp_id = "'.$oappid.'"');
@@ -315,7 +317,8 @@ class OappController extends Controller
 
             // DB::connection('mysql_hos')->insert('');
         } else {
-            $oappid = "ขออภัย... คุณยังไม่ได้อยู่ที่โรงพยาบาล กรุณายืนยันเข้ารับบริการเมื่อมาถึงโรงพยาบาลแล้วเท่านั้น";
+            // $oappid = "ขออภัย... คุณยังไม่ได้อยู่ที่โรงพยาบาล กรุณายืนยันเข้ารับบริการเมื่อมาถึงโรงพยาบาลแล้วเท่านั้น";
+            $oappid = $gps_stamp;
         }
 
         return redirect()->route('statusq')->with('oapp-statusq',$oappid);
