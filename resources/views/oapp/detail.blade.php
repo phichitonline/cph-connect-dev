@@ -199,13 +199,13 @@
             }, 100);
         }
 
-        function getLocation() {
+        async function getLocation() {
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
           } else {
             x.innerHTML = "Geolocation is not supported by this browser.";
           }
-        //   await submitform();
+          await submitform();
         }
 
         function showPosition(position) {
