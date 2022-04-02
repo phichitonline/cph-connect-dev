@@ -143,13 +143,16 @@
 						@if (!isset($vn))
 
                     <div class="clear">
-                        <input type="hidden" name="scanCode" id="scanCode" value="{{ old('scanCode') }}" required>
-                        <small class="text-danger">{{ $errors->first('gps_stamp') }}</small>
-                        <input type="text" class="text-center" name="gps_stamp1" id="locationPoint1" value="{{ old('gps_stamp') }}" placeholder="อ่านพิกัด GPS" disabled>
-                        <input type="hidden" name="gps_stamp" id="locationPoint" value="{{ old('gps_stamp') }}" required>
-                        <a href="#" class="btn btn-m btn-full rounded-s shadow-l text-center text-uppercase font-25 bg-blue2-dark color-white" id="btnScanCode" onclick="getLocation()">
-                            <i class="fa font-14 fa-check"></i> อ่านพิกัด GPS
-                        </a>
+                        <form id="myform" action="{{route('timetour.store')}}" method="POST">
+                            @csrf
+                            <input type="text" class="text-center" name="gps_stamp1" id="locationPoint1" value="{{ old('gps_stamp') }}" placeholder="พิกัด GPS" disabled>
+                            <input type="hidden" name="gps_stamp" id="locationPoint" value="{{ old('gps_stamp') }}" required>
+                            <input type="hidden" name="oappid" value="{{ $oappid }}">
+                            <a href="#" class="btn btn-m btn-full rounded-s shadow-l text-center text-uppercase font-25 bg-blue2-dark color-white" id="btnScanCode" onclick="getLocation()">
+                                <i class="fa font-14 fa-check"></i> อ่านพิกัด GPS
+                            </a>
+                            <input type="submit" value=" ยืนยัน ">
+                        </form>
                     </div>
 
                         <a href="{{ url('/') }}/checkin/?oappid={{ $oappid }}" class="btn btn-m btn-full rounded-s shadow-l text-center text-uppercase font-25 bg-red2-dark color-white">
