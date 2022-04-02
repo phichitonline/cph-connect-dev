@@ -139,7 +139,7 @@
 
 						<div class="clear"><br></div>
 
-						@if ($ext_q_status == "Y")
+						{{-- @if ($ext_q_status == "Y") --}}
 						@if($oapp_status_color == "green")
 						@if (!isset($vn))
 
@@ -159,7 +159,7 @@
 							</a>
 						@endif
 						@endif
-						@endif
+						{{-- @endif --}}
 
 					</div>
 				</div>
