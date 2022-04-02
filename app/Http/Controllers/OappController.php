@@ -161,9 +161,15 @@ class OappController extends Controller
         $spclty = '01';
         $hcode = '11456';
 
-        DB::connection('mysql_hos')->update("
+        $visitnumber = DB::connection('mysql_hos')->select("
+        CONCAT(SUBSTR(DATE_FORMAT(NOW(),'%Y')+543,3,2),DATE_FORMAT(NOW(),'%m%d'),DATE_FORMAT(NOW(),'%H%i%s')) AS visitnumber
+        ");
+        foreach($visitnumber as $data){
+            $visitnumber = $data->visitnumber;
+        }
 
-        SET @visitnumber := CONCAT(SUBSTR(DATE_FORMAT(NOW(),'%Y')+543,3,2),DATE_FORMAT(NOW(),'%m%d'),DATE_FORMAT(NOW(),'%H%i%s'));
+/*
+        SET @visitnumber = CONCAT(SUBSTR(DATE_FORMAT(NOW(),'%Y')+543,3,2),DATE_FORMAT(NOW(),'%m%d'),DATE_FORMAT(NOW(),'%H%i%s'));
         SET @vstdate := DATE_FORMAT(NOW(),'%Y-%m-%d');
         SET @vsttime := DATE_FORMAT(NOW(),'%H:%i:%s');
         SET @visitlocktest := CONCAT('visit-lock-test-',DATE_FORMAT(NOW(),'%d%m'),DATE_FORMAT(NOW(),'%Y')+543);
@@ -253,10 +259,13 @@ class OappController extends Controller
         ,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,NULL);
 
         ");
-
+*/
         // DB::connection('mysql_hos')->insert('INSERT INTO ovst (hn,vn) VALUES ('.$hn.'","'.$vn.') ');
 
-        return redirect()->route('statusq')->with('oapp-statusq',$oappid);
+        return redirect()->route('statusq')->with(
+            'oapp-statusq',$oappid,
+            'visitnumber',$visitnumber
+        );
 
     }
 
