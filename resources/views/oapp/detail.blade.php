@@ -148,9 +148,9 @@
                             <input type="text" class="text-center" name="gps_stamp1" id="locationPoint1" value="{{ old('gps_stamp') }}" placeholder="พิกัด GPS" disabled>
                             <input type="hidden" name="gps_stamp" id="locationPoint" value="{{ old('gps_stamp') }}" required>
                             <input type="hidden" name="oappid" value="{{ $oappid }}">
-                            <a href="#" class="btn btn-m btn-full rounded-s shadow-l text-center text-uppercase font-25 bg-blue2-dark color-white" id="btnScanCode" onclick="getLocation()">
+                            {{-- <a href="#" class="btn btn-m btn-full rounded-s shadow-l text-center text-uppercase font-25 bg-blue2-dark color-white" id="btnScanCode" onclick="getLocation()">
                                 <i class="fa font-14 fa-check"></i> อ่านพิกัด GPS
-                            </a>
+                            </a> --}}
                             {{-- <input type="submit" value=" ยืนยัน "> --}}
 
                             <a href="#" id="btnScanCode" onclick="getLocation()" class="btn btn-m btn-full rounded-s shadow-l text-center text-uppercase font-25 bg-red2-dark color-white">
