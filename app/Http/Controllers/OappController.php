@@ -151,7 +151,7 @@ class OappController extends Controller
         $hos_latitude = substr($hoslocation,0,6);
         $hos_longitude = substr($hoslocation,11,7);
 
-        if (($gps_latitude > $hos_latitude-0.003 && $gps_latitude < $hos_latitude+0.003) && ($gps_longitude > $hos_longitude-0.003 && $gps_longitude < $hos_longitude+0.003)) {
+        if (($gps_latitude > 16.215 && $gps_latitude < 16.220) && ($gps_longitude > 100.437 && $gps_longitude < 100.441)) {
             $islocation = "true";
         } else {
             $islocation = "false";
