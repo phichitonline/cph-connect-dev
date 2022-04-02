@@ -19,7 +19,7 @@
         $ext_q_img = $data->ext_q_img;
     @endphp
     @endforeach
-                
+
 				<div class="card card-overflow card-style">
 					<div class="content">
 						<div class="d-flex">
@@ -30,7 +30,6 @@
 								<span class="float-right rounded-xs text-uppercase font-900 font-9 pr-2 pl-2 pb-0 pt-0 line-height-s mt-n2">{{ $q_status }}</span>
 							</div>
 						</div>
-						
 
 							<div class="col-12">
 								<span class="font-11">เข้ารับบริการ</span>
@@ -86,8 +85,8 @@
 				<i class="fa font-14 fa-sync-alt"></i> REFRESH ปรับปรุงสถานะคิว
 			</a>
 		</div>
-		
-		
+
+        <!-- ยังไม่ได้ออก visit -->
 		@else
         <div class="card card-overflow card-style">
 			<div class="content">
@@ -103,10 +102,10 @@
 		    </div>
 		</div>
         @endif
-		
+
 
 </div>
-<!-- End of Page Content--> 
+<!-- End of Page Content-->
 
 @endsection
 

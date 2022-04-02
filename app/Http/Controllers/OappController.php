@@ -282,7 +282,7 @@ class OappController extends Controller
         ORDER BY w.time DESC LIMIT 1
         ');
         foreach($check_patient as $data){
-            $clinic = $data->clinic;
+            // $clinic = $data->clinic;
             $vn = $data->vn;
             $webq = $data->type.$data->qnumber;
             $webqn = $data->qnumber;
@@ -291,7 +291,7 @@ class OappController extends Controller
             $pt_priority = $data->pt_priority;
             $q_status = $data->q_status;
             $time = $data->time;
-            $time_complete = $data->time_complete;
+            // $time_complete = $data->time_complete;
             $vstdate = $data->vstdate;
             $vsttime = $data->vsttime;
             $room_code3 = $data->room_code;
@@ -347,9 +347,9 @@ class OappController extends Controller
             $waitq = $data->waitq+$waitqp2;
         }
 
-        $lineid = $_SESSION["lineid"];
-        $tel = $_SESSION["tel"];
-        $email = $_SESSION["email"];
+        // $lineid = $_SESSION["lineid"];
+        // $tel = $_SESSION["tel"];
+        // $email = $_SESSION["email"];
 
 
         $oapp_detail = DB::connection('mysql_hos')->select('
