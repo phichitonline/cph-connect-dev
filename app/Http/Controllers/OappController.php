@@ -141,11 +141,17 @@ class OappController extends Controller
         $hn = $_SESSION["hn"];
         // $lineid = $_SESSION["lineid"];
         $gps_stamp = $request->input('gps_stamp');
+        $gps_latitude = substr($gps_stamp,0,6);
+        $gps_longitude = substr($gps_stamp,11,7);
 
-        $islocation = "false";
+        if (($gps_latitude > 16.214 && $gps_latitude < 16.219) || ($gps_longitude > 100.436 && $gps_longitude < 100.441)) {
+            $islocation = "true";
+        } else {
+            $islocation = "false";
+        }
 
         // ไม่ทำงานหากไม่ได้อยู่ในพิกัดของโรงพยาบาล
-        if ($islocation == "true") {
+        if ($islocation == "truexxx") {
 
             // $oappid = $_GET['oappid'];
             $oappid = $request->input('oappid');
@@ -318,7 +324,7 @@ class OappController extends Controller
             // DB::connection('mysql_hos')->insert('');
         } else {
             // $oappid = "ขออภัย... คุณยังไม่ได้อยู่ที่โรงพยาบาล กรุณายืนยันเข้ารับบริการเมื่อมาถึงโรงพยาบาลแล้วเท่านั้น";
-            $oappid = $gps_stamp;
+            $oappid = $islocation." = ".$gps_latitude.$gps_longitude;
         }
 
         return redirect()->route('statusq')->with('oapp-statusq',$oappid);
