@@ -170,13 +170,14 @@ class OappController extends Controller
                 $depcode = $data->depcode;
             }
             $pttypedata = DB::connection('mysql_hos')->select('
-            SELECT p.pttype,ptt.pttypeno,ptt.begindate,ptt.expiredate,ptt.hospmain,ptt.hospsub,ptt1.pcode,p.addressid,p.moopart,p.cid,p.birthday,p.sex
+            SELECT p.pttype,ptt.pttypeno,ptt.begindate,ptt.expiredate,ptt.hospmain,ptt.hospsub,ptt1.pcode,p.addressid,p.moopart,p.cid,p.birthday,p.sex,p.pname,p.fname,p.lname
             ,timestampdiff(year,p.birthday,curdate()) AS cnt_year
             ,timestampdiff(month,p.birthday,curdate())-(timestampdiff(year,p.birthday,curdate())*12) AS cnt_month
-            ,timestampdiff(day,date_add(p.birthday,interval (timestampdiff(month,p.birthday,curdate())) month),curdate()) AS cnt_day
+            ,timestampdiff(day,date_add(p.birthday,interval (timestampdiff(month,p.birthday,curdate())) month),curdate()) AS cnt_day,person_id
             FROM patient p
             LEFT JOIN pttype ptt1 ON p.pttype = ptt1.pttype
             LEFT JOIN pttypeno ptt ON p.hn = ptt.hn
+            LEFT JOIN person ps ON p.hn = ps.patient_hn
             WHERE p.hn = "'.$hn.'" AND ptt.pttype = p.pttype
             ');
             foreach($pttypedata as $data){
@@ -194,6 +195,8 @@ class OappController extends Controller
                 $age_y = $data->cnt_year;
                 $age_m = $data->cnt_month;
                 $age_d = $data->cnt_day;
+                $ptname = $data->pname.$data->fname." ".$data->lname;
+                $person_id = $data->person_id;
             }
 
             $staff = 'onlineapp';   // รหัสผู้ใช้ opduser
@@ -203,6 +206,7 @@ class OappController extends Controller
             CONCAT(SUBSTR(DATE_FORMAT(NOW(),'%Y')+543,3,2),DATE_FORMAT(NOW(),'%m%d'),DATE_FORMAT(NOW(),'%H%i%s')) AS visitnumber
             ,DATE_FORMAT(NOW(),'%Y-%m-%d') AS vstdate
             ,DATE_FORMAT(NOW(),'%H:%i:%s') AS vsttime
+            ,DATE_FORMAT(NOW(),'%d%m%Y%H%i%s') AS logdatetime
             ,CONCAT('visit-lock-test-',DATE_FORMAT(NOW(),'%d%m'),DATE_FORMAT(NOW(),'%Y')+543) AS visitlocktest
             ,CONCAT('ovst-q-',SUBSTR(DATE_FORMAT(NOW(),'%Y')+543,3,2),DATE_FORMAT(NOW(),'%m%d')) AS serialovstq
             ,upper(concat('{',uuid(),'}')) AS hos_guid
@@ -214,11 +218,12 @@ class OappController extends Controller
                 $visitlocktest = $data->visitlocktest;
                 $serialovstq = $data->serialovstq;
                 $hos_guid = $data->hos_guid;
+                $ksklog_detail = $hn.$data->logdatetime.":VN".$data->visitnumber;
             }
-            $visitvar = DB::connection('mysql_hos')->select("SELECT
+            $visitvar2 = DB::connection('mysql_hos')->select("SELECT
             upper(concat('{',uuid(),'}')) AS hos_guid2
             ");
-            foreach($visitvar as $data){
+            foreach($visitvar2 as $data){
                 $hos_guid2 = $data->hos_guid2;
             }
 
@@ -229,8 +234,21 @@ class OappController extends Controller
                 if ($data->serial_no > 0) {
                     DB::connection('mysql_hos')->update('UPDATE serial set serial_no = serial_no+1 where name = "'.$serialovstq.'" ');
                 } else {
-                    DB::connection('mysql_hos')->update('INSERT INTO serial (name,serial_no) VALUES ("'.$serialovstq.'",1) ');
+                    DB::connection('mysql_hos')->insert('INSERT INTO serial (name,serial_no) VALUES ("'.$serialovstq.'",1) ');
                 }
+            }
+
+            $ovst_seq = DB::connection('mysql_hos')->select('
+            SELECT serial_no+1 AS serial_no FROM serial WHERE name = "ovst_seq_id"
+            ');
+            foreach($ovst_seq as $data){
+                $ovst_seq_id = $data->serial_no;
+            }
+            $ksklog = DB::connection('mysql_hos')->select('
+            SELECT serial_no+1 AS serial_no FROM serial WHERE name = "ksklog_id"
+            ');
+            foreach($ksklog as $data){
+                $ksklog_id = $data->serial_no;
             }
 
             DB::connection('mysql_hos')->update('UPDATE serial set serial_no = serial_no+1 where name = "'.$visitlocktest.'" ');
@@ -242,7 +260,7 @@ class OappController extends Controller
             ,spclty,rcpt_disease,hcode,cur_dep,cur_dep_busy,last_dep,cur_dep_time,rx_queue,diag_text,pt_subtype,main_dep,main_dep_queue,finance_summary_date
             ,visit_type,node_id,contract_id,waiting,rfri_icd10,o_refer_number,has_insurance,i_refer_number,refer_type,o_refer_dep,staff,command_doctor
             ,send_person,pt_priority,finance_lock,oldcode,sign_doctor,anonymous_visit,anonymous_vn,pt_capability_type_id,at_hospital)
-            VALUES ("'.$hos_guid.'","'.$visitnumber.'","'.$hn.'",NULL,"'.$vstdate.'","'.$vsttime.'",NULL,"","","'.$serialovstq.'","02","00","'.$pttype.'","'.$pttypeno.'",NULL,NULL,NULL,NULL,"'.$spclty.'",NULL,"'.$hcode.'",NULL,NULL,"'.$depcode.'",NULL,NULL,NULL,0,NULL,2,NULL,"O","",NULL,"Y",NULL,NULL,"N",NULL,NULL,NULL,"'.$staff.'",NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+            VALUES ("'.$hos_guid.'","'.$visitnumber.'","'.$hn.'",NULL,"'.$vstdate.'","'.$vsttime.'",NULL,"","","'.$serialovstq.'","02","00","'.$pttype.'","'.$pttypeno.'",NULL,NULL,NULL,NULL,"'.$spclty.'",NULL,"'.$hcode.'","'.$depcode.'",NULL,NULL,NULL,NULL,NULL,0,NULL,2,NULL,"O","",NULL,"Y",NULL,NULL,"N",NULL,NULL,NULL,"'.$staff.'",NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
             ');
 
             DB::connection('mysql_hos')->insert('
@@ -334,7 +352,44 @@ class OappController extends Controller
             ,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,NULL)
             ');
 
+            DB::connection('mysql_hos')->insert('
+            INSERT INTO service_time (vn,hn,vstdate,vsttime,service1,service2,service3,service4,service5,service6,service7,service8,staff,service9,service10,rx_time_type,service11,service12,service13,service14,service15,service16,service17,service18,service19,last_send_time,service1_dep,service2_dep,service3_dep,service4_dep,service5_dep,service6_dep,service7_dep,service8_dep,service9_dep,service10_dep,service11_dep,service12_dep,service13_dep,service14_dep,service15_dep,service16_dep,service17_dep,service18_dep,service19_dep,service20,service20_dep,hos_guid)
+            VALUES ("'.$visitnumber.'","'.$hn.'","'.$vstdate.'","'.$vsttime.'",NULL,NULL,DATE_FORMAT(NOW(),"%H:%i:%s"),NULL,NULL,NULL,NULL,NULL,"'.$staff.'",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"),NULL,NULL,"'.$depcode.'",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+            ');
+
+            DB::connection('mysql_hos')->insert('
+            INSERT INTO visit_name (vn,hn,patient_name,hos_guid)
+            VALUES ("'.$visitnumber.'","'.$hn.'","'.$ptname.'",NULL)
+            ');
+
+            DB::connection('mysql_hos')->update('
+            UPDATE patient_stat SET last_vn="'.$visitnumber.'" WHERE hn="'.$hn.'"
+            ');
+
+            DB::connection('mysql_hos')->insert('
+            INSERT INTO ovst_seq (vn,seq_id,pttype_check,pttype_check_datetime,pttype_check_staff,pcu_person_id,last_opdcard_depcode,protect_sensitive_data,rx_queue_no,stock_department_id,stock_department_queue_no,last_stock_department_id,nhso_seq_id,update_datetime,promote_visit,hos_guid,service_cost,last_rx_operator_staff,last_check_datetime,pttype_check_status_id,hospital_department_id,register_depcode,register_computer,doctor_list_text,er_pt_type,er_emergency_type,sub_spclty_id,doctor_patient_type_id,finance_status_flag,has_arrear,rx_ok,has_scan_doc,rx_queue_list,rx_queue_time,dx_text_list,opd_qs_slot_id,rx_transaction_id,doctor_dx_list_text,doctor_rx_list_text,pttype_list_text,hospmain_list_text,edc_approve_list_text,rx_priority_id,ovst_doctor_list_text)
+            VALUES ("'.$visitnumber.'","'.$ovst_seq_id.'","N",NULL,NULL,"'.$person_id.'",NULL,NULL,NULL,NULL,NULL,NULL,0,DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"),"N",NULL,NULL,NULL,DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"),NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+            ');
+
+            DB::connection('mysql_hos')->insert('
+            INSERT INTO data_synchronize (vn,vn_guid,hn_guid,cid,last_update,last_sync,sync_complete,sync_mode,department,hos_guid)
+            VALUES ("'.$visitnumber.'","'.$hos_guid.'",NULL
+            ,"'.$cid.'",DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"),NULL,"N","UPDATE",NULL,NULL)
+            ');
+
+            DB::connection('mysql_hos')->update('
+            UPDATE oapp SET visit_vn="'.$visitnumber.'" WHERE oapp_id="'.$oappid.'"
+            ');
+
+            DB::connection('mysql_hos')->insert('
+            INSERT INTO ksklog (ksklog_id,logtime,loginname,tablename,modifytype,detail,old_delta,new_delta,log_id,computer_name,hos_guid)
+            VALUES ("'.$ksklog_id.'",DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"),"'.$staff.'","OVST","EDIT","'.$ksklog_detail.'"
+            ,NULL,NULL,NULL,"LINEAPP",NULL)
+            ');
+
             // DB::connection('mysql_hos')->insert('');
+
+
         } else {
             $oappid = "ขออภัย... คุณยังไม่ได้อยู่ที่โรงพยาบาล กรุณายืนยันเข้ารับบริการเมื่อมาถึงโรงพยาบาลแล้วเท่านั้น";
             // $oappid = $gps_stamp." : ".$hoslocation;
