@@ -98,8 +98,8 @@
 		@else
         <div class="card card-overflow card-style">
 			<div class="content">
-                <a href="{{ url('/') }}/checkin/?oappid={{ $oappid }}" class="btn btn-m btn-full rounded-s shadow-l text-center text-uppercase font-25 bg-red2-dark color-white">
-                    <i class="fa font-14 fa-check"></i> CHECKIN ยืนยันเข้ารับบริการ
+                <a href="{{ url('/') }}/oapp" class="btn btn-m btn-full rounded-s shadow-l text-center text-uppercase font-25 bg-red2-dark color-white">
+                    <i class="fa font-14 fa-check"></i> ดูบัตรนัด
                 </a>
                 <h1 class="font-20 color-highlight text-center mt-4">คุณยังไม่ได้ยืนยันเข้ารับบริการ</h1>
                 <p class="footer-text mt-0">

@@ -170,10 +170,12 @@ class OappController extends Controller
                 $depcode = $data->depcode;
             }
             $pttypedata = DB::connection('mysql_hos')->select('
-            SELECT p.pttype,ptt.pttypeno,ptt.begindate,ptt.expiredate,ptt.hospmain,ptt.hospsub,ptt1.pcode,p.addressid,p.moopart,p.cid,p.birthday,p.sex,p.pname,p.fname,p.lname
+            SELECT p.pttype,ptt.pttypeno,ptt.begindate,ptt.expiredate,ptt.hospmain,ptt.hospsub,ptt1.pcode,p.addressid,p.moopart
+            ,p.cid,p.birthday,p.sex,p.pname,p.fname,p.lname
             ,timestampdiff(year,p.birthday,curdate()) AS cnt_year
             ,timestampdiff(month,p.birthday,curdate())-(timestampdiff(year,p.birthday,curdate())*12) AS cnt_month
-            ,timestampdiff(day,date_add(p.birthday,interval (timestampdiff(month,p.birthday,curdate())) month),curdate()) AS cnt_day,person_id
+            ,timestampdiff(day,date_add(p.birthday,interval (timestampdiff(month,p.birthday,curdate())) month),curdate()) AS cnt_day
+            ,LPAD(ps.person_id,6,0) AS person_id
             FROM patient p
             LEFT JOIN pttype ptt1 ON p.pttype = ptt1.pttype
             LEFT JOIN pttypeno ptt ON p.hn = ptt.hn
@@ -239,20 +241,19 @@ class OappController extends Controller
             }
 
             $ovst_seq = DB::connection('mysql_hos')->select('
-            SELECT serial_no+1 AS serial_no FROM serial WHERE name = "ovst_seq_id"
+            SELECT serial_no+1 AS serial_no2 FROM serial WHERE name = "ovst_seq_id"
             ');
             foreach($ovst_seq as $data){
-                $ovst_seq_id = $data->serial_no;
+                $ovst_seq_id = $data->serial_no2;
             }
             $ksklog = DB::connection('mysql_hos')->select('
-            SELECT serial_no+1 AS serial_no FROM serial WHERE name = "ksklog_id"
+            SELECT serial_no+1 AS serial_no3 FROM serial WHERE name = "ksklog_id"
             ');
             foreach($ksklog as $data){
-                $ksklog_id = $data->serial_no;
+                $ksklog_id = $data->serial_no3;
             }
 
             DB::connection('mysql_hos')->update('UPDATE serial set serial_no = serial_no+1 where name = "'.$visitlocktest.'" ');
-            // DB::connection('mysql_hos')->update('UPDATE serial set serial_no = serial_no+1 where name = "'.$serialovstq.'" ');
 
             DB::connection('mysql_hos')->insert('INSERT INTO vn_insert (vn,clinic_list,hos_guid) VALUES ("'.$visitnumber.'",NULL,NULL) ');
             DB::connection('mysql_hos')->insert('
@@ -260,7 +261,7 @@ class OappController extends Controller
             ,spclty,rcpt_disease,hcode,cur_dep,cur_dep_busy,last_dep,cur_dep_time,rx_queue,diag_text,pt_subtype,main_dep,main_dep_queue,finance_summary_date
             ,visit_type,node_id,contract_id,waiting,rfri_icd10,o_refer_number,has_insurance,i_refer_number,refer_type,o_refer_dep,staff,command_doctor
             ,send_person,pt_priority,finance_lock,oldcode,sign_doctor,anonymous_visit,anonymous_vn,pt_capability_type_id,at_hospital)
-            VALUES ("'.$hos_guid.'","'.$visitnumber.'","'.$hn.'",NULL,"'.$vstdate.'","'.$vsttime.'",NULL,"","","'.$serialovstq.'","02","00","'.$pttype.'","'.$pttypeno.'",NULL,NULL,NULL,NULL,"'.$spclty.'",NULL,"'.$hcode.'","'.$depcode.'",NULL,NULL,NULL,NULL,NULL,0,NULL,2,NULL,"O","",NULL,"Y",NULL,NULL,"N",NULL,NULL,NULL,"'.$staff.'",NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+            VALUES ("'.$hos_guid.'","'.$visitnumber.'","'.$hn.'",NULL,"'.$vstdate.'","'.$vsttime.'",NULL,"","","'.$serialovstq.'","02","00","'.$pttype.'","'.$pttypeno.'",NULL,NULL,NULL,NULL,"'.$spclty.'",NULL,"'.$hcode.'","'.$depcode.'",NULL,NULL,NULL,NULL,NULL,0,"'.$depcode.'",2,NULL,"O","",NULL,"Y",NULL,NULL,"N",NULL,NULL,NULL,"'.$staff.'",NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
             ');
 
             DB::connection('mysql_hos')->insert('
@@ -387,8 +388,13 @@ class OappController extends Controller
             ,NULL,NULL,NULL,"LINEAPP",NULL)
             ');
 
-            // DB::connection('mysql_hos')->insert('');
-
+            DB::connection('mysql_hos')->update('
+            DELETE FROM pttypehistory WHERE hn = "'.$hn.'" AND pttype = "'.$pttype.'"
+            ');
+            DB::connection('mysql_hos')->insert('
+            INSERT INTO pttypehistory (hn,expiredate,hospmain,hospsub,pttype,pttypeno,begindate,hos_guid,hos_guid_ext)
+            VALUES ("'.$hn.'","'.$pttypeexpire.'","'.$hospmain.'","'.$hospsub.'","'.$pttype.'","'.$cid.'","'.$pttypebegin.'",NULL,NULL)
+            ');
 
         } else {
             $oappid = "ขออภัย... คุณยังไม่ได้อยู่ที่โรงพยาบาล กรุณายืนยันเข้ารับบริการเมื่อมาถึงโรงพยาบาลแล้วเท่านั้น";
@@ -489,7 +495,6 @@ class OappController extends Controller
         // $lineid = $_SESSION["lineid"];
         // $tel = $_SESSION["tel"];
         // $email = $_SESSION["email"];
-
 
         $oapp_detail = DB::connection('mysql_hos')->select('
         SELECT o.*,concat(p.pname,p.fname,"  ",p.lname) as ptname,p.cid as cid,d.name as doctor_name ,
@@ -809,7 +814,6 @@ class OappController extends Controller
                 return redirect()->route('ptregister.index')->with('session-alert', 'ไม่พบข้อมูลทะเบียนผู้ป่วยของคุณ หรือคุณอาจกรอกข้อมูลไม่ถูกต้อง ! กรุณาตรวจสอบเลขบัตรประชาชน และวันเดือนปีเกิดให้ถูกต้อง... หรือกรอกข้อมูลเพื่อลงทะเบียนทำบัตรใหม่');
             }
         }
-
     }
 
     /**

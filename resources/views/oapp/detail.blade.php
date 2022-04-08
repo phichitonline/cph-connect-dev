@@ -196,7 +196,7 @@
         function submitform() {
             setTimeout(function () {
                 document.forms["checkinform"].submit();
-            }, 2000);
+            }, 3000);
         }
 
         async function getLocation() {
