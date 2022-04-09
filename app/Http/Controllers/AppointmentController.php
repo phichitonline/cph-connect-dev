@@ -37,6 +37,10 @@ class AppointmentController extends Controller
             $module_name = "จองนัด".$data->que_app_flag_name;
             $qflag = $data->que_app_flag;
         }
+        // ลองทดสอบบน web browser
+        $module_color = "bg-blue1-dark";
+        $module_name = "จองนัดตรวจโรคทั่วไป";
+        $qflag = "A";
 
         // if (isset($_SESSION["lineid"])) {
             $view_page = "appointment.calendar";
