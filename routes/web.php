@@ -87,4 +87,4 @@ Route::get('/oappconfirm', 'OappController@oappconfirm')->name('oappconfirm');
 
 Route::get('checkup', 'CheckupController@index')->name('checkup');
 
-Route::get('appointment', 'AppointmentController@index')->name('appointment');
+Route::get('appointment', 'AppointmentController@calendar')->name('appointment');
