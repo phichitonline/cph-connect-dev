@@ -33,14 +33,16 @@ class AppointmentController extends Controller
         SELECT que_app_flag,que_app_flag_name,depcode,bgcolor FROM que_app_flag WHERE que_app_flag = "'.$_GET['flag'].'"
         ');
         foreach($check_q_flag as $data){
-            $module_color = $data->bgcolor;
-            $module_name = "จองนัด".$data->que_app_flag_name;
-            $qflag = $data->que_app_flag;
+            if ($_GET['flag'] == "") {
+                $module_color = "bg-blue1-dark";
+                $module_name = "จองนัดตรวจโรคทั่วไป";
+                $qflag = "A";
+            } else {
+                $module_color = $data->bgcolor;
+                $module_name = "จองนัด".$data->que_app_flag_name;
+                $qflag = $data->que_app_flag;
+            }
         }
-        // ลองทดสอบบน web browser
-        $module_color = "bg-blue1-dark";
-        $module_name = "จองนัดตรวจโรคทั่วไป";
-        $qflag = "A";
 
         // if (isset($_SESSION["lineid"])) {
             $view_page = "appointment.calendar";
