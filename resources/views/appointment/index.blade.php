@@ -74,23 +74,23 @@
     @endif
 
         <div class="row text-center mb-0">
-            <a href="{{ url('/') }}/appointment/?flag=C" class="col-6 pr-0">
+            <a href="{{ url('/') }}/appointment/calendar/?flag=C" class="col-6 pr-0">
                 <div class="card card-style mr-2 mb-2">
                     <img class="img-fluid" src="images/book_healthy.png">
                 </div>
             </a>
-            <a href="{{ url('/') }}/appointment/?flag=T" class="col-6 pl-0">
+            <a href="{{ url('/') }}/appointment/calendar/?flag=T" class="col-6 pl-0">
                 <div class="card card-style ml-2 mb-3">
                     <img class="img-fluid" src="images/book_phanthai2.png">
                 </div>
             </a>
 
-            <a href="{{ url('/') }}/appointment/?flag=D" class="col-6 pr-0">
+            <a href="{{ url('/') }}/appointment/calendar/?flag=D" class="col-6 pr-0">
                 <div class="card card-style mr-2 mb-2">
                     <img class="img-fluid" src="images/book_dental2.png">
                 </div>
             </a>
-            <a href="{{ url('/') }}/appointment/?flag=A" class="col-6 pl-0">
+            <a href="{{ url('/') }}/appointment/calendar/?flag=A" class="col-6 pl-0">
                 <div class="card card-style ml-2">
                     <img class="img-fluid" src="images/book_opd.png">
                 </div>
