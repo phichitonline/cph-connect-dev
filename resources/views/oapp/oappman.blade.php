@@ -22,7 +22,7 @@
         <span><i class="fa fa-check"></i></span>
         <strong>{{ $text_alert_message }}</strong>
         <button type="button" class="close color-white opacity-60 font-16" data-dismiss="alert" aria-label="Close">&times;</button>
-    </div> 
+    </div>
 
     @php
 
@@ -41,7 +41,7 @@
         $pushID = substr($testtext5,strpos($testtext5, "@")+0);
 
         $access_token = config('line-bot.channel_access_token');
-        $liff_url_oapp = config('line-bot.liff_url_oapp');
+        $liff_url_oapp = config('line-bot.liff_url');
 
         $curl = curl_init();
         curl_setopt_array($curl, array(
@@ -141,7 +141,7 @@
                     "separator": true
                     }
                 }
-              
+
             }
             }]
         }',
@@ -160,10 +160,10 @@
     @endphp
 
     @endif
-    
+
     <div class="card card-style shadow-xl rounded-m">
         <div class="cal-footer">
-            
+
             <h4 class="cal-title text-center text-uppercase font-25 bg-green1-dark color-white">บริหารนัดออนไลน์</h6>
             <span class="cal-message mt-3 mb-3">
                 <i class="fa fa-bell font-18 color-green1-dark"></i>
@@ -230,10 +230,10 @@
             <br><br><b>หากมีปัญหาข้อสงสัย โปรดติดต่อ Admin</a>
         </span>
         </p>
-    </div> 
+    </div>
 
 </div>
-<!-- End of Page Content--> 
+<!-- End of Page Content-->
 
 @endsection
 
