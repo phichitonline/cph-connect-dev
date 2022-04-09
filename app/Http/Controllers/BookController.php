@@ -134,6 +134,25 @@ class BookController extends Controller
             $lname = $data->lname;
         }
 
+        $check_q_flag = DB::connection('mysql_hos')->select('
+        SELECT * FROM que_app_flag WHERE que_app_flag = "'.$request->flag.'"
+        ');
+        foreach($check_q_flag as $data){
+            $module_color = $data->bgcolor;
+            $module_name = "จองนัด".$data->que_app_flag_name;
+            $qflag = $check_q_flag;
+            $qdep = $data->depcode;
+        }
+        $check_q_time = DB::connection('mysql_hos')->select('
+        SELECT * FROM que_time WHERE que_app_flag = "'.$request->flag.'" AND que_time = "'.$request->rad.'"
+        ');
+        foreach($check_q_time as $data){
+            $que_time = $data->que_time_name;
+            $que_limit = $data->limitcount;
+            $que_time_c = "color-highlight";
+        }
+
+/*
         if ($request->flag == "T") {
             $module_color = "bg-green1-dark";
             $module_name = "จองนัดแพทย์แผนไทย";
@@ -172,7 +191,7 @@ class BookController extends Controller
             $que_time = "คุณยังไม่ได้เลือกเวลา<br>กรุณาย้อนกลับไปเลือกช่วงเวลาก่อนค่ะ";
             $que_time_c = "color-highlight";
         }
-        
+*/
         $que_date = $request->que_date;
         $que_rad = $request->rad;
 
@@ -184,6 +203,7 @@ class BookController extends Controller
             'que_rad' => $que_rad,
             'que_time' => $que_time,
             'que_time_c' => $que_time_c,
+            'que_limit' => $que_limit,
             'qdep' => $qdep,
             'ptname' => $pname.$fname." ".$lname,
         ]);
