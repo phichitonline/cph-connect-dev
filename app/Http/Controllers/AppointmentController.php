@@ -33,7 +33,7 @@ class AppointmentController extends Controller
         SELECT que_app_flag,que_app_flag_name,depcode,bgcolor FROM que_app_flag WHERE que_app_flag = "'.$_GET['flag'].'"
         ');
         foreach($check_q_flag as $data){
-            if (isset($_GET['flag'])) {
+            if ($_GET['flag'] != NULL) {
                 $module_color = $data->bgcolor;
                 $module_name = "จองนัด".$data->que_app_flag_name;
                 $qflag = $data->que_app_flag;
