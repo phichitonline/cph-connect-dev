@@ -21,7 +21,7 @@ class AppointmentController extends Controller
         return view('appointment.index', [
             'setting' => Setting::all(),
             'que_card' => Book::all(),
-            'lineid' => $_SESSION["lineid"],
+            // 'lineid' => $_SESSION["lineid"],
         ]);
     }
 

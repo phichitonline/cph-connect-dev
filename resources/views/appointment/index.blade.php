@@ -40,18 +40,19 @@
         $book_text_message = "";
     }
 
-    $lineidpush = $lineid;
+    // $lineidpush = $lineid;
 
-    require "vendor-line/autoload.php";
-    $access_token = config('line-bot.channel_access_token');
-    $channelSecret = config('line-bot.channel_secret');
-    $pushID = $lineidpush;
-    $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($access_token);
-    $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channelSecret]);
-    $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($book_text_message);
-    $response = $bot->pushMessage($pushID, $textMessageBuilder);
+    // require "vendor-line/autoload.php";
+    // $access_token = config('line-bot.channel_access_token');
+    // $channelSecret = config('line-bot.channel_secret');
+    // $pushID = $lineidpush;
+    // $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($access_token);
+    // $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channelSecret]);
+    // $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($book_text_message);
+    // $response = $bot->pushMessage($pushID, $textMessageBuilder);
 
     @endphp
+
         <div class="ml-3 mr-3 alert alert-small rounded-s shadow-xl bg-green1-dark" role="alert">
             <span><i class="fa fa-check"></i></span>
             <strong>คุณ{{ $module_name }} สำเร็จ</strong>
