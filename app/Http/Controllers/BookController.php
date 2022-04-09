@@ -134,7 +134,7 @@ class BookController extends Controller
             $lname = $data->lname;
         }
 
-        $check_q_flag = DB::connection('mysql_hos')->select('
+        $check_q_flag = DB::connection('mysql')->select('
         SELECT * FROM que_app_flag WHERE que_app_flag = "'.$request->flag.'"
         ');
         foreach($check_q_flag as $data){
@@ -143,7 +143,7 @@ class BookController extends Controller
             $qflag = $check_q_flag;
             $qdep = $data->depcode;
         }
-        $check_q_time = DB::connection('mysql_hos')->select('
+        $check_q_time = DB::connection('mysql')->select('
         SELECT * FROM que_time WHERE que_app_flag = "'.$request->flag.'" AND que_time = "'.$request->rad.'"
         ');
         foreach($check_q_time as $data){
