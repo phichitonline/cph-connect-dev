@@ -7,7 +7,7 @@ use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class BookController extends Controller
+class AppointmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class BookController extends Controller
     public function index()
     {
         session_start();
-        return view('book.index', [
+        return view('appointment.index', [
             'setting' => Setting::all(),
             'que_card' => Book::all(),
             'lineid' => $_SESSION["lineid"],
@@ -134,6 +134,25 @@ class BookController extends Controller
             $lname = $data->lname;
         }
 
+        $check_q_flag = DB::connection('mysql')->select('
+        SELECT que_app_flag,que_app_flag_name,depcode,bgcolor FROM que_app_flag WHERE que_app_flag = "'.$request->flag.'"
+        ');
+        foreach($check_q_flag as $data){
+            $module_color = $data->bgcolor;
+            $module_name = "จองนัด".$data->que_app_flag_name;
+            $qflag = $data->que_app_flag;
+            $qdep = $data->depcode;
+        }
+        $check_q_time = DB::connection('mysql')->select('
+        SELECT que_time,que_app_flag,que_time_name,que_time_start,que_time_end,limitcount FROM que_time WHERE que_app_flag = "'.$request->flag.'" AND que_time = "'.$request->rad.'"
+        ');
+        foreach($check_q_time as $data){
+            $que_time = $data->que_time_name;
+            $que_limit = $data->limitcount;
+            $que_time_c = "";
+        }
+
+/*
         if ($request->flag == "T") {
             $module_color = "bg-green1-dark";
             $module_name = "จองนัดแพทย์แผนไทย";
@@ -172,7 +191,7 @@ class BookController extends Controller
             $que_time = "คุณยังไม่ได้เลือกเวลา<br>กรุณาย้อนกลับไปเลือกช่วงเวลาก่อนค่ะ";
             $que_time_c = "color-highlight";
         }
-
+*/
         $que_date = $request->que_date;
         $que_rad = $request->rad;
 
@@ -184,6 +203,7 @@ class BookController extends Controller
             'que_rad' => $que_rad,
             'que_time' => $que_time,
             'que_time_c' => $que_time_c,
+            'que_limit' => $que_limit,
             'qdep' => $qdep,
             'ptname' => $pname.$fname." ".$lname,
         ]);
