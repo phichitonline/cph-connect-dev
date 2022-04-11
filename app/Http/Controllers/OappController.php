@@ -212,8 +212,12 @@ class OappController extends Controller
                 $person_id = $data->person_id;
             }
 
+            $hospitalconfig = DB::connection('mysql_hos')->select("SELECT hospitalcode,hospitalname FROM opdconfig");
+            foreach($hospitalconfig as $data){
+                $hcode = $data->hospitalcode; // รหัส 5 หลักหน่วยบริการ
+            }
+
             $staff = 'onlineapp';   // รหัสผู้ใช้ opduser
-            $hcode = '11456';       // รหัส 5 หลักหน่วยบริการ
 
             $visitvar = DB::connection('mysql_hos')->select("SELECT
             CONCAT(SUBSTR(DATE_FORMAT(NOW(),'%Y')+543,3,2),DATE_FORMAT(NOW(),'%m%d'),DATE_FORMAT(NOW(),'%H%i%s')) AS visitnumber
@@ -233,6 +237,23 @@ class OappController extends Controller
                 $hos_guid = $data->hos_guid;
                 $ksklog_detail = $hn.$data->logdatetime.":VN".$data->visitnumber;
             }
+
+            //*** GEN ovst_key ***//
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+              CURLOPT_URL => "https://cloud4.hosxp.net/api/ovst_key?Action=get_ovst_key&hospcode=".$hcode."&vn=".$visitnumber."&computer_name=".$staff."&app_name='OPD'",
+              CURLOPT_RETURNTRANSFER => 1,
+              CURLOPT_SSL_VERIFYHOST => 0,
+              CURLOPT_SSL_VERIFYPEER => 0,
+              CURLOPT_CUSTOMREQUEST => 'GET',
+            ));
+            $response = curl_exec($curl);
+            curl_close($curl);
+            $content = $response;
+            $result = json_decode($content, true);
+            $ovstkey = $result['result']['ovst_key'];
+            //*** GEN ovst_key ***//
+
             $visitvar2 = DB::connection('mysql_hos')->select("SELECT
             upper(concat('{',uuid(),'}')) AS hos_guid2
             ");
@@ -271,8 +292,8 @@ class OappController extends Controller
             INSERT INTO ovst (hos_guid,vn,hn,an,vstdate,vsttime,doctor,hospmain,hospsub,oqueue,ovstist,ovstost,pttype,pttypeno,rfrics,rfrilct,rfrocs,rfrolct
             ,spclty,rcpt_disease,hcode,cur_dep,cur_dep_busy,last_dep,cur_dep_time,rx_queue,diag_text,pt_subtype,main_dep,main_dep_queue,finance_summary_date
             ,visit_type,node_id,contract_id,waiting,rfri_icd10,o_refer_number,has_insurance,i_refer_number,refer_type,o_refer_dep,staff,command_doctor
-            ,send_person,pt_priority,finance_lock,oldcode,sign_doctor,anonymous_visit,anonymous_vn,pt_capability_type_id,at_hospital)
-            VALUES ("'.$hos_guid.'","'.$visitnumber.'","'.$hn.'",NULL,"'.$vstdate.'","'.$vsttime.'",NULL,"","","'.$serialovstq.'","02","00","'.$pttype.'","'.$pttypeno.'",NULL,NULL,NULL,NULL,"'.$spclty.'",NULL,"'.$hcode.'","'.$depcode.'",NULL,NULL,NULL,NULL,NULL,0,"'.$depcode.'",2,NULL,"O","",NULL,"Y",NULL,NULL,"N",NULL,NULL,NULL,"'.$staff.'",NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+            ,send_person,pt_priority,finance_lock,oldcode,sign_doctor,anonymous_visit,anonymous_vn,pt_capability_type_id,at_hospital,ovst_key)
+            VALUES ("'.$hos_guid.'","'.$visitnumber.'","'.$hn.'",NULL,"'.$vstdate.'","'.$vsttime.'",NULL,"","","'.$serialovstq.'","02","00","'.$pttype.'","'.$pttypeno.'",NULL,NULL,NULL,NULL,"'.$spclty.'",NULL,"'.$hcode.'","'.$depcode.'",NULL,NULL,NULL,NULL,NULL,0,"'.$depcode.'",2,NULL,"O","",NULL,"Y",NULL,NULL,"N",NULL,NULL,NULL,"'.$staff.'",NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,"'.$ovstkey.'")
             ');
 
             DB::connection('mysql_hos')->insert('

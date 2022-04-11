@@ -21,13 +21,13 @@ class CreatePatientusersTable extends Migration
             $table->string('lineid', 255);
             $table->string('cid', 255);
             $table->string('hn', 25);
-            $table->string('hn2', 25);
-            $table->string('hn3', 25);
-            $table->string('email', 255);
+            $table->string('hn2', 25)->nullable();
+            $table->string('hn3', 25)->nullable();
+            $table->string('email', 255)->nullable();
             $table->string('tel', 255);
             $table->string('isadmin', 1);
-            $table->string('que_app_flag', 2);
-            $table->string('consent', 1);
+            $table->string('que_app_flag', 2)->nullable();
+            $table->string('consent', 1)->nullable();
 
             $table->timestamps();
             $table->primary(['lineid']);

@@ -84,7 +84,6 @@
                     <img class="img-fluid" src="images/book_phanthai2.png">
                 </div>
             </a>
-
             <a href="{{ url('/') }}/appointment/calendar/?flag=D" class="col-6 pr-0">
                 <div class="card card-style mr-2 mb-2">
                     <img class="img-fluid" src="images/book_dental2.png">
