@@ -102,11 +102,11 @@
 
             <div data-card-height="210" class="card card-style rounded-m shadow-xl">
                 <div class="card-center text-center">
-                    <h1 class="color-white font-800 color-green2 text-shadow-l"><br>คุณยืนยันเข้ารับบริการแล้ว</h1>
-                    <h2 class="color-white font-800 text-shadow-l">เวลา {{ $vsttime }}</h2>
-                    <h2 class="color-white font-800 text-shadow-l">VN : {{ $vn }}</h2>
+                    <h1 class="color-highlight font-800 color-green2 text-shadow-l"><br>คุณยืนยันเข้ารับบริการแล้ว</h1>
+                    <h2 class="color-blue1-dark font-800 text-shadow-l">เวลา {{ $vsttime }}</h2>
+                    <h2 class="color-blue1-dark font-800 text-shadow-l">VN : {{ $vn }}</h2>
                 </div>
-                <p class="card-bottom text-center mb-0 pb-2 color-white font-15 text-shadow-s">
+                <p class="card-bottom text-center mb-2 pb-2 color-blue1-dark font-15 text-shadow-s">
                     แผนก: {{ $spcltyname }}
                 </p>
             </div>
