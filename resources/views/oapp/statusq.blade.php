@@ -46,12 +46,16 @@
 								</p>
 							</div>
 
-
 					</div>
 				</div>
 
+
         <!-- แสดงคิวเมื่อมี visit วันนี้ -->
         @if (isset($vn))
+
+            <!-- แสดง NeoQ -->
+            @if($ext_q_status == "Y")
+
         <div data-card-height="210" class="card card-style rounded-m shadow-xl">
             <div class="card-center text-center">
             @if ($room_code == 0)
@@ -93,6 +97,21 @@
 				<i class="fa font-14 fa-sync-alt"></i> REFRESH ปรับปรุงสถานะคิว
 			</a>
 		</div>
+
+            @else
+
+            <div data-card-height="210" class="card card-style rounded-m shadow-xl">
+                <div class="card-center text-center">
+                    <h1 class="color-white font-800 color-green2 text-shadow-l"><br>คุณยืนยันเข้ารับบริการแล้ว</h1>
+                    <h2 class="color-white font-800 text-shadow-l">เวลา {{ $vsttime }}</h2>
+                    <h2 class="color-white font-800 text-shadow-l">VN : {{ $vn }}</h2>
+                </div>
+                <p class="card-bottom text-center mb-0 pb-2 color-white font-15 text-shadow-s">
+                    แผนก: {{ $spcltyname }}
+                </p>
+            </div>
+
+            @endif
 
         <!-- ยังไม่ได้ออก visit -->
 		@else
