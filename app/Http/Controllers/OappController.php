@@ -441,13 +441,13 @@ class OappController extends Controller
     {
         session_start();
         $hn = $_SESSION["hn"];
+        $ext_q_status = Setting::where('id', 1)->first(['ext_q_status'])->ext_q_status;
+
         if (isset($_GET['oappid'])) {
             $oappid = $_GET['oappid'];
         } else {
             $oappid = Session('oapp-statusq');
         }
-
-        $ext_q_status = Setting::where('id', 1)->first(['ext_q_status'])->ext_q_status;
 
         if ($ext_q_status == "Y") {
             $q_select = ",w.type,w.qnumber,w.pt_priority,w.room_code,w.time,w.time_complete,k.department,s.name AS spcltyname,w.`status` AS q_status";
@@ -470,35 +470,38 @@ class OappController extends Controller
         '.$q_order.'
         ');
         foreach($check_patient as $data){
-            // $clinic = $data->clinic;
-            $vn = $data->vn;
-            $webq = $data->type.$data->qnumber;
-            $webqn = $data->qnumber;
-            $department = $data->department;
-            $spcltyname = $data->spcltyname;
-            $pt_priority = $data->pt_priority;
-            $q_status = $data->q_status;
-            $time = $data->time;
-            // $time_complete = $data->time_complete;
             $vstdate = $data->vstdate;
             $vsttime = $data->vsttime;
-            $room_code3 = $data->room_code;
+            $vn = $data->vn;
+
+            if ($ext_q_status == "Y") {
+                $webq = $data->type.$data->qnumber;
+                $webqn = $data->qnumber;
+                $department = $data->department;
+                $spcltyname = $data->spcltyname;
+                $pt_priority = $data->pt_priority;
+                $q_status = $data->q_status;
+                $time = $data->time;
+                $room_code3 = $data->room_code;
 
                 if ($data->room_code == "999") {
                     $room_code = 1;
                 } else {
                     $room_code = 0;
                 }
+            }
         }
 
-        $wait_qp = DB::connection('mysql_hos')->select('
-        SELECT COUNT(*) AS waitq FROM web_queue
-        WHERE room_code = "'.$room_code.'" AND `status` = "1" AND pt_priority <> "0"
-        AND type IN ("A","S")
-        ');
-        foreach($wait_qp as $data){
-            $waitqp = $data->waitq;
-        }
+        if ($ext_q_status == "Y") {
+
+            $wait_qp = DB::connection('mysql_hos')->select('
+            SELECT COUNT(*) AS waitq FROM web_queue
+            WHERE room_code = "'.$room_code.'" AND `status` = "1" AND pt_priority <> "0"
+            AND type IN ("A","S")
+            ');
+            foreach($wait_qp as $data){
+                $waitqp = $data->waitq;
+            }
 
             if ($room_code == 0) {
                 if ($room_code3 == "") {
@@ -513,31 +516,40 @@ class OappController extends Controller
                 $webqn2 = 0;
             }
 
-        if ($pt_priority == "1") {
-            $waitqp2 = 0;
-            $priority = "1";
-            $pri_color = "yellow";
-        } else if ($pt_priority == "2") {
-            $waitqp2 = 0;
-            $priority = "2";
-            $pri_color = "red";
-        } else {
-            $waitqp2 = $waitqp;
-            $priority = "0";
-            $pri_color = "green";
-        }
-        $wait_q = DB::connection('mysql_hos')->select('
-        SELECT COUNT(*) AS waitq FROM web_queue
-        WHERE room_code = "'.$room_code2.'" AND `status` = "1" AND pt_priority = "'.$priority.'"
-        AND type IN ("A","S") AND qnumber < '.$webqn2.'
-        ');
-        foreach($wait_q as $data){
-            $waitq = $data->waitq+$waitqp2;
-        }
+            if ($pt_priority == "1") {
+                $waitqp2 = 0;
+                $priority = "1";
+                $pri_color = "yellow";
+            } else if ($pt_priority == "2") {
+                $waitqp2 = 0;
+                $priority = "2";
+                $pri_color = "red";
+            } else {
+                $waitqp2 = $waitqp;
+                $priority = "0";
+                $pri_color = "green";
+            }
 
-        // $lineid = $_SESSION["lineid"];
-        // $tel = $_SESSION["tel"];
-        // $email = $_SESSION["email"];
+            $wait_q = DB::connection('mysql_hos')->select('
+            SELECT COUNT(*) AS waitq FROM web_queue
+            WHERE room_code = "'.$room_code2.'" AND `status` = "1" AND pt_priority = "'.$priority.'"
+            AND type IN ("A","S") AND qnumber < '.$webqn2.'
+            ');
+            foreach($wait_q as $data){
+                $waitq = $data->waitq+$waitqp2;
+            }
+
+        } else {
+                $webq = "";
+                $webqn = "";
+                $department = "";
+                $spcltyname = "";
+                $waitq = "";
+                $pri_color = "";
+                $q_status = "";
+                $time = "";
+                $room_code = 0;
+        }
 
         $oapp_detail = DB::connection('mysql_hos')->select('
         SELECT o.*,concat(p.pname,p.fname,"  ",p.lname) as ptname,p.cid as cid,d.name as doctor_name ,

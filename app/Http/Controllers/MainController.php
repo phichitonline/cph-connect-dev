@@ -79,6 +79,7 @@ class MainController extends Controller
 
 
         if ($ext_q_status == "Y") {
+            
             $wait_qp = DB::connection('mysql_hos')->select('
             SELECT COUNT(*) AS waitq FROM web_queue
             WHERE room_code = "'.$room_code.'" AND `status` = "1" AND pt_priority <> "0"
