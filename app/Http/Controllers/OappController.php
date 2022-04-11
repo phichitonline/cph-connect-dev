@@ -399,10 +399,10 @@ class OappController extends Controller
             UPDATE patient_stat SET last_vn="'.$visitnumber.'" WHERE hn="'.$hn.'"
             ');
 
-            DB::connection('mysql_hos')->insert('
-            INSERT INTO ovst_seq (vn,seq_id,pttype_check,pttype_check_datetime,pttype_check_staff,pcu_person_id,last_opdcard_depcode,protect_sensitive_data,rx_queue_no,stock_department_id,stock_department_queue_no,last_stock_department_id,nhso_seq_id,update_datetime,promote_visit,hos_guid,service_cost,last_rx_operator_staff,last_check_datetime,pttype_check_status_id,hospital_department_id,register_depcode,register_computer,doctor_list_text,er_pt_type,er_emergency_type,sub_spclty_id,doctor_patient_type_id,finance_status_flag,has_arrear,rx_ok,has_scan_doc,rx_queue_list,rx_queue_time,dx_text_list,opd_qs_slot_id,rx_transaction_id,doctor_dx_list_text,doctor_rx_list_text,pttype_list_text,hospmain_list_text,edc_approve_list_text,rx_priority_id,ovst_doctor_list_text)
-            VALUES ("'.$visitnumber.'","'.$ovst_seq_id.'","N",NULL,NULL,"'.$person_id.'",NULL,NULL,NULL,NULL,NULL,NULL,0,DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"),"N",NULL,NULL,NULL,DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"),NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
-            ');
+            // DB::connection('mysql_hos')->insert('
+            // INSERT INTO ovst_seq (vn,seq_id,pttype_check,pttype_check_datetime,pttype_check_staff,pcu_person_id,last_opdcard_depcode,protect_sensitive_data,rx_queue_no,stock_department_id,stock_department_queue_no,last_stock_department_id,nhso_seq_id,update_datetime,promote_visit,hos_guid,service_cost,last_rx_operator_staff,last_check_datetime,pttype_check_status_id,hospital_department_id,register_depcode,register_computer,doctor_list_text,er_pt_type,er_emergency_type,sub_spclty_id,doctor_patient_type_id,finance_status_flag,has_arrear,rx_ok,has_scan_doc,rx_queue_list,rx_queue_time,dx_text_list,opd_qs_slot_id,rx_transaction_id,doctor_dx_list_text,doctor_rx_list_text,pttype_list_text,hospmain_list_text,edc_approve_list_text,rx_priority_id,ovst_doctor_list_text)
+            // VALUES ("'.$visitnumber.'","'.$ovst_seq_id.'","N",NULL,NULL,"'.$person_id.'",NULL,NULL,NULL,NULL,NULL,NULL,0,DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"),"N",NULL,NULL,NULL,DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"),NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+            // ');
 
             DB::connection('mysql_hos')->insert('
             INSERT INTO data_synchronize (vn,vn_guid,hn_guid,cid,last_update,last_sync,sync_complete,sync_mode,department,hos_guid)
