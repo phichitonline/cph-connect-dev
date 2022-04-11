@@ -447,16 +447,27 @@ class OappController extends Controller
             $oappid = Session('oapp-statusq');
         }
 
+        $ext_q_status = Setting::where('id', 1)->first(['ext_q_status'])->ext_q_status;
+
+        if ($ext_q_status == "Y") {
+            $q_select = ",w.type,w.qnumber,w.pt_priority,w.room_code,w.time,w.time_complete,k.department,s.name AS spcltyname,w.`status` AS q_status";
+            $q_join = "LEFT OUTER JOIN web_queue w ON w.vn = o.vn LEFT OUTER JOIN kskdepartment k ON k.depcode = w.room_code LEFT OUTER JOIN spclty s ON s.spclty = k.spclty";
+            $q_order = "ORDER BY w.time DESC LIMIT 1";
+        } else {
+            $q_select = "";
+            $q_join = "";
+            $q_order = "";
+        }
+
         $check_patient = DB::connection('mysql_hos')->select('
-        SELECT p.cid,p.hn,p.pname,p.fname,p.lname,p.birthday,p.bloodgrp,p.drugallergy,p.pttype,ptt.`name` AS pttypename,p.clinic,w.`status` AS q_status,o.vstdate,o.vsttime
-        ,TIMESTAMPDIFF(YEAR,p.birthday,CURDATE()) AS age_year,o.vn,w.type,w.qnumber,w.pt_priority,w.room_code,k.department,s.name AS spcltyname,w.time,w.time_complete
+        SELECT p.cid,p.hn,p.pname,p.fname,p.lname,p.birthday,p.bloodgrp,p.drugallergy,p.pttype,ptt.`name` AS pttypename,p.clinic
+        ,TIMESTAMPDIFF(YEAR,p.birthday,CURDATE()) AS age_year,o.vn
+        '.$q_select.'
         FROM patient p LEFT OUTER JOIN pttype ptt ON ptt.pttype = p.pttype
         LEFT OUTER JOIN ovst o ON o.hn = p.hn AND o.vstdate = CURDATE()
-        LEFT OUTER JOIN web_queue w ON w.vn = o.vn
-        LEFT OUTER JOIN kskdepartment k ON k.depcode = w.room_code
-        LEFT OUTER JOIN spclty s ON s.spclty = k.spclty
+        '.$q_join.'
         WHERE p.hn = "'.$hn.'"
-        ORDER BY w.time DESC LIMIT 1
+        '.$q_order.'
         ');
         foreach($check_patient as $data){
             // $clinic = $data->clinic;
