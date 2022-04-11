@@ -414,11 +414,11 @@ class OappController extends Controller
             UPDATE oapp SET visit_vn="'.$visitnumber.'" WHERE oapp_id="'.$oappid.'"
             ');
 
-            DB::connection('mysql_hos')->insert('
-            INSERT INTO ksklog (ksklog_id,logtime,loginname,tablename,modifytype,detail,old_delta,new_delta,log_id,computer_name,hos_guid)
-            VALUES ("'.$ksklog_id.'",DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"),"'.$staff.'","OVST","EDIT","'.$ksklog_detail.'"
-            ,NULL,NULL,NULL,"LINEAPP",NULL)
-            ');
+            // DB::connection('mysql_hos')->insert('
+            // INSERT INTO ksklog (ksklog_id,logtime,loginname,tablename,modifytype,detail,old_delta,new_delta,log_id,computer_name,hos_guid)
+            // VALUES ("'.$ksklog_id.'",DATE_FORMAT(NOW(),"%Y-%m-%d %H:%i:%s"),"'.$staff.'","OVST","EDIT","'.$ksklog_detail.'"
+            // ,NULL,NULL,NULL,"LINEAPP",NULL)
+            // ');
 
             DB::connection('mysql_hos')->update('
             DELETE FROM pttypehistory WHERE hn = "'.$hn.'" AND pttype = "'.$pttype.'"
