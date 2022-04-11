@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appointment;
 use App\Models\Setting;
-use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -20,8 +20,7 @@ class AppointmentController extends Controller
         session_start();
         return view('appointment.index', [
             'setting' => Setting::all(),
-            'que_card' => Book::all(),
-            // 'lineid' => $_SESSION["lineid"],
+            'appointment' => Appointment::all(),
         ]);
     }
 
@@ -222,7 +221,7 @@ class AppointmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Book $model)
+    public function store(Request $request, Appointment $model)
     {
         $model->create($request->all());
         return redirect()->route('book')->with('session-alert', $request->que_app_flag);

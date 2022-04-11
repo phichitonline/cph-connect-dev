@@ -21,7 +21,7 @@ class CreateAppointmentsTable extends Migration
             $table->id();
             $table->date('que_date');
             $table->bigInteger('que_time');
-            $table->string('hn', 9);
+            $table->string('hn', 25);
             $table->string('que_app_flag', 1);
             $table->string('que_dep', 255);
             $table->string('que_cc', 255);
