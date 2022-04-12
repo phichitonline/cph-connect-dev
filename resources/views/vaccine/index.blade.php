@@ -6,13 +6,13 @@
 
 @section('content')
 
-{{-- @foreach($setting as $data)
+@foreach($setting as $data)
 @php
     $hos_name = $data->hos_name;
     $hos_url = $data->hos_url;
     $hos_tel = $data->hos_tel;
 @endphp
-@endforeach --}}
+@endforeach
 
 <div class="page-content header-clear-small">
 
@@ -63,7 +63,8 @@
         <a class="footer-title"><span class="color-highlight">หมายเหตุ</span></a>
         <p class="footer-text">
         <span class="font-16">
-            <br><br><b>หากมีปัญหา ข้อสงสัย ต้องการคำแนะนำ โปรดติดต่อเจ้าหน้าที่ <br>โทร <a href="tel:056621366">056621355</a>
+            <br><br><b>หากมีปัญหา ข้อสงสัย ต้องการคำแนะนำ โปรดติดต่อเจ้าหน้าที่
+                <br>โทร <a href="tel:{{ $hos_tel }}">{{ $hos_tel }}</a>
         </span>
         </p>
     </div>

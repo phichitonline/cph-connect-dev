@@ -107,7 +107,7 @@
                     <h2 class="color-blue1-dark font-800 text-shadow-l">VN : {{ $vn }}</h2>
                 </div>
                 <p class="card-bottom text-center mb-2 pb-2 color-blue1-dark font-15 text-shadow-s">
-                    แผนก: {{ $spcltyname }}
+                    แผนก: {{ $spclty }}
                 </p>
             </div>
 

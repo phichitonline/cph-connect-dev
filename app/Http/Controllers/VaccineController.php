@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -33,7 +34,7 @@ class VaccineController extends Controller
         return view('vaccine.index', [
             'moduletitle' => "ข้อมูลวัคซีน",
             'vaccine_list' => $vaccine_list,
-            // 'view_menu' => "disable",
+            'setting' => Setting::all(),
         ]);
     }
 
