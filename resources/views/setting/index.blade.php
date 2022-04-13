@@ -170,7 +170,7 @@
                 <div class="input-style input-style-2 input-required mt-4">
                     <span class="color-highlight input-style-1-active">GPS location</span>
                     <input class="form-control" type="text" name="hoslocation" id="locationPoint" value="{{ $data->location }}">
-                    <a href="#" onclick="getLocation()" class="btn btn-m btn-center-l font-900 bg-blue2-dark rounded-sm shadow-xl mt-0 mb-4">คลิกอ่านพิกัด GPS</a>
+                    <a href="#" onclick="getLocation()" class="btn btn-m btn-center-l font-900 bg-gray2-dark rounded-sm shadow-xl mt-2 mb-4">คลิกอ่านพิกัด GPS</a>
                 </div>
 
             </div>
