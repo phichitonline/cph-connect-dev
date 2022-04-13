@@ -162,8 +162,12 @@ class OappController extends Controller
         $locationsplit = explode(",", $hoslocation);
         $hos_latitude = substr($locationsplit[0],0,6);
         $hos_longitude = substr($locationsplit[1],0,7);
+        $lat1 = $hos_latitude-0.003;
+        $lat2 = $hos_latitude+0.003;
+        $lon1 = $hos_longitude-0.003;
+        $lon2 = $hos_longitude+0.003;
 
-        if (($gps_latitude > 16.215 && $gps_latitude < 16.220) && ($gps_longitude > 100.437 && $gps_longitude < 100.441)) {
+        if (($gps_latitude > $lat1 && $gps_latitude < $lat2) && ($gps_longitude > $lon1 && $gps_longitude < $lon2)) {
             $islocation = "true";
         } else {
             $islocation = "false";
