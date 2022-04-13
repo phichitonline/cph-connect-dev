@@ -57,7 +57,8 @@
             <div class="input-style input-style-2 input-required">
                 <span class="color-highlight input-style-1-active">พิกัด GPS ที่ตั้งโรงพยาบาล</span>
                 <input class="form-control" type="text" name="hoslocation" id="locationPoint" value="{{ $data->hoslocation }}">
-                <a target="_blank" href="https://www.google.co.th/maps/@{{ $data->hoslocation }}">คลิกดูตัวอย่างแผนที่</a>
+                <div class="text-center">
+                <a target="_blank" href="https://www.google.co.th/maps/&#64;{{ $data->hoslocation }},15z?hl=th">คลิกดูตัวอย่างแผนที่</a></div>
                 <a href="#" onclick="getLocation()" class="btn btn-m btn-center-l font-900 bg-gray2-dark rounded-sm shadow-xl mt-2 mb-2">คลิกอ่านพิกัด GPS</a>
             </div>
         </div>
