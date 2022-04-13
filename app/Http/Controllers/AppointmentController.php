@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appointment;
-use App\Models\Setting;
+// use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -19,7 +19,7 @@ class AppointmentController extends Controller
     {
         session_start();
         return view('appointment.index', [
-            'setting' => Setting::all(),
+            // 'setting' => Setting::all(),
             'appointment' => Appointment::all(),
         ]);
     }

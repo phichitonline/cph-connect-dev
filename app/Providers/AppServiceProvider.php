@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+use App\Models\Setting;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -23,6 +23,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        view()->composer('*',function($view) {
+            $view->with('setting', Setting::where('id', '=', '1')->get());
+        });
     }
 }
