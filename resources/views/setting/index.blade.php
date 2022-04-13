@@ -220,7 +220,6 @@
     function showPosition(position) {
         x.value = position.coords.latitude + "," + position.coords.longitude;
     }
-
 </script>
 
 @endsection

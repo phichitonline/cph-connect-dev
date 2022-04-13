@@ -178,6 +178,22 @@
 
         <!-- วันนี้คุณมีนัด -->
         @if ($user_app_check == "Y")
+        @if (isset($vn))
+        <div class="card card-style shadow-xl rounded-m">
+            <div class="cal-footer">
+                <h4 class="cal-title text-center text-uppercase font-25 bg-red2-dark color-white">คุณยืนยันรับบริการตามนัดแล้ว</h6>
+                <span class="cal-message mt-3 mb-3">
+                    <i class="fa fa-bell font-18 color-green1-dark"></i>
+                    <strong class="color-gray-dark">กด "ดูสถานะคิว" สามารถดูหมายเลขคิวรอรับบริการได้</strong>
+                    <strong class="color-gray-dark">และชั่งน้ำหนัก วัดส่วนสูง วัดความดัน รอเรียกที่แผนกนัดได้เลยค่ะ</strong>
+                </span>
+                <div class="content mb-0">
+
+                </div>
+                <a href="{{ url('/') }}/statusq" class="btn btn-m btn-full rounded-s shadow-l text-center text-uppercase font-25 bg-blue1-dark color-white">ดูสถานะคิว</a>
+            </div>
+        </div>
+        @else
         <div class="card card-style shadow-xl rounded-m">
             <div class="cal-footer">
                 <h4 class="cal-title text-center text-uppercase font-25 bg-red2-dark color-white">วันนี้คุณมีนัด</h6>
@@ -190,9 +206,9 @@
 
                 </div>
                 <a href="{{ url('/') }}/oappdetail?oappid={{ $user_app_id }}" class="btn btn-m btn-full rounded-s shadow-l text-center text-uppercase font-25 bg-green1-dark color-white">ดูบัตรนัด</a>
-
             </div>
         </div>
+        @endif
         @endif
 
         <div class="row text-center mb-0">
