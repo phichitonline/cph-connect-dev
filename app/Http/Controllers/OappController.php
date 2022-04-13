@@ -455,7 +455,7 @@ class OappController extends Controller
         }
 
         if ($ext_q_status == "Y") {
-            $q_select = ",w.type,w.qnumber,w.pt_priority,w.room_code,w.time,w.time_complete,k.department,s.name AS spcltyname,w.`status` AS q_status";
+            $q_select = ",w.type,w.qnumber,w.pt_priority,w.room_code,w.time,w.time_complete,k.department,s.spclty,s.name AS spcltyname,w.`status` AS q_status";
             $q_join = "LEFT OUTER JOIN web_queue w ON w.vn = o.vn LEFT OUTER JOIN kskdepartment k ON k.depcode = w.room_code LEFT OUTER JOIN spclty s ON s.spclty = k.spclty";
             $q_order = "ORDER BY w.time DESC LIMIT 1";
         } else {
