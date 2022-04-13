@@ -1,5 +1,5 @@
 @extends('layouts.theme')
-@section('menu-active-book','active-nav')
+@section('menu-active-appointment','active-nav')
 @section('header_script')
 {{-- header --}}
 @endsection
@@ -8,8 +8,6 @@
 
 @foreach($setting as $data)
 @php
-    $hos_name = $data->hos_name;
-    $hos_url = $data->hos_url;
     $hos_tel = $data->hos_tel;
 @endphp
 @endforeach
@@ -69,29 +67,28 @@
             </div>
             <div class="card-overlay bg-gradient opacity-70"></div>
             <div class="card-overlay bg-gradient bg-gradient-{{ $session_color }} opacity-80"></div>
-            {{-- <img class="img-fluid" src="images/logo-neoq3.png"> --}}
         </div>
     @endif
 
         <div class="row text-center mb-0">
             <a href="{{ url('/') }}/appointment/calendar/?flag=C" class="col-6 pr-0">
                 <div class="card card-style mr-2 mb-2">
-                    <img class="img-fluid" src="images/book_healthy.png">
+                    <img class="img-fluid" src="{{ URL::asset('images/book_healthy.png') }}">
                 </div>
             </a>
             <a href="{{ url('/') }}/appointment/calendar/?flag=T" class="col-6 pl-0">
                 <div class="card card-style ml-2 mb-3">
-                    <img class="img-fluid" src="images/book_phanthai2.png">
+                    <img class="img-fluid" src="{{ URL::asset('images/book_phanthai2.png') }}">
                 </div>
             </a>
             <a href="{{ url('/') }}/appointment/calendar/?flag=D" class="col-6 pr-0">
                 <div class="card card-style mr-2 mb-2">
-                    <img class="img-fluid" src="images/book_dental2.png">
+                    <img class="img-fluid" src="{{ URL::asset('images/book_dental2.png') }}">
                 </div>
             </a>
             <a href="{{ url('/') }}/appointment/calendar/?flag=A" class="col-6 pl-0">
                 <div class="card card-style ml-2">
-                    <img class="img-fluid" src="images/book_opd.png">
+                    <img class="img-fluid" src="{{ URL::asset('images/book_opd.png') }}">
                 </div>
             </a>
         </div>

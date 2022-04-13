@@ -60,7 +60,8 @@ class AppointmentController extends Controller
     public function time()
     {
         session_start();
-        $hn = $_SESSION["hn"];
+        // $hn = $_SESSION["hn"];
+        $hn = "000035634";
         $que_date = $_GET['que_date'];
 
         if ($_GET['flag'] == "T") {
@@ -103,7 +104,7 @@ class AppointmentController extends Controller
             }
         }
 
-        return view('book.book_time', [
+        return view('appointment.time', [
             'module_color' => $module_color,
             'module_name' => $module_name,
             'qflag' => $qflag,
@@ -117,7 +118,8 @@ class AppointmentController extends Controller
     public function quecc(Request $request)
     {
         session_start();
-        $hn = $_SESSION["hn"];
+        // $hn = $_SESSION["hn"];
+        $hn = "000035634";
 
         $check_opduser = DB::connection('mysql_hos')->select('
         SELECT p.cid,p.hn,p.pname,p.fname,p.lname,p.birthday,p.bloodgrp,p.drugallergy,p.pttype,ptt.`name` AS pttypename,p.clinic,TIMESTAMPDIFF(YEAR,p.birthday,CURDATE()) AS age_year
@@ -190,7 +192,7 @@ class AppointmentController extends Controller
         $que_date = $request->que_date;
         $que_rad = $request->rad;
 
-        return view('book.book_cc', [
+        return view('appointment.cc', [
             'module_color' => $module_color,
             'module_name' => $module_name,
             'qflag' => $qflag,

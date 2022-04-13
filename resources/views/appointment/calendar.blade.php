@@ -1,5 +1,5 @@
 @extends('layouts.theme')
-@section('menu-active-book','active-nav')
+@section('menu-active-appointment','active-nav')
 @section('header_script')
 {{-- header --}}
 @endsection
@@ -66,8 +66,8 @@
                 <div class="card card-style bg-theme shadow-xl rounded-m">
                     <div class="cal-header">
                         <h4 class="cal-title text-center text-uppercase font-800 {{ $module_color }} color-white">{{ $monthNames[$cMonth - 1] . ' ' . $thaiyear }}</h4>
-                        <h6 class="cal-title-left color-white"><a class="color-white" href="{{ url('/') }}/bookcalendar/{{ "?qflag=".$qflag."&flag=".$flag."&month=" . $prev_month . "&year=" . $prev_year }}" data-ajax="false"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-left"></i></a></h6>
-                        <h6 class="cal-title-right color-white"><a class="color-white" href="{{ url('/') }}/bookcalendar/{{ "?qflag=".$qflag."&flag=".$flag."&month=" . $next_month . "&year=" . $next_year }}" data-ajax="false"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></a></h6>
+                        <h6 class="cal-title-left color-white"><a class="color-white" href="{{ url('/') }}/appointment/calendar/{{ "?qflag=".$qflag."&flag=".$flag."&month=" . $prev_month . "&year=" . $prev_year }}" data-ajax="false"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-left"></i></a></h6>
+                        <h6 class="cal-title-right color-white"><a class="color-white" href="{{ url('/') }}/appointment/calendar/{{ "?qflag=".$qflag."&flag=".$flag."&month=" . $next_month . "&year=" . $next_year }}" data-ajax="false"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></a></h6>
                     </div>
                     <div class="clearfix"></div>
                     <div class="cal-days {{ $module_color }} opacity-80 bottom-0">
@@ -152,7 +152,7 @@
                                     }
 
                                 }
-                                echo "<a href='/booktime/?qflag=".$qflag."&flag=".$flag."&day=".$day."&que_date=".$chkbook."' data-ajax='false'><b>".$d."</b>".$total_que."</a>";
+                                echo "<a href='/appointment/calendar/time/?qflag=".$qflag."&flag=".$flag."&day=".$day."&que_date=".$chkbook."' data-ajax='false'><b>".$d."</b>".$total_que."</a>";
                             }
                         }
                         if (($i % 7) == 6) {
