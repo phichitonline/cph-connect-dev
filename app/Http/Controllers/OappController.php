@@ -549,7 +549,7 @@ class OappController extends Controller
         } else {
                 $webq = "";
                 $webqn = "";
-                $department = "";
+                // $department = "";
                 $spcltyname = "";
                 $waitq = "";
                 $pri_color = "";
@@ -589,7 +589,6 @@ class OappController extends Controller
             'vstdate' => $vstdate,
             'vsttime' => $vsttime,
             'room_code' => $room_code,
-            'department' => $department,
         ]);
 
     }
