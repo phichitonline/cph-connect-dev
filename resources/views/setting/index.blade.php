@@ -164,6 +164,27 @@
                 </div>
             </div>
         </div>
+        <div class="cal-schedule">
+            <em>
+                <div class="fac fac-radio fac-green"><span></span>
+                    <input id="box7-fac-radio" type="radio" name="ext_q_status" value="Y" @if ($data->ext_q_status == "Y") checked @endif>
+                    <label for="box7-fac-radio">มี</label>
+                </div>
+                <div class="fac fac-radio fac-red"><span></span>
+                    <input id="box8-fac-radio" type="radio" name="ext_q_status" value="N" @if ($data->ext_q_status == "N") checked @endif>
+                    <label for="box8-fac-radio">ไม่มี</label>
+                </div>
+            </em>
+            <strong>พิกัด GPS ที่ตั้งโรงพยาบาล</strong>
+            <div class="content mb-0">
+                <div class="input-style input-style-2 input-required mt-4">
+                    <span class="color-highlight input-style-1-active">GPS</span>
+                    <input class="form-control" type="text" name="location" id="locationPoint" value="{{ $data->location }}">
+                </div>
+                <a href="#" onclick="getLocation()" class="btn btn-m btn-center-l text-uppercase font-900 bg-blue2-dark rounded-sm shadow-xl mt-4 mb-0">คลิกอ่านพิกัด GPS</a>
+
+            </div>
+        </div>
 
         <div class="cal-schedule">
             <em>
@@ -198,5 +219,21 @@
 
 @section('footer_script')
 
+<script>
+    var x = document.getElementById("locationPoint");
+
+    async function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+    }
+
+    function showPosition(position) {
+        x.value = position.coords.latitude + "," + position.coords.longitude;
+    }
+
+</script>
 
 @endsection

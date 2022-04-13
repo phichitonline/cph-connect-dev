@@ -26,10 +26,10 @@
                     	) AS t1
                     	WHERE t1.hn IN (
                     		SELECT o.hn FROM ".$db_hos.".ovst o
-                    		WHERE o.vstdate = CURDATE() AND CONCAT(o.vstdate,' ',o.vsttime) >= DATE_ADD(NOW(), INTERVAL -5 MINUTE)
+                    		WHERE o.vstdate = CURDATE() AND CONCAT(o.vstdate,' ',o.vsttime) BETWEEN DATE_ADD(NOW(), INTERVAL -5 MINUTE) AND NOW()
                     	)) t2 ON t2.hn = o.hn
 
-                    WHERE o.vstdate = CURDATE() AND CONCAT(o.vstdate,' ',o.vsttime) >= DATE_ADD(NOW(), INTERVAL -5 MINUTE)";
+                    WHERE o.vstdate = CURDATE() AND CONCAT(o.vstdate,' ',o.vsttime) BETWEEN DATE_ADD(NOW(), INTERVAL -5 MINUTE) AND NOW()";
         $result = $myPDO->query($sql);
         foreach ($result AS $data) {
             $idline = $data['lineid'];
