@@ -465,11 +465,12 @@ class OappController extends Controller
         }
 
         $check_patient = DB::connection('mysql_hos')->select('
-        SELECT p.cid,p.hn,p.pname,p.fname,p.lname,p.birthday,p.bloodgrp,p.drugallergy,p.pttype,ptt.`name` AS pttypename,p.clinic,o.vstdate,o.vsttime,o.spclty
+        SELECT p.cid,p.hn,p.pname,p.fname,p.lname,p.birthday,p.bloodgrp,p.drugallergy,p.pttype,ptt.`name` AS pttypename,p.clinic,o.vstdate,o.vsttime,s.name AS spclty
         ,TIMESTAMPDIFF(YEAR,p.birthday,CURDATE()) AS age_year,o.vn
         '.$q_select.'
         FROM patient p LEFT OUTER JOIN pttype ptt ON ptt.pttype = p.pttype
         LEFT OUTER JOIN ovst o ON o.hn = p.hn AND o.vstdate = CURDATE()
+        LEFT OUTER JOIN spclty s ON s.spclty = o.spclty
         '.$q_join.'
         WHERE p.hn = "'.$hn.'"
         '.$q_order.'

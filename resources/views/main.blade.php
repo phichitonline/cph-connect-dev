@@ -181,7 +181,7 @@
         @if (isset($vn))
         <div class="card card-style shadow-xl rounded-m">
             <div class="cal-footer">
-                <h4 class="cal-title text-center text-uppercase font-25 bg-red2-dark color-white">คุณยืนยันรับบริการตามนัดแล้ว</h6>
+                <h4 class="cal-title text-center text-uppercase font-25 bg-red2-dark color-white">คุณยืนยันรับบริการแล้ว</h6>
                 <span class="cal-message mt-3 mb-3">
                     <i class="fa fa-bell font-18 color-green1-dark"></i>
                     <strong class="color-gray-dark">กด "ดูสถานะคิว" สามารถดูหมายเลขคิวรอรับบริการได้</strong>
