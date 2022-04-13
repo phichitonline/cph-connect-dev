@@ -67,7 +67,7 @@
                         $lon1 = $hos_longitude-0.003;
                         $lon2 = $hos_longitude+0.003;
                     @endphp
-                    {{ $lat1,$lat2,$lon1,$lon2 }}
+                    {{ $lat1."-".$lat2.",".$lon1."-".$lon2 }}
                 <a target="_blank" href="https://www.google.co.th/maps/&#64;{{ $data->hoslocation }},15z?hl=th">คลิกดูตัวอย่างแผนที่</a></div>
                 <a href="#" onclick="getLocation()" class="btn btn-m btn-center-l font-900 bg-gray2-dark rounded-sm shadow-xl mt-2 mb-2">คลิกอ่านพิกัด GPS</a>
             </div>
