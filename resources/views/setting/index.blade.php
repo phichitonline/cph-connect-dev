@@ -54,7 +54,7 @@
                 <em>(required)</em>
                 <input class="form-control" type="url" name="hos_youtube" value="{{ $data->hos_youtube }}">
             </div>
-            <div class="input-style input-style-2 input-required mt-4">
+            <div class="input-style input-style-2 input-required">
                 <a target="_blank" href="{{ $data->hoslocation }}">
                 <span class="color-highlight input-style-1-active">พิกัด GPS ที่ตั้งโรงพยาบาล</span>
                 </a>
@@ -62,7 +62,8 @@
                 <a href="#" onclick="getLocation()" class="btn btn-m btn-center-l font-900 bg-gray2-dark rounded-sm shadow-xl mt-2 mb-2">คลิกอ่านพิกัด GPS</a>
             </div>
         </div>
-
+        <div class="divider mb-0"></div>
+        
         <div class="cal-schedule">
             <em>
                 <div class="fac fac-radio fac-green"><span></span>
