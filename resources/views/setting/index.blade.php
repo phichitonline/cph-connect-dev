@@ -59,15 +59,15 @@
                 <input class="form-control" type="text" name="hoslocation" id="locationPoint" value="{{ $data->hoslocation }}">
                 <div class="text-center">
                     @php
-                        $locationsplit = explode(",", $hoslocation);
+                        $locationsplit = explode(",", $data->hoslocation);
                         $hos_latitude = substr($locationsplit[0],0,6);
                         $hos_longitude = substr($locationsplit[1],0,7);
-
-                        echo "LAT : ".$hos_latitude-3."-".$hos_latitude+3;
-                        echo "<br>";
-                        echo "LON : ".$hos_longitude-3."-".$hos_longitude+3;
-                        echo "<br>";
+                        $lat1 = $hos_latitude-0.003;
+                        $lat2 = $hos_latitude+0.003;
+                        $lon1 = $hos_longitude-0.003;
+                        $lon2 = $hos_longitude+0.003;
                     @endphp
+                    {{ $lat1,$lat2,$lon1,$lon2 }}
                 <a target="_blank" href="https://www.google.co.th/maps/&#64;{{ $data->hoslocation }},15z?hl=th">คลิกดูตัวอย่างแผนที่</a></div>
                 <a href="#" onclick="getLocation()" class="btn btn-m btn-center-l font-900 bg-gray2-dark rounded-sm shadow-xl mt-2 mb-2">คลิกอ่านพิกัด GPS</a>
             </div>
