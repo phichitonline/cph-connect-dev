@@ -19,8 +19,7 @@ class AppointmentController extends Controller
     {
         session_start();
         return view('appointment.index', [
-            // 'setting' => Setting::all(),
-            'appointment' => Appointment::all(),
+            // 'appointment' => Appointment::all(),
         ]);
     }
 
@@ -224,7 +223,7 @@ class AppointmentController extends Controller
     public function store(Request $request, Appointment $model)
     {
         $model->create($request->all());
-        return redirect()->route('book')->with('session-alert', $request->que_app_flag);
+        return redirect()->route('appointment')->with('session-alert', $request->que_app_flag);
     }
 
     /**
