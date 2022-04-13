@@ -459,8 +459,8 @@ class OappController extends Controller
             $q_join = "LEFT OUTER JOIN web_queue w ON w.vn = o.vn LEFT OUTER JOIN kskdepartment k ON k.depcode = w.room_code LEFT OUTER JOIN spclty s ON s.spclty = k.spclty";
             $q_order = "ORDER BY w.time DESC LIMIT 1";
         } else {
-            $q_select = ",s.name AS spclty";
-            $q_join = "LEFT OUTER JOIN spclty s ON s.spclty = o.spclty";
+            $q_select = ",s.name AS spclty,o.main_dep,k.department";
+            $q_join = "LEFT OUTER JOIN spclty s ON s.spclty = o.spclty LEFT OUTER JOIN kskdepartment k ON k.depcode = o.main_dep";
             $q_order = "";
         }
 
@@ -479,6 +479,7 @@ class OappController extends Controller
             $vsttime = $data->vsttime;
             $vn = $data->vn;
             $spclty = $data->spclty;
+            $department = $data->department;
 
             if ($ext_q_status == "Y") {
                 $webq = $data->type.$data->qnumber;
@@ -588,6 +589,7 @@ class OappController extends Controller
             'vstdate' => $vstdate,
             'vsttime' => $vsttime,
             'room_code' => $room_code,
+            'department' => $department,
         ]);
 
     }
