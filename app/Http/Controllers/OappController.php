@@ -159,8 +159,9 @@ class OappController extends Controller
         foreach($setting as $data){
             $hoslocation = $data->hoslocation;
         }
-        $hos_latitude = substr($hoslocation,0,6);
-        $hos_longitude = substr($hoslocation,11,7);
+        $locationsplit = explode(",", $hoslocation);
+        $hos_latitude = substr($locationsplit[0],0,6);
+        $hos_longitude = substr($locationsplit[1],0,7);
 
         if (($gps_latitude > 16.215 && $gps_latitude < 16.220) && ($gps_longitude > 100.437 && $gps_longitude < 100.441)) {
             $islocation = "true";
