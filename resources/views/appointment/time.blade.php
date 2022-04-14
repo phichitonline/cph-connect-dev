@@ -24,7 +24,7 @@
     mysqli_select_db($dbnurse,$database_dbnurse);
     mysqli_set_charset($dbnurse,"utf8");
     date_default_timezone_set("Asia/Bangkok");
-    $const_que = 5;//จำนวนคิวต่อรอบ
+    $const_que = $applimit;//จำนวนคิวต่อรอบ
 
 @endphp
 
@@ -41,7 +41,6 @@
 				<div class="clearfix"><br></div>
 @else
                 <form class="control-group" id="radio_time" method="POST" action="{{ route('appquecc') }}" name=login  data-ajax="false" autocomplete="on" >
-				{{-- <form method="post" id="radio_time" action="{{ route('appquecc') }}" data-ajax="false" autocomplete="off" class="form-horizontal"> --}}
 					@csrf
 					@method('post')
 					<input type="hidden" name="que_date" value="{{ $que_date }}" readonly  />
@@ -49,85 +48,36 @@
 					<input type="hidden" name="flag" value="{{ $flag }}" readonly  />
 					<input type="hidden" name="qflag" value="{{ $qflag }}" readonly  />
 
+                    @foreach($app_flag_time as $data)
+
                     @php
-							// $tbl="que_card";
-							$sql = "select count(*) AS cc from que_card WHERE que_app_flag = '{$qflag}' AND DATE(que_date) = '{$que_date}' AND que_time = '9';";
-							$query = mysqli_query($dbnurse,$sql ) or die(mysqli_error());
-							$row_name = mysqli_fetch_assoc($query);
-							if($const_que > $row_name['cc']){
-								$rs9 = '<b>'.$row_name['cc'].'/'.$const_que.' <mark class="highlight pl-2 font-12 pr-2 bg-green2-dark">ว่าง</mark></b>';
-								$rd9 = "";
-								$fac9 = "fac-green";
-							} else {
-								$rs9 = '<b>'.$row_name['cc'].'/'.$const_que.' <mark class="highlight pl-2 font-12 pr-2 bg-red2-dark">เต็ม</mark></b>';
-								$rd9 ="disabled";
-								$fac9 = "fac-default";
-							}
+                        if($data->limitcount > $data->cc){
+                            $rs9 = '<b>(จองแล้ว '.$data->cc.'/'.$data->limitcount.') <mark class="highlight pl-2 font-12 pr-2 bg-green2-dark">ว่าง</mark></b>';
+                            $rd9 = "";
+                            $fac9 = "fac-green";
+                        } else {
+                            $rs9 = '<b>(จองแล้ว '.$data->cc.'/'.$data->limitcount.') <mark class="highlight pl-2 font-12 pr-2 bg-red2-dark">เต็ม</mark></b>';
+                            $rd9 ="disabled";
+                            $fac9 = "fac-default";
+                        }
+                    @endphp
 
-                            $sql = "select count(*) AS cc from que_card WHERE que_app_flag = '{$qflag}' AND DATE(que_date) = '{$que_date}' AND que_time = '12';";
-							$query = mysqli_query($dbnurse,$sql ) or die(mysqli_error());
-							$row_name = mysqli_fetch_assoc($query);
-							if($const_que > $row_name['cc']){
-								$rs12 = '<b>'.$row_name['cc'].'/'.$const_que.' <mark class="highlight pl-2 font-12 pr-2 bg-green2-dark">ว่าง</mark></b>';
-								$rd12 ="";
-								$fac12 = "fac-green";
-							} else {
-								$rs12 = '<b>'.$row_name['cc'].'/'.$const_que.' <mark class="highlight pl-2 font-12 pr-2 bg-red2-dark">เต็ม</mark></b>';
-								$rd12 ="disabled";
-								$fac12 = "fac-default";
-							}
-
-                            $sql = "select count(*) AS cc from que_card WHERE que_app_flag = '{$qflag}' AND DATE(que_date) = '{$que_date}' AND que_time = '30';";
-							$query = mysqli_query($dbnurse,$sql ) or die(mysqli_error());
-							$row_name = mysqli_fetch_assoc($query);
-							if($const_que > $row_name['cc']){
-								$rs30 = '<b>'.$row_name['cc'].'/'.$const_que.' <mark class="highlight pl-2 font-12 pr-2 bg-green2-dark">ว่าง</mark></b>';
-								$rd30 ="";
-								$fac30 = "fac-green";
-							} else {
-								$rs30 = '<b>'.$row_name['cc'].'/'.$const_que.' <mark class="highlight pl-2 font-12 pr-2 bg-red2-dark">เต็ม</mark></b>';
-								$rd30 ="disabled";
-								$fac30 = "fac-default";
-							}
-
-                            $sql = "select count(*) AS cc from que_card WHERE que_app_flag = '{$qflag}' AND DATE(que_date) = '{$que_date}' AND que_time = '33';";
-							$query = mysqli_query($dbnurse,$sql ) or die(mysqli_error());
-							$row_name = mysqli_fetch_assoc($query);
-							if($const_que > $row_name['cc']){
-								$rs33 = '<b>'.$row_name['cc'].'/'.$const_que.' <mark class="highlight pl-2 font-12 pr-2 bg-green2-dark">ว่าง</mark></b>';
-								$rd33 ="";
-								$fac33 = "fac-green";
-							} else {
-								$rs33 = '<b>'.$row_name['cc'].'/'.$const_que.' <mark class="highlight pl-2 font-12 pr-2 bg-red2-dark">เต็ม</mark></b>';
-								$rd33 ="disabled";
-								$fac33 = "fac-default";
-							}
-					@endphp
-
-                    <label class="control-label">เลือกเวลาที่ต้องการมารับบริการ (เช้า)</label>
+                    @if (strpos($data->statusday ,$_GET['day']) !== false)
                         <div class="fac fac-radio {{ $fac9 }}"><span></span>
-                            <input id="box1-fac-radio" type="radio" name="rad" value="9" {{ $rd9 }}>
-                            <label for="box1-fac-radio">09.00 - 10.30 น. {!! $rs9 !!}</label>
+                            <input id="box{{$data->que_time}}-fac-radio" type="radio" name="rad" value="{{$data->que_time}}" {{ $rd9 }}>
+                            <label for="box{{$data->que_time}}-fac-radio">{{ $data->que_time_name }} {!! $rs9 !!}</label>
                         </div>
-                        <div class="fac fac-radio {{ $fac12 }}"><span></span>
-                            <input id="box2-fac-radio" type="radio" name="rad" value="12" {{ $rd12 }}>
-                            <label for="box2-fac-radio">10.30 - 12.00 น. {!! $rs12 !!}</label>
+                    @else
+                        <div class="fac fac-radio fac-default"><span></span>
+                            <input id="box{{$data->que_time}}-fac-radio" type="radio" disabled>
+                            <label for="box{{$data->que_time}}-fac-radio">{{ $data->que_time_name }} <b><mark class="highlight pl-2 font-12 pr-2 bg-red2-dark">ไม่รับนัดช่วงวันเวลานี้</mark></b></label>
                         </div>
-                    <div class="clearfix"><br></div>
-                    <label class="control-label">เลือกเวลาที่ต้องการมารับบริการ (บ่าย)</label>
-                        <div class="fac fac-radio {{ $fac30 }}"><span></span>
-                            <input id="box3-fac-radio" type="radio" name="rad" value="30" {{ $rd30 }}>
-                            <label for="box3-fac-radio">13.00 - 15.00 น. {!! $rs30 !!}</label>
-                        </div>
-                        @php
-                            if ($_GET['day'] == 5) {
-                            } else {
-                        @endphp
-                        <div class="fac fac-radio {{ $fac33 }}"><span></span>
-                            <input id="box5-fac-radio" type="radio" name="rad" value="33" {{ $rd33 }}>
-                            <label for="box5-fac-radio">15.00 - 16.30 น. {!! $rs33 !!}</label>
-                        </div>
-                        @php } @endphp
+                    @endif
+
+                    @endforeach
+
+
+
                     <div class="clearfix"><br></div>
 
 					<button class="btn btn-m btn-full btn-block rounded-s shadow-l {{ $module_color }} text-uppercase font-900" type="submit"  name="submit">ถัดไป</button>

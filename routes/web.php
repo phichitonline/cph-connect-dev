@@ -90,4 +90,5 @@ Route::get('checkup', 'CheckupController@index')->name('checkup');
 Route::get('appointment', 'AppointmentController@index')->name('appointment');
 Route::get('appointment/calendar', 'AppointmentController@calendar')->name('appcalendar');
 Route::get('appointment/calendar/time', 'AppointmentController@time')->name('apptime');
-Route::get('appointment/calendar/time/quecc', 'AppointmentController@quecc')->name('appquecc');
+Route::post('appointment/calendar/time/quecc', 'AppointmentController@quecc')->name('appquecc');
+Route::post('appointment/store', 'AppointmentController@store')->name('store');

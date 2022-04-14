@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appointment;
-// use App\Models\Setting;
+use App\Models\Apptime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -27,8 +27,10 @@ class AppointmentController extends Controller
     {
         session_start();
 
+        $applimit = Apptime::where('que_app_flag', $_GET['flag'])->sum('limitcount');
+
         $check_q_flag = DB::connection('mysql')->select('
-        SELECT que_app_flag,que_app_flag_name,depcode,bgcolor FROM que_app_flag WHERE que_app_flag = "'.$_GET['flag'].'"
+        SELECT que_app_flag,que_app_flag_name,depcode,bgcolor FROM appflags WHERE que_app_flag = "'.$_GET['flag'].'"
         ');
         foreach($check_q_flag as $data){
             if ($_GET['flag'] != NULL) {
@@ -54,6 +56,7 @@ class AppointmentController extends Controller
             'module_name' => $module_name,
             'flag' => $_GET['flag'],
             'qflag' => $qflag,
+            'applimit' => $applimit,
         ]);
     }
 
@@ -63,6 +66,9 @@ class AppointmentController extends Controller
         // $hn = $_SESSION["hn"];
         $hn = "000035634";
         $que_date = $_GET['que_date'];
+        $flag = $_GET['flag'];
+
+        $applimit = Apptime::where('que_app_flag', $_GET['flag'])->sum('limitcount');
 
         if ($_GET['flag'] == "T") {
             $module_color = "bg-green1-dark";
@@ -81,6 +87,14 @@ class AppointmentController extends Controller
             $module_name = "จองนัดตรวจโรคทั่วไป";
             $qflag = "A";
         }
+
+        $app_flag_time = DB::connection('mysql')->select('
+        SELECT t.que_app_flag,t.que_time,t.que_time_name,t.que_time_start,t.que_time_end,t.limitcount,a.cc,t.statusday
+        FROM apptimes t
+        LEFT JOIN (SELECT que_app_flag,que_time,COUNT(*) AS cc FROM appointments WHERE status IS NOT NULL AND que_app_flag = "'.$flag.'" AND que_date = "'.$que_date.'" GROUP BY que_time) a ON a.que_time = t.que_time
+        WHERE t.que_app_flag = "'.$flag.'"
+        ORDER BY que_time ASC
+        ');
 
         $check_app_user = DB::connection('mysql')->select('
         SELECT count(*) as cc,que_app_flag from que_card WHERE que_date = "'.$que_date.'" AND status = "1" AND hn = "'.$hn.'"
@@ -112,15 +126,17 @@ class AppointmentController extends Controller
             'que_date' => $_GET['que_date'],
             'user_app_check' => $user_app_check,
             'user_app_name' => $user_app_name,
+            'applimit' => $applimit,
+            'app_flag_time' => $app_flag_time,
         ]);
     }
 
     public function quecc(Request $request)
     {
-        session_start();
+        // session_start();
         // $hn = $_SESSION["hn"];
         $hn = "000035634";
-
+/*
         $check_opduser = DB::connection('mysql_hos')->select('
         SELECT p.cid,p.hn,p.pname,p.fname,p.lname,p.birthday,p.bloodgrp,p.drugallergy,p.pttype,ptt.`name` AS pttypename,p.clinic,TIMESTAMPDIFF(YEAR,p.birthday,CURDATE()) AS age_year
         FROM patient p LEFT OUTER JOIN pttype ptt ON ptt.pttype = p.pttype WHERE p.hn = "'.$hn.'"
@@ -148,8 +164,8 @@ class AppointmentController extends Controller
             $que_limit = $data->limitcount;
             $que_time_c = "";
         }
+*/
 
-/*
         if ($request->flag == "T") {
             $module_color = "bg-green1-dark";
             $module_name = "จองนัดแพทย์แผนไทย";
@@ -172,23 +188,23 @@ class AppointmentController extends Controller
             $qdep = "099";
         }
 
-        if ($request->rad == "9") {
+        if ($request->rad == "1") {
             $que_time = "เวลา 09.00-10.30 น.";
             $que_time_c = "";
-        } else if ($request->rad == "12") {
+        } else if ($request->rad == "2") {
             $que_time = "เวลา 10.30-12.00 น.";
             $que_time_c = "";
-        } else if ($request->rad == "30") {
+        } else if ($request->rad == "3") {
             $que_time = "เวลา 13.00-15.00 น.";
             $que_time_c = "";
-        } else if ($request->rad == "33") {
+        } else if ($request->rad == "4") {
             $que_time = "เวลา 15.00-16.30 น.";
             $que_time_c = "";
         } else {
             $que_time = "คุณยังไม่ได้เลือกเวลา<br>กรุณาย้อนกลับไปเลือกช่วงเวลาก่อนค่ะ";
             $que_time_c = "color-highlight";
         }
-*/
+
         $que_date = $request->que_date;
         $que_rad = $request->rad;
 
@@ -200,9 +216,9 @@ class AppointmentController extends Controller
             'que_rad' => $que_rad,
             'que_time' => $que_time,
             'que_time_c' => $que_time_c,
-            'que_limit' => $que_limit,
+            // 'que_limit' => $que_limit,
             'qdep' => $qdep,
-            'ptname' => $pname.$fname." ".$lname,
+            // 'ptname' => $pname.$fname." ".$lname,
         ]);
     }
 

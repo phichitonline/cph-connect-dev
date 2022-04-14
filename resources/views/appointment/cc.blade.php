@@ -27,16 +27,15 @@
                 <h4 class="text-center font-70 font-20 text-uppercase mb-4">วันที่ {{ DateThaiFull($que_date) }}</h4>
                 <h4 class="text-center font-70 font-20 text-uppercase {{ $que_time_c }} mb-4">{!! $que_time !!}</h4>
 
-                {{-- <form class="control-group" id="radio_time" method="POST" action="book_phanthai_cc.php" name="time"  data-ajax="false" autocomplete="on" > --}}
-                <form method="post" action="{{ route('bookstore') }}" autocomplete="off" class="form-horizontal">
+                <form method="POST" action="{{ route('store') }}" autocomplete="off" class="form-horizontal">
                     @csrf
                     @method('post')
                     <input type="hidden" name="que_time" value="{{ $que_rad }}" readonly  />
 					<input type="hidden" name="que_date" value="{{ $que_date }}" readonly  />
-					<input type="hidden" name="cid" value="{{ $_SESSION['cid'] }}" readonly  />
-					<input type="hidden" name="hn" value="{{ $_SESSION['hn'] }}" readonly  />
-					<input type="hidden" name="lid" value="{{ $_SESSION['lineid'] }}" readonly  />
-					<input type="hidden" name="pname" value="{{ $ptname }}" readonly  />
+					{{-- <input type="hidden" name="cid" value="{{ $_SESSION['cid'] }}" readonly  /> --}}
+					{{-- <input type="hidden" name="hn" value="{{ $_SESSION['hn'] }}" readonly  /> --}}
+					{{-- <input type="hidden" name="lid" value="{{ $_SESSION['lineid'] }}" readonly  /> --}}
+					{{-- <input type="hidden" name="pname" value="{{ $ptname }}" readonly  /> --}}
                     <input type="hidden" name="que_dep" value="{{ $qdep }}" readonly  />
                     <input type="hidden" name="que_app_flag" value="{{ $qflag }}" readonly  />
                     <input type="hidden" name="module_name" value="{{ $module_name }}" readonly  />
@@ -48,7 +47,6 @@
 					</div>
 					<div class="clearfix"></div>
 
-                    {{-- <a href="#" class="btn btn-m btn-full rounded-s shadow-l {{ $module_color }} text-uppercase font-900">บันทึกจองนัด</a> --}}
                     <button class="btn btn-m btn-full btn-block rounded-s shadow-l {{ $module_color }} text-uppercase font-900" type="submit"  name="submit">บันทึกจองนัด</button>
 
                     <div class="clearfix"></div>

@@ -21,6 +21,7 @@
                     <i class="fa fa-bell font-18 color-green1-dark"></i>
                     <strong class="color-gray-dark">- งดรับจองวันหยุดราชการและวันหยุดนักขัตฤกษ์</strong>
                     <strong class="color-gray-dark">- สามารถจองได้เพียงวันละ 1 คิวเท่านั้น</strong>
+                    <strong class="color-gray-dark">- {{ $module_name }} ไม่เกิน {{ $applimit }} คนต่อวัน</strong>
                 </span>
                 <span class="cal-message mt-3 mb-3">
                     <strong class="color-gray-dark"><b>เลือกวันที่ ที่ต้องการจองคิวนัด แล้วดำเนินการต่อ</b></strong>
@@ -39,7 +40,7 @@
                 mysqli_select_db($dbnurse,$database_dbnurse);
                 mysqli_set_charset($dbnurse,"utf8");
                 date_default_timezone_set("Asia/Bangkok");
-                $const_que = 5;//จำนวนคิวต่อรอบ
+                $const_que = $applimit;//จำนวนคิวต่อวัน
 
                 $monthNames = array("มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
                 if (!isset($_REQUEST["month"])) $_REQUEST["month"] = date("n");
@@ -80,14 +81,9 @@
                         <a href="#">ส</a>
                         <div class="clearfix"></div>
                     </div>
-                    {{-- <div class="cal-dates cal-dates-border"> --}}
-                        {{-- <div class="clearfix"></div> --}}
-                    {{-- </div> --}}
-                {{-- </div> --}}
 
                     @php
 
-                    $reserve = 5;
                     $dtime = 2;
                     $timestamp = mktime(0, 0, 0, $cMonth, 1, $cYear);
                     $maxday = date("t", $timestamp);
@@ -138,14 +134,14 @@
                             else if ((date('N', strtotime($chkbook)) >= 6) or $is_holiday) {
                                 echo "<a href='#' class='cal-disabled color-highlight'>".$d."<p class='mb-0 mt-n3 font-10 color-highlight'>หยุด</p></a>";
                             } else {
-                                $sql_chkque = "SELECT count(que_n) as total_que FROM que_card WHERE DATE(que_date) = '{$chkbook}' and que_app_flag = '{$qflag}' and status = '1' limit 1";
+                                $sql_chkque = "SELECT count(*) as total_que FROM appointments WHERE DATE(que_date) = '{$chkbook}' and que_app_flag = '{$qflag}' and status = '1' limit 1";
                                 mysqli_select_db($dbnurse, $database_dbnurse);
                                 $chkque = mysqli_query($dbnurse, $sql_chkque) or die(mysqli_error());
                                 $row_chkque = mysqli_fetch_assoc($chkque);
                                 if ($row_chkque['total_que'] == 0) {
                                     $total_que = "<p class='mb-0 mt-n3 font-10'>0 ราย</p>";
                                 } else {
-                                    if ($row_chkque['total_que'] > $const_que*4) {
+                                    if ($row_chkque['total_que'] > $const_que) {
                                         $total_que = "<p class='mb-0 mt-n3'><mark class='highlight pl-2 font-10 pr-2 bg-red2-dark'>".$row_chkque['total_que']." ราย</mark></p>";
                                     } else {
                                         $total_que = "<p class='mb-0 mt-n3'><mark class='highlight pl-2 font-10 pr-2 bg-green1-dark'>".$row_chkque['total_que']." ราย</mark></p>";
