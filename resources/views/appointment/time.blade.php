@@ -24,7 +24,6 @@
     mysqli_select_db($dbnurse,$database_dbnurse);
     mysqli_set_charset($dbnurse,"utf8");
     date_default_timezone_set("Asia/Bangkok");
-    $const_que = $applimit;//จำนวนคิวต่อรอบ
 
 @endphp
 
@@ -75,8 +74,6 @@
                     @endif
 
                     @endforeach
-
-
 
                     <div class="clearfix"><br></div>
 

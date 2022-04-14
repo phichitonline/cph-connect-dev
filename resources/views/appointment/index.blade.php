@@ -38,16 +38,14 @@
         $book_text_message = "";
     }
 
-    // $lineidpush = $lineid;
-
-    // require "vendor-line/autoload.php";
-    // $access_token = config('line-bot.channel_access_token');
-    // $channelSecret = config('line-bot.channel_secret');
-    // $pushID = $lineidpush;
-    // $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($access_token);
-    // $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channelSecret]);
-    // $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($book_text_message);
-    // $response = $bot->pushMessage($pushID, $textMessageBuilder);
+    require "vendor-line/autoload.php";
+    $access_token = config('line-bot.channel_access_token');
+    $channelSecret = config('line-bot.channel_secret');
+    $pushID = $lineid;
+    $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($access_token);
+    $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channelSecret]);
+    $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($book_text_message);
+    $response = $bot->pushMessage($pushID, $textMessageBuilder);
 
     @endphp
 
@@ -71,26 +69,15 @@
     @endif
 
         <div class="row text-center mb-0">
-            <a href="{{ url('/') }}/appointment/calendar/?flag=C" class="col-6 pr-0">
-                <div class="card card-style mr-2 mb-2">
-                    <img class="img-fluid" src="{{ URL::asset('images/book_healthy.png') }}">
+        @foreach ($appflag as $data)
+
+            <a href="{{ url('/') }}/appointment/calendar/?flag={{ $data->que_app_flag }}" class="col-6 {{ $data->classcol }}">
+                <div class="card card-style {{ $data->classm }} mb-2">
+                    <img class="img-fluid" src="{{ URL::asset('images/appointment/'.$data->app_image) }}">
                 </div>
             </a>
-            <a href="{{ url('/') }}/appointment/calendar/?flag=T" class="col-6 pl-0">
-                <div class="card card-style ml-2 mb-3">
-                    <img class="img-fluid" src="{{ URL::asset('images/book_phanthai2.png') }}">
-                </div>
-            </a>
-            <a href="{{ url('/') }}/appointment/calendar/?flag=D" class="col-6 pr-0">
-                <div class="card card-style mr-2 mb-2">
-                    <img class="img-fluid" src="{{ URL::asset('images/book_dental2.png') }}">
-                </div>
-            </a>
-            <a href="{{ url('/') }}/appointment/calendar/?flag=A" class="col-6 pl-0">
-                <div class="card card-style ml-2">
-                    <img class="img-fluid" src="{{ URL::asset('images/book_opd.png') }}">
-                </div>
-            </a>
+
+        @endforeach
         </div>
 
         <div class="footer card card-style">
@@ -106,7 +93,9 @@
             </p>
         </div>
 
-
+        @if ($isadmin == "A" OR $isadmin == "M")
+        <a href="{{ url('/') }}/appointment/appman" class="btn btn-m btn-center-l text-uppercase font-900 bg-green1-dark rounded-sm shadow-xl mt-4 mb-0">นัดออนไลน์รอยืนยัน <span class="badge badge-light">{{ $oapp_wait_confirm }}</span></a>
+        @endif
     </div>
     <!-- End of Page Content-->
 

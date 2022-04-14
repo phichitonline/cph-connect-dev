@@ -92,3 +92,5 @@ Route::get('appointment/calendar', 'AppointmentController@calendar')->name('appc
 Route::get('appointment/calendar/time', 'AppointmentController@time')->name('apptime');
 Route::post('appointment/calendar/time/quecc', 'AppointmentController@quecc')->name('appquecc');
 Route::post('appointment/store', 'AppointmentController@store')->name('store');
+Route::get('appointment/appman', 'AppointmentController@appman')->name('appman');
+Route::get('appointment/appconfirm', 'AppointmentController@appconfirm')->name('appconfirm');

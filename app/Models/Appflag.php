@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Appflag extends Model
 {
-    protected $fillable = ['id','que_date','que_time','hn','que_app_flag','que_dep','que_cc','status'];
+    protected $fillable = ['id','que_app_flag','que_app_flage_name','clinic','depcode','spclty','doctor','bgcolor','app_image','classcol','classm','active'];
 }

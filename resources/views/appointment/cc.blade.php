@@ -32,10 +32,9 @@
                     @method('post')
                     <input type="hidden" name="que_time" value="{{ $que_rad }}" readonly  />
 					<input type="hidden" name="que_date" value="{{ $que_date }}" readonly  />
-					{{-- <input type="hidden" name="cid" value="{{ $_SESSION['cid'] }}" readonly  /> --}}
-					{{-- <input type="hidden" name="hn" value="{{ $_SESSION['hn'] }}" readonly  /> --}}
-					{{-- <input type="hidden" name="lid" value="{{ $_SESSION['lineid'] }}" readonly  /> --}}
-					{{-- <input type="hidden" name="pname" value="{{ $ptname }}" readonly  /> --}}
+					<input type="hidden" name="hn" value="{{ $_SESSION['hn'] }}" readonly  />
+					<input type="hidden" name="lid" value="{{ $_SESSION['lineid'] }}" readonly  />
+					<input type="hidden" name="pname" value="{{ $ptname }}" readonly  />
                     <input type="hidden" name="que_dep" value="{{ $qdep }}" readonly  />
                     <input type="hidden" name="que_app_flag" value="{{ $qflag }}" readonly  />
                     <input type="hidden" name="module_name" value="{{ $module_name }}" readonly  />
