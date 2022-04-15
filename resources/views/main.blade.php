@@ -341,7 +341,10 @@
             @if ($isadmin == "A")
             <a href="{{ url('/') }}/setting" class="btn btn-m btn-center-l text-uppercase font-900 bg-red2-dark rounded-sm shadow-xl mt-4 mb-0">Setting</a>
             {{-- <a href="{{ url('/') }}/userman" class="btn btn-m btn-center-l text-uppercase font-900 bg-blue2-dark rounded-sm shadow-xl mt-4 mb-0">จัดการผู้ดูแล</a> --}}
-            <a href="{{ url('/') }}/appointment" class="btn btn-m btn-center-l text-uppercase font-900 bg-green2-dark rounded-sm shadow-xl mt-4 mb-0">จองนัดออนไลน์</a>
+            @if ($hn == "000035634")
+                <a href="{{ url('/') }}/appointment" class="btn btn-m btn-center-l text-uppercase font-900 bg-green2-dark rounded-sm shadow-xl mt-4 mb-0">Appointment (DEV)</a>
+            @endif
+
             @endif
             @if ($isadmin == "A" OR $isadmin == "M")
             <a href="{{ url('/') }}/oappman" class="btn btn-m btn-center-l text-uppercase font-900 bg-green1-dark rounded-sm shadow-xl mt-4 mb-0">นัดออนไลน์รอยืนยัน <span class="badge badge-light">{{ $oapp_wait_confirm }}</span></a>

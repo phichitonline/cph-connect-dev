@@ -94,7 +94,9 @@
         </div>
 
         @if ($isadmin == "A" OR $isadmin == "M")
-        <a href="{{ url('/') }}/appointment/appman" class="btn btn-m btn-center-l text-uppercase font-900 bg-green1-dark rounded-sm shadow-xl mt-4 mb-0">นัดออนไลน์รอยืนยัน <span class="badge badge-light">{{ $oapp_wait_confirm }}</span></a>
+            @if ($hn == "000035634")
+                <a href="{{ url('/') }}/appointment/appman" class="btn btn-m btn-center-l text-uppercase font-900 bg-green1-dark rounded-sm shadow-xl mt-4 mb-0">นัดออนไลน์รอยืนยัน <span class="badge badge-light">{{ $oapp_wait_confirm }}</span></a>
+            @endif
         @endif
     </div>
     <!-- End of Page Content-->

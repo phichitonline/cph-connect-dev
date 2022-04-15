@@ -13,14 +13,13 @@ return [
     |
     */
 
-    'name' => env('APPNAME', 'CPH connect'),
-    'hosname' => env('APP_HOSNAME', 'รพร.ตะพานหิน'),
-    'cph_url' => env('CPH_URL', 'https://cph-connect.tphcp.go.th'),
-    'copyright' => env('APP_COPYRIGHT', 'Copyright &copy; Dr.GHOST'),
+    'name' => env('APP_NAME', ''),
+    'hosname' => env('APP_HOSNAME', ''),
+    'cph_url' => env('APP_URL', ''),
 
     'google_recaptcha_key' => env('GOOGLE_RECAPTCHA_KEY', ''),
     'google_recaptcha_secret' => env('GOOGLE_RECAPTCHA_SECRET', ''),
-    
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -62,6 +61,8 @@ return [
 
     'asset_url' => env('ASSET_URL', null),
 
+    'copyright' => env('APP_COPYRIGHT', 'Copyright &copy; Dr.GHOST'),
+    
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

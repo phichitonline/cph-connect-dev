@@ -3,9 +3,6 @@
 /public/storage
 /storage/*.key
 /vendor
-/config/database.php
-/config/line-bot.php
-/config/app.php
 /Quest Software
 .DS_Store
 /public/.DS_Store
