@@ -21,11 +21,13 @@ class AppointmentController extends Controller
         session_start();
         $isadmin = $_SESSION["isadmin"];
         $lineid = $_SESSION["lineid"];
+        $hn = $_SESSION["hn"];
 
         return view('appointment.index', [
             'oapp_wait_confirm' => Appointment::where('status', NULL)->count(),
             'isadmin' => $isadmin,
             'lineid' => $lineid,
+            'hn' => $hn,
             'appflag' => Appflag::where('active', 'Y')->get()
         ]);
     }
