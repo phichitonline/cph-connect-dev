@@ -17,7 +17,7 @@
  */
 
 return [
-    'channel_access_token' => env(''),
+    'channel_access_token' => env('LINE_BOT_CHANNEL_ACCESS_TOKEN', ''),
     'channel_secret' => env('LINE_BOT_CHANNEL_SECRET', ''),
     'liff_url' => env('LINE_LIFF_URL_OAPP', ''),
     'liff_id' => env('LINE_LIFF_ID',''),
