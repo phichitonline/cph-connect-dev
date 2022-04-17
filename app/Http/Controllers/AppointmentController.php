@@ -43,6 +43,10 @@ class AppointmentController extends Controller
         session_start();
         if (config('app.env') == "production") {
             $lineid = $_SESSION["lineid"];
+        } else {
+            if (config('app.env') == "local") {
+                $lineid = "Ub6b2ab13fea3e802ad277fb2de13f26a";
+            }
         }
 
         $applimit = Apptime::where('que_app_flag', $_GET['flag'])->sum('limitcount');
