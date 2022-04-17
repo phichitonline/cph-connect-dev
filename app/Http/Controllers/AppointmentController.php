@@ -41,8 +41,8 @@ class AppointmentController extends Controller
     public function calendar()
     {
         session_start();
-        if (config('app.env') == "local") {
-            $lineid = "Ub6b2ab13fea3e802ad277fb2de13f26a";
+        if (config('app.env') == "production") {
+            $lineid = $_SESSION["lineid"];
         }
 
         $applimit = Apptime::where('que_app_flag', $_GET['flag'])->sum('limitcount');
