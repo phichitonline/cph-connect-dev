@@ -19,9 +19,15 @@ class AppointmentController extends Controller
     public function index()
     {
         session_start();
-        $isadmin = $_SESSION["isadmin"];
-        $lineid = $_SESSION["lineid"];
-        $hn = $_SESSION["hn"];
+        if (config('app.env') == "production") {
+            $isadmin = $_SESSION["isadmin"];
+            $lineid = $_SESSION["lineid"];
+            $hn = $_SESSION["hn"];
+        } else {
+            $isadmin = "A";
+            $lineid = "Ub6b2ab13fea3e802ad277fb2de13f26a";
+            $hn = "000035634";
+        }
 
         return view('appointment.index', [
             'oapp_wait_confirm' => Appointment::where('status', NULL)->count(),
@@ -35,6 +41,9 @@ class AppointmentController extends Controller
     public function calendar()
     {
         session_start();
+        if (config('app.env') == "local") {
+            $lineid = "Ub6b2ab13fea3e802ad277fb2de13f26a";
+        }
 
         $applimit = Apptime::where('que_app_flag', $_GET['flag'])->sum('limitcount');
 
@@ -47,7 +56,7 @@ class AppointmentController extends Controller
             $qflag = $data->que_app_flag;
         }
 
-        if (isset($_SESSION["lineid"])) {
+        if (isset($lineid)) {
             $view_page = "appointment.calendar";
         } else {
             $view_page = "error_close_app";
@@ -66,7 +75,11 @@ class AppointmentController extends Controller
     public function time()
     {
         session_start();
-        $hn = $_SESSION["hn"];
+        if (config('app.env') == "production") {
+            $hn = $_SESSION["hn"];
+        } else {
+            $hn = "000035634";
+        }
         $que_date = $_GET['que_date'];
         $flag = $_GET['flag'];
 
@@ -124,17 +137,24 @@ class AppointmentController extends Controller
     public function quecc(Request $request)
     {
         session_start();
-        $hn = $_SESSION["hn"];
 
-        $check_patient = DB::connection('mysql_hos')->select('
-        SELECT cid,hn,pname,fname,lname FROM patient WHERE hn = "'.$hn.'"
-        ');
-        foreach($check_patient as $data){
-            $ptname = $data->pname.$data->fname." ".$data->lname;
+        if (config('app.env') == "production") {
+            $hn = $_SESSION["hn"];
+            $lineid = $_SESSION["lineid"];
+            $check_patient = DB::connection('mysql_hos')->select('
+            SELECT cid,hn,pname,fname,lname FROM patient WHERE hn = "'.$hn.'"
+            ');
+            foreach($check_patient as $data){
+                $ptname = $data->pname.$data->fname." ".$data->lname;
+            }
+        } else {
+            $hn = "000035634";
+            $lineid = "Ub6b2ab13fea3e802ad277fb2de13f26a";
+            $ptname = "นายณัฐพงศ์ เครือเทศ";
         }
-/*
+
         $check_q_flag = DB::connection('mysql')->select('
-        SELECT que_app_flag,que_app_flag_name,depcode,bgcolor FROM que_app_flag WHERE que_app_flag = "'.$request->flag.'"
+        SELECT que_app_flag,que_app_flag_name,depcode,bgcolor FROM appflags WHERE que_app_flag = "'.$request->flag.'"
         ');
         foreach($check_q_flag as $data){
             $module_color = $data->bgcolor;
@@ -142,53 +162,13 @@ class AppointmentController extends Controller
             $qflag = $data->que_app_flag;
             $qdep = $data->depcode;
         }
+
         $check_q_time = DB::connection('mysql')->select('
-        SELECT que_time,que_app_flag,que_time_name,que_time_start,que_time_end,limitcount FROM que_time WHERE que_app_flag = "'.$request->flag.'" AND que_time = "'.$request->rad.'"
+        SELECT que_time,que_app_flag,que_time_name,que_time_start,que_time_end,limitcount FROM apptimes WHERE que_app_flag = "'.$request->flag.'" AND que_time = "'.$request->rad.'"
         ');
         foreach($check_q_time as $data){
             $que_time = $data->que_time_name;
-            $que_limit = $data->limitcount;
             $que_time_c = "";
-        }
-*/
-
-        if ($request->flag == "T") {
-            $module_color = "bg-green1-dark";
-            $module_name = "จองนัดแพทย์แผนไทย";
-            $qflag = "T";
-            $qdep = "036";
-        } else if ($request->flag == "D") {
-            $module_color = "bg-yellow2-dark";
-            $module_name = "จองนัดทันตกรรม";
-            $qflag = "D";
-            $qdep = "030";
-        } else if ($request->flag == "C") {
-            $module_color = "bg-magenta1-dark";
-            $module_name = "จองนัดตรวจสุขภาพ";
-            $qflag = "C";
-            $qdep = "016";
-        } else {
-            $module_color = "bg-blue1-dark";
-            $module_name = "จองนัดตรวจโรคทั่วไป";
-            $qflag = "A";
-            $qdep = "099";
-        }
-
-        if ($request->rad == "1") {
-            $que_time = "เวลา 09.00-10.30 น.";
-            $que_time_c = "";
-        } else if ($request->rad == "2") {
-            $que_time = "เวลา 10.30-12.00 น.";
-            $que_time_c = "";
-        } else if ($request->rad == "3") {
-            $que_time = "เวลา 13.00-15.00 น.";
-            $que_time_c = "";
-        } else if ($request->rad == "4") {
-            $que_time = "เวลา 15.00-16.30 น.";
-            $que_time_c = "";
-        } else {
-            $que_time = "คุณยังไม่ได้เลือกเวลา<br>กรุณาย้อนกลับไปเลือกช่วงเวลาก่อนค่ะ";
-            $que_time_c = "color-highlight";
         }
 
         $que_date = $request->que_date;
@@ -204,6 +184,8 @@ class AppointmentController extends Controller
             'que_time_c' => $que_time_c,
             'qdep' => $qdep,
             'ptname' => $ptname,
+            'hn' => $hn,
+            'lineid' => $lineid,
         ]);
     }
 
