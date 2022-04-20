@@ -151,9 +151,9 @@ class OappController extends Controller
         session_start();
         $hn = $_SESSION["hn"];
         // $lineid = $_SESSION["lineid"];
-        $gps_stamp = $request->input('gps_stamp');
-        $gps_latitude = substr($gps_stamp,0,6);
-        $gps_longitude = substr($gps_stamp,11,7);
+        $gps_stamp = explode(",", $request->input('gps_stamp'));
+        $gps_latitude = substr($gps_stamp[0],0,6);
+        $gps_longitude = substr($gps_stamp[1],0,7);
 
         $setting = Setting::all();
         foreach($setting as $data){
