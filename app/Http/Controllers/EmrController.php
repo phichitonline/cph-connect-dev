@@ -145,6 +145,12 @@ class EmrController extends Controller
      */
     public function show($id)
     {
+        $settingemr = Settingemr::all();
+        foreach ($settingemr as $data) {
+            $lab_spec_blood = $data->lab_spec_blood;
+            $lab_spec_urine = $data->lab_spec_urine;
+        }
+
         $visit_header = DB::connection('mysql_hos')->select('
         SELECT v.hn,v.vn,v.an,v.vstdate,IF(v.an IS NOT NULL,"IPD",IF(GROUP_CONCAT(d.icd10) LIKE "%Z000%","CHK","NOR")) AS status_type
         FROM ovst v
@@ -181,7 +187,7 @@ class EmrController extends Controller
         LEFT JOIN drugitems d ON oi.icode = d.icode
         WHERE o.vn = "'.$id.'" AND oi.sub_type = "1"
         ');
-        $visit_lab = DB::connection('mysql_hos')->select('
+        $visit_lab_blood = DB::connection('mysql_hos')->select('
         SELECT lh.lab_order_number,lh.hn,lh.vn,lo.lab_items_code,li.lab_items_name,li.lab_items_group,lg.lab_items_group_name
         ,li.lab_items_normal_value,lo.lab_order_result,li.range_check_min,li.range_check_max,li.range_check_min_female
         ,li.range_check_max_female,li.specimen_code,ls.specimen_name
@@ -191,10 +197,10 @@ class EmrController extends Controller
         LEFT JOIN lab_items_group lg ON li.lab_items_group = lg.lab_items_group_code
         LEFT JOIN lab_specimen_items ls ON li.specimen_code = ls.specimen_code
         WHERE li.active_status = "Y" AND li.protect_result_by_user = "N" AND li.protect_result_by_group = "N"
-        AND lh.vn = "'.$vn.'" AND lo.lab_order_result IS NOT NULL AND li.specimen_code IN (9,10,11,12,15)
+        AND lh.vn = "'.$vn.'" AND lo.lab_order_result IS NOT NULL AND li.specimen_code IN ("'.$lab_spec_blood.'")
         ORDER BY li.lab_items_group ASC,li.lab_items_code ASC
         ');
-        $visit_lab5 = DB::connection('mysql_hos')->select('
+        $visit_lab_urine = DB::connection('mysql_hos')->select('
         SELECT lh.lab_order_number,lh.hn,lh.vn,lo.lab_items_code,li.lab_items_name,li.lab_items_group,lg.lab_items_group_name
         ,li.lab_items_normal_value,lo.lab_order_result,li.range_check_min,li.range_check_max,li.range_check_min_female
         ,li.range_check_max_female,li.specimen_code,ls.specimen_name
@@ -204,7 +210,7 @@ class EmrController extends Controller
         LEFT JOIN lab_items_group lg ON li.lab_items_group = lg.lab_items_group_code
         LEFT JOIN lab_specimen_items ls ON li.specimen_code = ls.specimen_code
         WHERE li.active_status = "Y" AND li.protect_result_by_user = "N" AND li.protect_result_by_group = "N"
-        AND lh.vn = "'.$vn.'" AND lo.lab_order_result IS NOT NULL AND li.specimen_code IN (5,8)
+        AND lh.vn = "'.$vn.'" AND lo.lab_order_result IS NOT NULL AND li.specimen_code IN ("'.$lab_spec_urine.'")
         ORDER BY li.lab_items_group ASC,li.lab_items_code ASC
         ');
         $visit_lab_other = DB::connection('mysql_hos')->select('
@@ -217,7 +223,7 @@ class EmrController extends Controller
         LEFT JOIN lab_items_group lg ON li.lab_items_group = lg.lab_items_group_code
         LEFT JOIN lab_specimen_items ls ON li.specimen_code = ls.specimen_code
         WHERE li.active_status = "Y" AND li.protect_result_by_user = "N" AND li.protect_result_by_group = "N"
-        AND lh.vn = "'.$vn.'" AND lo.lab_order_result IS NOT NULL AND li.specimen_code NOT IN (5,8,9,10,11,12,15)
+        AND lh.vn = "'.$vn.'" AND lo.lab_order_result IS NOT NULL AND li.specimen_code NOT IN ("'.$lab_spec_blood.'","'.$lab_spec_urine.'")
         ORDER BY li.lab_items_group ASC,li.lab_items_code ASC
         ');
         $visit_xray = DB::connection('mysql_hos')->select('SELECT vn,hn,xray_list,confirm_all FROM xray_head WHERE vn = "'.$id.'" ');
@@ -227,8 +233,8 @@ class EmrController extends Controller
             'visit_detail' => $visit_detail,
             'visit_diag' => $visit_diag,
             'visit_drug' => $visit_drug,
-            'visit_lab' => $visit_lab,
-            'visit_lab5' => $visit_lab5,
+            'visit_lab_blood' => $visit_lab_blood,
+            'visit_lab_urine' => $visit_lab_urine,
             'visit_lab_other' => $visit_lab_other,
             'visit_xray' => $visit_xray,
             'status_type' => $status_type,

@@ -163,7 +163,7 @@
                         <div class="col-4"><p class="font-14 mb-0 font-800 color-theme text-center">ค่าปกติ</p></div>
                         <div class="col-4"><p class="font-14 mb-0 font-800 color-theme text-right">ผลตรวจ</p></div>
                         <div class="divider w-100 mb-0 mt-0"></div>
-                        @foreach ($visit_lab as $data)
+                        @foreach ($visit_lab_blood as $data)
                             <div class="col-4"><p class="font-13 mb-0 font-500 color-theme text-left">{{ $data->lab_items_name }}</p></div>
                             <div class="col-4"><p class="font-13 mb-0 font-800 color-theme text-center">{{ $data->lab_items_normal_value }}</p></div>
                             @php
@@ -205,7 +205,7 @@
                         <div class="col-4"><p class="font-14 mb-0 font-800 color-theme text-center">ค่าปกติ</p></div>
                         <div class="col-4"><p class="font-14 mb-0 font-800 color-theme text-right">ผลตรวจ</p></div>
                         <div class="divider w-100 mb-0 mt-0"></div>
-                        @foreach ($visit_lab5 as $data)
+                        @foreach ($visit_lab_urine as $data)
                             <div class="col-4"><p class="font-13 mb-0 font-500 color-theme text-left">{{ $data->lab_items_name }}</p></div>
                             <div class="col-4"><p class="font-13 mb-0 font-800 color-theme text-center">{{ $data->lab_items_normal_value }}</p></div>
                             @php
