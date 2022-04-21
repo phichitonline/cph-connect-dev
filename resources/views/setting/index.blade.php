@@ -176,12 +176,12 @@
         <div class="cal-schedule">
             <em>
                 <div class="fac fac-radio fac-green"><span></span>
-                    <input id="box5-fac-radio" type="radio" name="module_1" value="Y" @if ($data->module_1 == "Y") checked @endif>
-                    <label for="box5-fac-radio">เปิด</label>
+                    <input id="box15-fac-radio" type="radio" name="module_1" value="Y" @if ($data->module_1 == "Y") checked @endif>
+                    <label for="box15-fac-radio">เปิด</label>
                 </div>
                 <div class="fac fac-radio fac-red"><span></span>
-                    <input id="box6-fac-radio" type="radio" name="module_1" value="N" @if ($data->module_1 == "N") checked @endif>
-                    <label for="box6-fac-radio">ปิด</label>
+                    <input id="box16-fac-radio" type="radio" name="module_1" value="N" @if ($data->module_1 == "N") checked @endif>
+                    <label for="box16-fac-radio">ปิด</label>
                 </div>
             </em>
             <strong>บัตรผู้ป่วย + ประวัติรับบริการ</strong>
@@ -189,12 +189,12 @@
         <div class="cal-schedule">
             <em>
                 <div class="fac fac-radio fac-green"><span></span>
-                    <input id="box5-fac-radio" type="radio" name="module_2" value="Y" @if ($data->module_2 == "Y") checked @endif>
-                    <label for="box5-fac-radio">เปิด</label>
+                    <input id="box25-fac-radio" type="radio" name="module_2" value="Y" @if ($data->module_2 == "Y") checked @endif>
+                    <label for="box25-fac-radio">เปิด</label>
                 </div>
                 <div class="fac fac-radio fac-red"><span></span>
-                    <input id="box6-fac-radio" type="radio" name="module_2" value="N" @if ($data->module_2 == "N") checked @endif>
-                    <label for="box6-fac-radio">ปิด</label>
+                    <input id="box26-fac-radio" type="radio" name="module_2" value="N" @if ($data->module_2 == "N") checked @endif>
+                    <label for="box26-fac-radio">ปิด</label>
                 </div>
             </em>
             <strong>วันนัด + ข้อมูลวัคซีน</strong>
@@ -202,12 +202,12 @@
         <div class="cal-schedule">
             <em>
                 <div class="fac fac-radio fac-green"><span></span>
-                    <input id="box5-fac-radio" type="radio" name="module_3" value="Y" @if ($data->module_3 == "Y") checked @endif>
-                    <label for="box5-fac-radio">เปิด</label>
+                    <input id="box35-fac-radio" type="radio" name="module_3" value="Y" @if ($data->module_3 == "Y") checked @endif>
+                    <label for="box35-fac-radio">เปิด</label>
                 </div>
                 <div class="fac fac-radio fac-red"><span></span>
-                    <input id="box6-fac-radio" type="radio" name="module_3" value="N" @if ($data->module_3 == "N") checked @endif>
-                    <label for="box6-fac-radio">ปิด</label>
+                    <input id="box36-fac-radio" type="radio" name="module_3" value="N" @if ($data->module_3 == "N") checked @endif>
+                    <label for="box36-fac-radio">ปิด</label>
                 </div>
             </em>
             <strong>ตรวจสุขภาพ + จองคิวรับบริการ</strong>
@@ -215,12 +215,12 @@
         <div class="cal-schedule">
             <em>
                 <div class="fac fac-radio fac-green"><span></span>
-                    <input id="box5-fac-radio" type="radio" name="module_4" value="Y" @if ($data->module_4 == "Y") checked @endif>
-                    <label for="box5-fac-radio">เปิด</label>
+                    <input id="box45-fac-radio" type="radio" name="module_4" value="Y" @if ($data->module_4 == "Y") checked @endif>
+                    <label for="box45-fac-radio">เปิด</label>
                 </div>
                 <div class="fac fac-radio fac-red"><span></span>
-                    <input id="box6-fac-radio" type="radio" name="module_4" value="N" @if ($data->module_4 == "N") checked @endif>
-                    <label for="box6-fac-radio">ปิด</label>
+                    <input id="box46-fac-radio" type="radio" name="module_4" value="N" @if ($data->module_4 == "N") checked @endif>
+                    <label for="box46-fac-radio">ปิด</label>
                 </div>
             </em>
             <strong>โทร 1669 + ตรวจสอบสิทธิ</strong>
