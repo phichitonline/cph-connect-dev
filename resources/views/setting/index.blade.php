@@ -156,7 +156,11 @@
                     <label for="box8-fac-radio">ไม่มี</label>
                 </div>
             </em>
-            <strong>ใช้งานระบบคิวอื่น</strong>
+            @if ($data->ext_q_status == "N")
+                <strong class="color-red2-dark">ใช้งานระบบคิวอื่น</strong>
+            @else
+                <strong>ใช้งานระบบคิวอื่น</strong>
+            @endif
             <div class="content mb-0">
                 <div class="input-style input-style-2 input-required mt-4">
                     <span class="color-highlight input-style-1-active">ชื่อโปรแกรมระบบคิว</span>
@@ -184,7 +188,11 @@
                     <label for="box16-fac-radio">ปิด</label>
                 </div>
             </em>
-            <strong>บัตรผู้ป่วย + ประวัติรับบริการ</strong>
+            @if ($data->module_1 == "N")
+                <strong class="color-red2-dark">บัตรผู้ป่วย + ประวัติรับบริการ</strong>
+            @else
+                <strong>บัตรผู้ป่วย + ประวัติรับบริการ</strong>
+            @endif
         </div>
         <div class="cal-schedule">
             <em>
@@ -197,7 +205,11 @@
                     <label for="box26-fac-radio">ปิด</label>
                 </div>
             </em>
-            <strong>วันนัด + ข้อมูลวัคซีน</strong>
+            @if ($data->module_2 == "N")
+                <strong class="color-red2-dark">วันนัด + ข้อมูลวัคซีน</strong>
+            @else
+                <strong>วันนัด + ข้อมูลวัคซีน</strong>
+            @endif
         </div>
         <div class="cal-schedule">
             <em>
@@ -227,7 +239,11 @@
                     <label for="box46-fac-radio">ปิด</label>
                 </div>
             </em>
-            <strong>โทร 1669 + ตรวจสอบสิทธิ</strong>
+            @if ($data->module_4 == "N")
+                <strong class="color-red2-dark">โทร 1669 + ตรวจสอบสิทธิ</strong>
+            @else
+                <strong>โทร 1669 + ตรวจสอบสิทธิ</strong>
+            @endif
         </div>
 
         <div class="cal-schedule">
@@ -241,7 +257,11 @@
                     <label for="box6-fac-radio">ไม่แสดง</label>
                 </div>
             </em>
-            <strong>ปุ่มเลือก Dark Mode โหมดกลางคืน</strong>
+            @if ($data->dm_status == "N")
+                <strong class="color-red2-dark">ปุ่มเลือก Dark Mode โหมดกลางคืน</strong>
+            @else
+                <strong>ปุ่มเลือก Dark Mode โหมดกลางคืน</strong>
+            @endif
         </div>
 
         <button type="submit" class="btn btn-m btn-center-l text-uppercase font-900 bg-red2-dark rounded-sm shadow-xl mt-4 mb-0">บันทึก</button>
