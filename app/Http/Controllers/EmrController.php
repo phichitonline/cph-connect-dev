@@ -179,7 +179,7 @@ class EmrController extends Controller
         FROM ovst o
         LEFT JOIN opitemrece oi ON o.vn = oi.vn
         LEFT JOIN drugitems d ON oi.icode = d.icode
-        WHERE o.vn = "'.$id.'" AND (oi.icode LIKE "15%" OR oi.icode LIKE "16%")
+        WHERE o.vn = "'.$id.'" AND oi.sub_type = "1"
         ');
         $visit_lab = DB::connection('mysql_hos')->select('
         SELECT lh.lab_order_number,lh.hn,lh.vn,lo.lab_items_code,li.lab_items_name,li.lab_items_group,lg.lab_items_group_name
