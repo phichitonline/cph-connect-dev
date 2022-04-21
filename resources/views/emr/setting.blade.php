@@ -17,7 +17,7 @@
 
     @endif
 
-<form method="POST" action="{{ route('emr.update', 1) }}">
+<form method="POST" action="{{ route('emr.update', $settingemr->id) }}">
     @csrf
     @method('put')
 <div class="card card-style shadow-xl rounded-m">
