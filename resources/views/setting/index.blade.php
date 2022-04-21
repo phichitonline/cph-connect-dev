@@ -210,7 +210,11 @@
                     <label for="box36-fac-radio">ปิด</label>
                 </div>
             </em>
-            <strong>ตรวจสุขภาพ + จองคิวรับบริการ</strong>
+            @if ($data->module_3 == "N")
+                <strong class="color-red2-dark">ตรวจสุขภาพ + จองคิวรับบริการ</strong>
+            @else
+                <strong>ตรวจสุขภาพ + จองคิวรับบริการ</strong>
+            @endif
         </div>
         <div class="cal-schedule">
             <em>
