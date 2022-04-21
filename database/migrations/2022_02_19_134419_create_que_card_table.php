@@ -39,7 +39,7 @@ class CreateQueCardTable extends Migration
             $table->string('screen_type', 255);
             $table->string('screen_other', 255);
             $table->bigInteger('speak_count');
-            $table->string('status', 1);
+            $table->string('status', 1)->nullable();
 
             $table->timestamps();
         });
