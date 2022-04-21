@@ -197,7 +197,7 @@ class EmrController extends Controller
         LEFT JOIN lab_items_group lg ON li.lab_items_group = lg.lab_items_group_code
         LEFT JOIN lab_specimen_items ls ON li.specimen_code = ls.specimen_code
         WHERE li.active_status = "Y" AND li.protect_result_by_user = "N" AND li.protect_result_by_group = "N"
-        AND lh.vn = "'.$vn.'" AND lo.lab_order_result IS NOT NULL AND li.specimen_code IN ("'.$lab_spec_blood.'")
+        AND lh.vn = "'.$vn.'" AND lo.lab_order_result IS NOT NULL AND li.specimen_code IN ('.$lab_spec_blood.')
         ORDER BY li.lab_items_group ASC,li.lab_items_code ASC
         ');
         $visit_lab_urine = DB::connection('mysql_hos')->select('
@@ -210,7 +210,7 @@ class EmrController extends Controller
         LEFT JOIN lab_items_group lg ON li.lab_items_group = lg.lab_items_group_code
         LEFT JOIN lab_specimen_items ls ON li.specimen_code = ls.specimen_code
         WHERE li.active_status = "Y" AND li.protect_result_by_user = "N" AND li.protect_result_by_group = "N"
-        AND lh.vn = "'.$vn.'" AND lo.lab_order_result IS NOT NULL AND li.specimen_code IN ("'.$lab_spec_urine.'")
+        AND lh.vn = "'.$vn.'" AND lo.lab_order_result IS NOT NULL AND li.specimen_code IN ('.$lab_spec_urine.')
         ORDER BY li.lab_items_group ASC,li.lab_items_code ASC
         ');
         $visit_lab_other = DB::connection('mysql_hos')->select('
@@ -223,7 +223,7 @@ class EmrController extends Controller
         LEFT JOIN lab_items_group lg ON li.lab_items_group = lg.lab_items_group_code
         LEFT JOIN lab_specimen_items ls ON li.specimen_code = ls.specimen_code
         WHERE li.active_status = "Y" AND li.protect_result_by_user = "N" AND li.protect_result_by_group = "N"
-        AND lh.vn = "'.$vn.'" AND lo.lab_order_result IS NOT NULL AND li.specimen_code NOT IN ("'.$lab_spec_blood.'","'.$lab_spec_urine.'")
+        AND lh.vn = "'.$vn.'" AND lo.lab_order_result IS NOT NULL AND li.specimen_code NOT IN ('.$lab_spec_blood.','.$lab_spec_urine.')
         ORDER BY li.lab_items_group ASC,li.lab_items_code ASC
         ');
         $visit_xray = DB::connection('mysql_hos')->select('SELECT vn,hn,xray_list,confirm_all FROM xray_head WHERE vn = "'.$id.'" ');
