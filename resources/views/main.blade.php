@@ -219,50 +219,42 @@
                     <img class="img-fluid" src="images/menu_v2_card.png">
                 </div>
             </a>
-            @endif
-            @if ($module_2 == "Y")
             <a href="{{ url('/') }}/emr" class="col-6 pl-0">
                 <div class="card card-style ml-2 mb-3">
                     <img class="img-fluid" src="images/menu_v2_emr.png">
                 </div>
             </a>
             @endif
-            @if ($module_3 == "Y")
+            @if ($module_2 == "Y")
             <a href="{{ url('/') }}/oapp" class="col-6 pr-0">
                 <div class="card card-style mr-2 mb-3">
                     <img class="img-fluid" src="images/menu_v2_oapp.png">
                 </div>
             </a>
-            @endif
-            @if ($module_4 == "Y")
             <a href="{{ url('/') }}/vaccine" class="col-6 pl-0">
                 <div class="card card-style ml-2 mb-3">
                     <img class="img-fluid" src="images/menu_v2_vaccine3.png">
                 </div>
             </a>
             @endif
-            @if ($module_5 == "Y")
+            @if ($module_3 == "Y")
             <a href="{{ url('/') }}/checkup" class="col-6 pr-0">
                 <div class="card card-style mr-2 mb-3">
                     <img class="img-fluid" src="images/book_healthy2.png">
                 </div>
             </a>
-            @endif
-            @if ($module_6 == "Y")
             <a href="{{ url('/') }}/book" class="col-6 pl-0">
                 <div class="card card-style ml-2 mb-3">
                     <img class="img-fluid" src="images/book.png">
                 </div>
             </a>
             @endif
-            @if ($module_7== "Y")
+            @if ($module_4== "Y")
             <a href="tel:1669" class="col-6 pr-0">
                 <div class="card card-style mr-2">
                     <img class="img-fluid" src="images/1669-4.png">
                 </div>
             </a>
-            @endif
-            @if ($module_8 == "Y")
             <a target="_blank" href="http://eservices.nhso.go.th/eServices/mobile/login.xhtml" class="col-6 pl-0">
                 <div class="card card-style ml-2">
                     <img class="img-fluid" src="images/menu_v2_nhso2.png">

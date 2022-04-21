@@ -176,6 +176,59 @@
         <div class="cal-schedule">
             <em>
                 <div class="fac fac-radio fac-green"><span></span>
+                    <input id="box5-fac-radio" type="radio" name="module_1" value="Y" @if ($data->module_1 == "Y") checked @endif>
+                    <label for="box5-fac-radio">เปิด</label>
+                </div>
+                <div class="fac fac-radio fac-red"><span></span>
+                    <input id="box6-fac-radio" type="radio" name="module_1" value="N" @if ($data->module_1 == "N") checked @endif>
+                    <label for="box6-fac-radio">ปิด</label>
+                </div>
+            </em>
+            <strong>บัตรผู้ป่วย + ประวัติรับบริการ</strong>
+        </div>
+        <div class="cal-schedule">
+            <em>
+                <div class="fac fac-radio fac-green"><span></span>
+                    <input id="box5-fac-radio" type="radio" name="module_2" value="Y" @if ($data->module_2 == "Y") checked @endif>
+                    <label for="box5-fac-radio">เปิด</label>
+                </div>
+                <div class="fac fac-radio fac-red"><span></span>
+                    <input id="box6-fac-radio" type="radio" name="module_2" value="N" @if ($data->module_2 == "N") checked @endif>
+                    <label for="box6-fac-radio">ปิด</label>
+                </div>
+            </em>
+            <strong>วันนัด + ข้อมูลวัคซีน</strong>
+        </div>
+        <div class="cal-schedule">
+            <em>
+                <div class="fac fac-radio fac-green"><span></span>
+                    <input id="box5-fac-radio" type="radio" name="module_3" value="Y" @if ($data->module_3 == "Y") checked @endif>
+                    <label for="box5-fac-radio">เปิด</label>
+                </div>
+                <div class="fac fac-radio fac-red"><span></span>
+                    <input id="box6-fac-radio" type="radio" name="module_3" value="N" @if ($data->module_3 == "N") checked @endif>
+                    <label for="box6-fac-radio">ปิด</label>
+                </div>
+            </em>
+            <strong>ตรวจสุขภาพ + จองคิวรับบริการ</strong>
+        </div>
+        <div class="cal-schedule">
+            <em>
+                <div class="fac fac-radio fac-green"><span></span>
+                    <input id="box5-fac-radio" type="radio" name="module_4" value="Y" @if ($data->module_4 == "Y") checked @endif>
+                    <label for="box5-fac-radio">เปิด</label>
+                </div>
+                <div class="fac fac-radio fac-red"><span></span>
+                    <input id="box6-fac-radio" type="radio" name="module_4" value="N" @if ($data->module_4 == "N") checked @endif>
+                    <label for="box6-fac-radio">ปิด</label>
+                </div>
+            </em>
+            <strong>โทร 1669 + ตรวจสอบสิทธิ</strong>
+        </div>
+
+        <div class="cal-schedule">
+            <em>
+                <div class="fac fac-radio fac-green"><span></span>
                     <input id="box5-fac-radio" type="radio" name="dm_status" value="Y" @if ($data->dm_status == "Y") checked @endif>
                     <label for="box5-fac-radio">แสดง</label>
                 </div>
@@ -185,7 +238,6 @@
                 </div>
             </em>
             <strong>ปุ่มเลือก Dark Mode โหมดกลางคืน</strong>
-
         </div>
 
         <button type="submit" class="btn btn-m btn-center-l text-uppercase font-900 bg-red2-dark rounded-sm shadow-xl mt-4 mb-0">บันทึก</button>
