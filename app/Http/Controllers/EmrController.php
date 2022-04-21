@@ -181,10 +181,11 @@ class EmrController extends Controller
         WHERE d.vn = "'.$id.'" AND d.icd10 REGEXP "[a-z]"
         ');
         $visit_drug = DB::connection('mysql_hos')->select('
-        SELECT o.vn,oi.icode,oi.qty,d.`name`,d.units
+        SELECT o.vn,oi.icode,oi.qty,d.`name`,d.units,oi.drugusage,du.name1,du.name2,du.name3
         FROM ovst o
         LEFT JOIN opitemrece oi ON o.vn = oi.vn
         LEFT JOIN drugitems d ON oi.icode = d.icode
+		LEFT JOIN drugusage du ON oi.drugusage = du.drugusage
         WHERE o.vn = "'.$id.'" AND oi.sub_type = "1"
         ');
         $visit_lab_blood = DB::connection('mysql_hos')->select('

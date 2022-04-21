@@ -29,6 +29,8 @@ class CreateSettingemrsTable extends Migration
             $table->string('emr_bmi1', 10);
             $table->string('emr_bmi2', 10);
             $table->string('emr_checkup_icd10', 10);
+            $table->string('lab_spec_blood', 200);
+            $table->string('lab_spec_urine', 200);
 
             $table->timestamps();
         });
@@ -45,7 +47,9 @@ class CreateSettingemrsTable extends Migration
                 'emr_height'=> '120',
                 'emr_bmi1'=> '18.5',
                 'emr_bmi2'=> '30',
-                'emr_checkup_icd10'=> 'Z000'
+                'emr_checkup_icd10'=> 'Z000',
+                'lab_spec_blood'=> '9,10,11,12,15',
+                'lab_spec_urine'=> '5,8'
             )
         );
 
