@@ -13,14 +13,13 @@
         <span><i class="fa fa-check"></i></span>
         <strong>{{ Session('settingemr-updated') }}</strong>
         <button type="button" class="close color-white opacity-60 font-16" data-dismiss="alert" aria-label="Close">&times;</button>
-    </div> 
+    </div>
 
     @endif
 
-
-<form method="POST" action="{{ route('emr.update', 1) }}">
+<form method="POST" action="{{ route('emr.update', $settingemr->id) }}">
     @csrf
-    @method('PATCH')
+    @method('put')
 <div class="card card-style shadow-xl rounded-m">
     <div class="cal-footer">
         <h4 class="cal-title text-center text-uppercase font-25 bg-blue2-dark color-white">EMR Setting</h4>
@@ -32,46 +31,46 @@
             <div class="input-style input-style-2 input-required">
                 <span class="color-highlight input-style-1-active">จำกัด visit ทั่วไปย้อนหลังไม่เกิน...ปี</span>
                 <input class="form-control" type="number" name="emr_visit_limit" value="{{ $settingemr->emr_visit_limit }}">
-            </div> 
+            </div>
             <div class="input-style input-style-2 input-required">
                 <span class="color-highlight input-style-1-active">ICD10 ตรวจสุขภาพ</span>
                 <input class="form-control" type="text" name="emr_checkup_icd10" value="{{ $settingemr->emr_checkup_icd10 }}">
-            </div> 
+            </div>
             <div class="input-style input-style-2 input-required">
                 <span class="color-highlight input-style-1-active">BP systolic ความดัน</span>
                 <input class="form-control" type="number" name="emr_bps" value="{{ $settingemr->emr_bps }}">
-            </div> 
+            </div>
             <div class="input-style input-style-2 input-required">
                 <span class="color-highlight input-style-1-active">BP diastolic ความดัน</span>
                 <input class="form-control" type="number" name="emr_bpd" value="{{ $settingemr->emr_bpd }}">
-            </div> 
+            </div>
             <div class="input-style input-style-2 input-required">
                 <span class="color-highlight input-style-1-active">Temp อุณหภูมิ</span>
                 <input class="form-control" type="number" name="emr_temperature" value="{{ $settingemr->emr_temperature }}">
-            </div> 
+            </div>
             <div class="input-style input-style-2 input-required">
                 <span class="color-highlight input-style-1-active">Pulse ชีพจร</span>
                 <input class="form-control" type="number" name="emr_pulse" value="{{ $settingemr->emr_pulse }}">
-            </div> 
+            </div>
             <div class="input-style input-style-2 input-required">
                 <span class="color-highlight input-style-1-active">Body Weight น้ำหนัก</span>
                 <input class="form-control" type="number" name="emr_bw" value="{{ $settingemr->emr_bw }}">
-            </div> 
+            </div>
             <div class="input-style input-style-2 input-required">
                 <span class="color-highlight input-style-1-active">Height ส่วนสูง</span>
                 <input class="form-control" type="number" name="emr_height" value="{{ $settingemr->emr_height }}">
-            </div> 
+            </div>
             <div class="input-style input-style-2 input-required">
                 <span class="color-highlight input-style-1-active">BMI ดัชนีมวลกาย (ต่ำผอม)</span>
                 <input class="form-control" type="number" name="emr_bmi1" value="{{ $settingemr->emr_bmi1 }}">
-            </div> 
+            </div>
             <div class="input-style input-style-2 input-required">
                 <span class="color-highlight input-style-1-active">BMI ดัชนีมวลกาย (สูงอ้วน)</span>
                 <input class="form-control" type="number" name="emr_bmi2" value="{{ $settingemr->emr_bmi2 }}">
-            </div> 
-            
-            
-        </div>  
+            </div>
+
+
+        </div>
 
 
         <button type="submit" class="btn btn-m btn-center-l text-uppercase font-900 bg-blue2-dark rounded-sm shadow-xl mt-4 mb-0">บันทึก</button>
@@ -85,7 +84,7 @@
 
 
 </div>
-<!-- End of Page Content--> 
+<!-- End of Page Content-->
 
 @endsection
 
