@@ -146,9 +146,10 @@
                     <div class="col-4"><p class="font-13 mb-0 font-800 color-theme text-right">{{ $data->qty }} {{ $data->units }}</p></div>
                     <div class="divider w-100 mb-2 mt-2"></div>
                 </a>
-                <div class="col-12 collapse" id="collapse-{{ $data->icode }}">
+                <div class="col-8 collapse" id="collapse-{{ $data->icode }}">
                     {{ $data->name1 }} {{ $data->name2 }} {{ $data->name3 }}
                 </div>
+                <div class="col-4"></div>
 
                 @endforeach
             </div>
