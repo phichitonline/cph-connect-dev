@@ -70,14 +70,13 @@
 
         <div class="row text-center mb-0">
         @foreach ($appflag as $data)
-
             <a href="{{ url('/') }}/appointment/calendar/?flag={{ $data->que_app_flag }}" class="col-6 {{ $data->classcol }}">
                 <div class="card card-style {{ $data->classm }} mb-3">
                     <img class="img-fluid" src="{{ URL::asset('images/appointment/'.$data->app_image) }}">
                 </div>
             </a>
-
         @endforeach
+
         </div>
 
         <div class="footer card card-style">

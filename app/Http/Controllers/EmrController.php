@@ -257,21 +257,22 @@ class EmrController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Settingemr $settingemr)
     {
-        $settingemr = Settingemr::find($id);
+        $settingemr->update($request->all());
+        // $settingemr = Settingemr::find($id);
 
-        $settingemr->emr_visit_limit =  $request->get('emr_visit_limit');
-        $settingemr->emr_checkup_icd10 =  $request->get('emr_checkup_icd10');
-        $settingemr->emr_bps =  $request->get('emr_bps');
-        $settingemr->emr_bpd =  $request->get('emr_bpd');
-        $settingemr->emr_temperature =  $request->get('emr_temperature');
-        $settingemr->emr_pulse =  $request->get('emr_pulse');
-        $settingemr->emr_bw =  $request->get('emr_bw');
-        $settingemr->emr_height =  $request->get('emr_height');
-        $settingemr->emr_bmi1 =  $request->get('emr_bmi1');
-        $settingemr->emr_bmi2 =  $request->get('emr_bmi2');
-        $settingemr->save();
+        // $settingemr->emr_visit_limit =  $request->get('emr_visit_limit');
+        // $settingemr->emr_checkup_icd10 =  $request->get('emr_checkup_icd10');
+        // $settingemr->emr_bps =  $request->get('emr_bps');
+        // $settingemr->emr_bpd =  $request->get('emr_bpd');
+        // $settingemr->emr_temperature =  $request->get('emr_temperature');
+        // $settingemr->emr_pulse =  $request->get('emr_pulse');
+        // $settingemr->emr_bw =  $request->get('emr_bw');
+        // $settingemr->emr_height =  $request->get('emr_height');
+        // $settingemr->emr_bmi1 =  $request->get('emr_bmi1');
+        // $settingemr->emr_bmi2 =  $request->get('emr_bmi2');
+        // $settingemr->save();
 
         return redirect()->route('emr.edit', 1)->with('settingemr-updated','บันทึกสำเร็จ');
     }
