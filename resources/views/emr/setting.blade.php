@@ -17,9 +17,10 @@
 
     @endif
 
-<form method="POST" action="{{ route('emr.update', $settingemr->id) }}">
+
+<form method="POST" action="{{ route('emr.update', 1) }}">
     @csrf
-    @method('put')
+    @method('PATCH')
 <div class="card card-style shadow-xl rounded-m">
     <div class="cal-footer">
         <h4 class="cal-title text-center text-uppercase font-25 bg-blue2-dark color-white">EMR Setting</h4>
