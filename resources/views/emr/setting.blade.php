@@ -101,7 +101,6 @@
     <p class="footer-text">
     <span class="font-12">
         <br>ดูคำแนะนำการตั้งค่าได้ที่นี่ครับ --><a target="_blank" href="https://drive.google.com/drive/folders/1QXJuYPB84ae705tz5QmkZ7hK0dJY2DbZ?usp=sharing">คลิกที่นี่</a>
-        <br>
     </span>
     <span class="font-16">
         <br><br><b>หากมีปัญหา ข้อสงสัย ต้องการคำแนะนำ ปรึกษาผู้พัฒนาได้ครับ

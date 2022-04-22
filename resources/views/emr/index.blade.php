@@ -30,10 +30,10 @@
         <span><i class="fa fa-check"></i></span>
         <strong>{{ Session('settingemr-updated') }}</strong>
         <button type="button" class="close color-white opacity-60 font-16" data-dismiss="alert" aria-label="Close">&times;</button>
-    </div> 
+    </div>
 
     @endif
-    
+
     <div class="card card-style">
         <div class="content mt-0 mb-0">
             <div class="list-group list-custom-large list-icon-0">
@@ -71,12 +71,6 @@
                     <i class="fa font-19 fa-cog rounded-s color-blue2-dark"></i>
                     <span>Settings</span>
                     <strong>ตั้งค่าระบบ EMR และกำหนดค่ามาตรฐาน</strong>
-                    <i class="fa fa-chevron-right opacity-30"></i>
-                </a>
-                <a href="#">
-                    <i class="fa font-19 fa-tint rounded-s color-red2-dark"></i>
-                    <span>LAB Items List</span>
-                    <strong>กำหนดรายการตรวจทางห้องปฏิบัติการ</strong>
                     <i class="fa fa-chevron-right opacity-30"></i>
                 </a>
 
