@@ -77,11 +77,11 @@
             <div class="content mb-0">
                 <div class="input-style input-style-2 input-required mt-4">
                     <span class="color-highlight input-style-1-active">Specimen เลือด</span>
-                    <input class="form-control" type="text" name="lab_spec_blood" value="{{ $data->lab_spec_blood }}">
+                    <input class="form-control" type="text" name="lab_spec_blood" value="{{ $settingemr->lab_spec_blood }}">
                 </div>
                 <div class="input-style input-style-2 input-required mt-4">
                     <span class="color-highlight input-style-1-active">Specimen ปัสสาวะ</span>
-                    <input class="form-control" type="text" name="lab_spec_urine" value="{{ $data->lab_spec_urine }}">
+                    <input class="form-control" type="text" name="lab_spec_urine" value="{{ $settingemr->lab_spec_urine }}">
                 </div>
             </div>
         </div>
