@@ -42,16 +42,16 @@
                     @if ($data->an !== NULL)
                         <i class="fa font-19 fa-bed rounded-s color-red1-dark"></i>
                         <span class="color-red2-dark">{{ DateThaiShort($data->vstdate) }} (ผู้ป่วยใน)</span>
-                        <strong class="color-red2-dark">{{ $data->cc }}</strong>
+                        <strong class="color-red2-dark">{{ mb_strimwidth($data->cc, 0, 40, '...') }}</strong>
                     @else
                         @if (strpos($data->visitdiag, $emr_checkup_icd10) === FALSE)
                             <i class="fa font-19 fa-stethoscope rounded-s color-green1-dark"></i>
                             <span>{{ DateThaiShort($data->vstdate) }}</span>
-                            <strong>{{ $data->cc }}</strong>
+                            <strong>{{ mb_strimwidth($data->cc, 0, 40, '...') }}</strong>
                         @else
                             <i class="fa font-19 fa-user-md rounded-s color-blue1-dark"></i>
                             <span>{{ DateThaiShort($data->vstdate) }}</span>
-                            <strong>{{ $data->cc }}</strong>
+                            <strong>{{ mb_strimwidth($data->cc, 0, 40, '...') }}</strong>
                         @endif
                     @endif
 

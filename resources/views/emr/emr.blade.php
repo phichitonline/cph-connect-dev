@@ -140,14 +140,18 @@
                 <div class="divider w-100 mb-2 mt-2"></div>
                 @foreach ($visit_drug as $data)
 
-
-
                     <div class="col-8">
                         <a data-toggle="collapse" href="#collapse-{{ $data->icode }}">
                         <p class="font-13 mb-0 font-500 color-theme text-left">{{ $data->name }}</p>
                         </a>
                     </div>
-                    <div class="col-4"><p class="font-13 mb-0 font-800 color-theme text-right">{{ $data->qty }} {{ $data->units }}</p></div>
+                    <div class="col-4">
+                        <a data-toggle="collapse" href="#collapse-{{ $data->icode }}">
+                        <p class="font-13 mb-0 font-800 color-theme text-right">{{ $data->qty }} {{ $data->units }}
+                        <i class="fa fa-angle-down"></i>
+                        </p>
+                        </a>
+                    </div>
 
                     <div class="col-12 collapse" id="collapse-{{ $data->icode }}">
                         {{ $data->name1 }} {{ $data->name2 }} {{ $data->name3 }}
@@ -156,6 +160,8 @@
                     <div class="divider w-100 mb-2 mt-2"></div>
 
                 @endforeach
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;หมายเหตุ : กดที่รายการเพื่อดูวิธีใช้
+
             </div>
 
         </div>
