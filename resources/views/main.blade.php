@@ -265,6 +265,12 @@
 
         </div>
 
+        @if ($modulecustom == "Y")
+        <div class="card card-style">
+            @include("modulecustom.iconlink")
+        </div>
+        @endif
+
         @if ($pr_status == "Y")
         <div class="card card-style">
             <div class="content mb-4">
@@ -289,12 +295,6 @@
                 @endif
 
             </div>
-        </div>
-        @endif
-
-        @if ($modulecustom == "Y")
-        <div class="card card-style">
-            @include("modulecustom.iconlink")
         </div>
         @endif
 
