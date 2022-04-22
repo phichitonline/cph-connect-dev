@@ -143,16 +143,11 @@ function chMonth($find)
           }
         ]
       },
+
       {
         "type": "box",
         "layout": "horizontal",
         "contents": [
-          {
-            "type": "text",
-            "text": "ยา ",
-            "size": "sm",
-            "gravity": "center"
-          },
           {
             "type": "box",
             "layout": "vertical",
@@ -178,10 +173,7 @@ function chMonth($find)
           },
           {
             "type": "text",
-            "text": "'.$med.' ",
-            "gravity": "center",
-            "flex": 4,
-            "size": "sm"
+            "text": "'.$med.'"
           }
         ],
         "spacing": "lg",
@@ -192,12 +184,6 @@ function chMonth($find)
         "type": "box",
         "layout": "horizontal",
         "contents": [
-          {
-            "type": "text",
-            "text": "ยา ",
-            "size": "sm",
-            "gravity": "center"
-          },
           {
             "type": "box",
             "layout": "vertical",
@@ -223,16 +209,14 @@ function chMonth($find)
           },
           {
             "type": "text",
-            "text": "'.$med.' ",
-            "gravity": "center",
-            "flex": 4,
-            "size": "sm"
+            "text": "'.$med.'"
           }
         ],
         "spacing": "lg",
         "cornerRadius": "30px",
         "margin": "md"
       },
+
       {
         "type": "separator",
         "margin": "md"
