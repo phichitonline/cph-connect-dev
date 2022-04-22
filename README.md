@@ -23,6 +23,7 @@ CPH connect พัฒนาด้วย Laravel framework version 7 และ Li
 - แสดงคิวรับบริการ (NeoQ)
 - แจ้งเตือนคิวรับบริการผ่าน flex message ของ LineOA
 - พัฒนาระบบ bot เพื่อตอบคำถามทั่วไปแทนเจ้าหน้าที่ ผ่านระบบ AI google ด้วย Dialogflow
+- เปิดโมดูลให้พัฒนาเพิ่มเติมด้วยตนเอง
 
 
 ## License
