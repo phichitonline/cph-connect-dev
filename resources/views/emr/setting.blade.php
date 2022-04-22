@@ -91,25 +91,24 @@
 
     </div>
 
-    <div class="footer card card-style">
-        <a class="footer-title"><span class="color-highlight">คำแนะนำ</span></a>
-        <p class="footer-text">
-        <span class="font-12">
-            <br>ดูคำแนะนำการตั้งค่าได้ที่นี่ครับ --><a target="_blank" href="https://drive.google.com/drive/folders/1QXJuYPB84ae705tz5QmkZ7hK0dJY2DbZ?usp=sharing">คลิกที่นี่</a>
-            <br>
-        </span>
-        <span class="font-16">
-            <br><br><b>หากมีปัญหา ข้อสงสัย ต้องการคำแนะนำ ปรึกษาผู้พัฒนาได้ครับ
-                <br>Line ID = <a href="https://line.me/ti/p/Xu3TXschDY">0619921666</a>
-        </span>
-        </p>
-    </div>
-
 </div>
 
 </form>
 
 
+<div class="footer card card-style">
+    <a class="footer-title"><span class="color-highlight">คำแนะนำ</span></a>
+    <p class="footer-text">
+    <span class="font-12">
+        <br>ดูคำแนะนำการตั้งค่าได้ที่นี่ครับ --><a target="_blank" href="https://drive.google.com/drive/folders/1QXJuYPB84ae705tz5QmkZ7hK0dJY2DbZ?usp=sharing">คลิกที่นี่</a>
+        <br>
+    </span>
+    <span class="font-16">
+        <br><br><b>หากมีปัญหา ข้อสงสัย ต้องการคำแนะนำ ปรึกษาผู้พัฒนาได้ครับ
+            <br>Line ID = <a href="https://line.me/ti/p/Xu3TXschDY">0619921666</a>
+    </span>
+    </p>
+</div>
 
 </div>
 <!-- End of Page Content-->
