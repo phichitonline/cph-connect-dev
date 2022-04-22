@@ -281,6 +281,8 @@ class EmrController extends Controller
         $settingemr->emr_height =  $request->get('emr_height');
         $settingemr->emr_bmi1 =  $request->get('emr_bmi1');
         $settingemr->emr_bmi2 =  $request->get('emr_bmi2');
+        $settingemr->lab_spec_blood =  $request->get('lab_spec_blood');
+        $settingemr->lab_spec_urine =  $request->get('lab_spec_urine');
         $settingemr->save();
 
         return redirect()->route('emr.edit', 1)->with('settingemr-updated','บันทึกสำเร็จ');
