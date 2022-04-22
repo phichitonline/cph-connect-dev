@@ -88,7 +88,7 @@ function chMonth($find)
         "altText": "สรุปรับบริการ",
         "contents": {
 
-            "type": "bubble",
+  "type": "bubble",
   "size": "mega",
   "hero": {
     "type": "image",
@@ -182,13 +182,44 @@ function chMonth($find)
             "gravity": "center",
             "flex": 4,
             "size": "sm"
-          },
+          }
+        ],
+        "spacing": "lg",
+        "cornerRadius": "30px",
+        "margin": "md"
+      },
+      {
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
           {
             "type": "text",
-            "text": "'.$med.' ",
-            "gravity": "center",
-            "flex": 4,
-            "size": "sm"
+            "text": "ยา ",
+            "size": "sm",
+            "gravity": "center"
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "filler"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [],
+                "cornerRadius": "30px",
+                "height": "12px",
+                "width": "12px",
+                "borderColor": "#EF454D",
+                "borderWidth": "2px"
+              },
+              {
+                "type": "filler"
+              }
+            ],
+            "flex": 0
           },
           {
             "type": "text",
@@ -208,7 +239,7 @@ function chMonth($find)
       },
       {
         "type": "text",
-        "text": "โปรดตรวจสอบหากคุณไม่ได้เข้ารับบริการ ",
+        "text": "ตรวจสอบรายการต่างๆได้ภายในแอป ",
         "margin": "md",
         "size": "sm",
         "wrap": true
