@@ -32,10 +32,10 @@ function chMonth($find)
     }
 }
 
-    $host = config('database.connections.mysql.host');
-    $db = config('database.connections.mysql.database');
-    $user = config('database.connections.mysql.username');
-    $pwd = config('database.connections.mysql.password');
+    $host = config('database.connections.mysql_hos.host');
+    $db = config('database.connections.mysql_hos.database');
+    $user = config('database.connections.mysql_hos.username');
+    $pwd = config('database.connections.mysql_hos.password');
     $db_hos = config('database.connections.mysql_hos.database');
 
     $myPDO = new PDO("mysql:host=$host;dbname=$db", $user, $pwd);
