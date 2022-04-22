@@ -43,30 +43,19 @@ function chMonth($find)
     $myPDO -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     try {
-        $sql = "SELECT t2.lineid,o.hn,o.an,o.vstdate,o.vsttime,o.spclty,s.`name` AS spcltyname,p.pname,p.fname,p.lname
-                    FROM ".$db_hos.".ovst o
-                    LEFT JOIN ".$db_hos.".spclty s ON o.spclty = s.spclty
-                    LEFT JOIN ".$db_hos.".patient p ON p.hn = o.hn
-                    LEFT JOIN patientusers pt ON o.hn = pt.hn
-                    INNER JOIN (
-                    	SELECT t1.lineid,t1.hn FROM (
-                    		SELECT lineid,hn AS hn FROM patientusers
-                    		UNION ALL
-                    		SELECT lineid,hn2 AS hn FROM patientusers WHERE hn2 <> ''
-                    		UNION ALL
-                    		SELECT lineid,hn3 AS hn FROM patientusers WHERE hn3 <> ''
-                    	) AS t1
-                    	WHERE t1.hn IN (
-                    		SELECT o.hn FROM ".$db_hos.".ovst o
-                    		WHERE o.vstdate = CURDATE() AND CONCAT(o.vstdate,' ',o.vsttime) >= DATE_ADD(NOW(), INTERVAL -5 MINUTE)
-                    	)) t2 ON t2.hn = o.hn
-
-                    WHERE o.vstdate = CURDATE() AND CONCAT(o.vstdate,' ',o.vsttime) >= DATE_ADD(NOW(), INTERVAL -5 MINUTE)";
+        $sql = "SELECT o.hn,o.vn,o.vstdate,o.vsttime,s.service16,op.icode,GROUP_CONCAT(d.`name`,' (',op.qty,')') AS druglist,'Ub6b2ab13fea3e802ad277fb2de13f26a' AS lineid
+            FROM ovst o
+            LEFT JOIN service_time s ON o.vn = s.vn
+            LEFT JOIN opitemrece op ON o.vn = op.vn
+            LEFT JOIN drugitems d ON op.icode = d.icode
+            WHERE o.vstdate = CURDATE() AND o.hn = '000035634' AND op.sub_type = '1'
+            GROUP BY o.hn
+        ";
         $result = $myPDO->query($sql);
         foreach ($result AS $data) {
             $idline = $data['lineid'];
             $cc = " ";
-            $med = "รับยาจำนวน 5 รายการ";
+            $med = $data['druglist'];
             $spcltyname = $data['spcltyname'];
             $vstdate = "วันที่ ".date("j",strtotime($data['vstdate']))." ".chMonth($data['vstdate'])." ".chYear($data['vstdate'])."";
             $vsttime = " เวลา ".substr($data['vsttime'],0,5)." น.";

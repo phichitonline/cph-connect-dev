@@ -143,8 +143,8 @@
         @if (isset($vn))
         <a href="{{ url('/') }}/statusq?oappid={{ $user_app_id }}">
         <div data-card-height="210" class="card card-style rounded-m shadow-xl">
-            <div class="card-center text-center">
             @if ($room_code == 0)
+            <div class="card-center text-center">
                 <h1 class="color-white font-800 fa-5x text-shadow-l">{{ $webq }}</h1>
                 @if ($q_status == "1")
                 <h1 class="color-white font-800 text-shadow-l"><br>คิวของคุณ รออีก {{ $waitq }} คิว</h1>
@@ -159,12 +159,13 @@
             </div>
             <p class="card-bottom text-center mb-0 pb-2 color-white font-15 text-shadow-s">
                 แผนก: {{ $spcltyname }}
-            </p>
+            </p></a>
 
             @else
+            <div class="card-center text-center">
                 <h1 class="color-white font-800 color-green2 text-shadow-l"><br>เสร็จสิ้นการรับบริการแล้ว</h1>
                 <h2 class="color-white font-800 text-shadow-l">เวลา {{ $time }}</h2>
-                </a>
+            </div></a>
             @endif
 
             <div class="card-overlay bg-gradient opacity-70"></div>
