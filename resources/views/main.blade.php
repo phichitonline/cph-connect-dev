@@ -40,6 +40,7 @@
     $module_6 = $data->module_6;
     $module_7 = $data->module_7;
     $module_8 = $data->module_8;
+    $modulecustom = $data->modulecustom;
     $hoslocation = $data->hoslocation;
 @endphp
 @endforeach
