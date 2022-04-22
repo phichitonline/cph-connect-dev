@@ -249,6 +249,24 @@
         <div class="cal-schedule">
             <em>
                 <div class="fac fac-radio fac-green"><span></span>
+                    <input id="box95-fac-radio" type="radio" name="modulecustom" value="Y" @if ($data->modulecustom == "Y") checked @endif>
+                    <label for="box95-fac-radio">มี</label>
+                </div>
+                <div class="fac fac-radio fac-red"><span></span>
+                    <input id="box96-fac-radio" type="radio" name="modulecustom" value="N" @if ($data->modulecustom == "N") checked @endif>
+                    <label for="box96-fac-radio">ไม่มี</label>
+                </div>
+            </em>
+            @if ($data->modulecustom == "N")
+                <strong class="color-red2-dark">พัฒนาโมดูลเพิ่มเติม</strong>
+            @else
+                <strong>พัฒนาโมดูลเพิ่มเติม</strong>
+            @endif
+        </div>
+
+        <div class="cal-schedule">
+            <em>
+                <div class="fac fac-radio fac-green"><span></span>
                     <input id="box5-fac-radio" type="radio" name="dm_status" value="Y" @if ($data->dm_status == "Y") checked @endif>
                     <label for="box5-fac-radio">แสดง</label>
                 </div>

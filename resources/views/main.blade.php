@@ -291,6 +291,12 @@
         </div>
         @endif
 
+        @if ($modulecustom == "Y")
+        <div class="card card-style">
+            @include("modulecustom.iconlink")
+        </div>
+        @endif
+
         @if ($dm_status == "Y")
         <div class="card card-style">
             <div class="content mt-0 mb-0">
