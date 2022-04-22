@@ -56,11 +56,11 @@ function chMonth($find)
         $result = $myPDO->query($sql);
         foreach ($result AS $data) {
             $idline = $data['lineid'];
-            $cc = " ";
+            $cc = "รายการยา";
             $med = $data['druglist'];
             $spcltyname = $data['spcltyname'];
             $vstdate = "วันที่ ".date("j",strtotime($data['vstdate']))." ".chMonth($data['vstdate'])." ".chYear($data['vstdate'])."";
-            $vsttime = " เวลา ".substr($data['vsttime'],0,5)." น.";
+            $vsttime = " เวลา ".substr($data['service16'],0,5)." น.";
             $ptname = $data['pname'].$data['fname']." ".$data['lname'];
 
             echo "xxx";
@@ -149,7 +149,7 @@ function chMonth($find)
         "contents": [
           {
             "type": "text",
-            "text": "แผนก ",
+            "text": "ยา ",
             "size": "sm",
             "gravity": "center"
           },
@@ -175,6 +175,20 @@ function chMonth($find)
               }
             ],
             "flex": 0
+          },
+          {
+            "type": "text",
+            "text": "'.$med.' ",
+            "gravity": "center",
+            "flex": 4,
+            "size": "sm"
+          },
+          {
+            "type": "text",
+            "text": "'.$med.' ",
+            "gravity": "center",
+            "flex": 4,
+            "size": "sm"
           },
           {
             "type": "text",
