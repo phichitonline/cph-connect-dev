@@ -46,6 +46,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
+        $this->mapModulecustomRoutes();
+
         //
     }
 
@@ -77,4 +79,13 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('routes/api.php'));
     }
+
+    protected function mapModulecustomRoutes()
+    {
+        Route::prefix('modulecustom')
+            ->middleware('web')
+            ->namespace('App\Http\Controllers\Modulecustom')
+            ->group(base_path('routes/modulecustom.php'));
+    }
+
 }
