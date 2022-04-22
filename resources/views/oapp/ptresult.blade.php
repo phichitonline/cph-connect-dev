@@ -43,8 +43,10 @@ function chMonth($find)
     $myPDO -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     try {
-        $sql = "SELECT o.hn,o.vn,o.vstdate,o.vsttime,s.service16,op.icode,GROUP_CONCAT(d.`name`,' (',op.qty,')') AS druglist,'Ub6b2ab13fea3e802ad277fb2de13f26a' AS lineid
+        $sql = "SELECT o.hn,o.vn,o.vstdate,o.vsttime,s.service16,op.icode,GROUP_CONCAT(d.`name`,' (',op.qty,')') AS druglist,'Ub6b2ab13fea3e802ad277fb2de13f26a' AS lineid,sp.`name` AS spclty,pt.pname,pt.fname,pt.lname
             FROM ovst o
+            LEFT JOIN patient pt ON o.hn = pt.hn
+            LEFT JOIN spclty sp ON o.spclty = sp.spclty
             LEFT JOIN service_time s ON o.vn = s.vn
             LEFT JOIN opitemrece op ON o.vn = op.vn
             LEFT JOIN drugitems d ON op.icode = d.icode
