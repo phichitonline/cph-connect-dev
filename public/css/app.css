@@ -10,13 +10,13 @@
   }
 
   form {
-    width: 300px;
+    width: none;
     margin: 0px auto;
-    background: rgb(189, 188, 188);
-    padding: 15px 15px;
+    background: none;
+    padding: 0px 0px;
     text-align: center;
-    box-shadow: 0px 5px 5px -0px rgba(0, 0, 0, 0.3);
-    border-radius: 35px;
+    box-shadow: 0px 0px 0px -0px rgba(0, 0, 0, 0.3);
+    border-radius: 0px;
   }
 
   input[type="password"] {
