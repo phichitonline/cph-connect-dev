@@ -160,7 +160,7 @@
                     <div class="divider w-100 mb-2 mt-2"></div>
 
                 @endforeach
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;หมายเหตุ : กดที่รายการเพื่อดูวิธีใช้ยา
+                <div class="col-12 text-center">หมายเหตุ : กดที่รายการเพื่อดูวิธีใช้ยา</div>
 
             </div>
 

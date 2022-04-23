@@ -43,7 +43,7 @@ function chMonth($find)
     $myPDO -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     try {
-        $sql = "SELECT o.hn,o.vn,o.vstdate,o.vsttime,s.service16,op.icode,GROUP_CONCAT(d.`name`,' (',op.qty,')') AS druglist,'Ub6b2ab13fea3e802ad277fb2de13f26a' AS lineid,sp.`name` AS spcltyname,pt.pname,pt.fname,pt.lname
+        $sql = "SELECT o.hn,o.vn,o.vstdate,o.vsttime,s.service16,op.icode,GROUP_CONCAT(d.`name`,' (',op.qty,')') AS druglist,'Ub6b2ab13fea3e802ad277fb2de13f26a' AS lineid,sp.`name` AS spcltyname,pt.pname,pt.fname,pt.lname,COUNT(*) AS dcount
             FROM ovst o
             LEFT JOIN patient pt ON o.hn = pt.hn
             LEFT JOIN spclty sp ON o.spclty = sp.spclty
@@ -57,7 +57,7 @@ function chMonth($find)
         foreach ($result AS $data) {
             $idline = $data['lineid'];
             $cc = "รายการยา";
-            $med = $data['druglist'];
+            $med = "จำนวน ".$data['dcount']." รายการ";
             $spcltyname = $data['spcltyname'];
             $vstdate = "วันที่ ".date("j",strtotime($data['vstdate']))." ".chMonth($data['vstdate'])." ".chYear($data['vstdate'])."";
             $vsttime = " เวลา ".substr($data['service16'],0,5)." น.";
@@ -149,41 +149,11 @@ function chMonth($find)
         "layout": "horizontal",
         "contents": [
           {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "filler"
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [],
-                "cornerRadius": "30px",
-                "height": "12px",
-                "width": "12px",
-                "borderColor": "#EF454D",
-                "borderWidth": "2px"
-              },
-              {
-                "type": "filler"
-              }
-            ],
-            "flex": 0
-          },
-          {
             "type": "text",
-            "text": "'.$med.'"
-          }
-        ],
-        "spacing": "lg",
-        "cornerRadius": "30px",
-        "margin": "md"
-      },
-      {
-        "type": "box",
-        "layout": "horizontal",
-        "contents": [
+            "text": "ยา ",
+            "size": "sm",
+            "gravity": "center"
+          },
           {
             "type": "box",
             "layout": "vertical",
@@ -209,13 +179,17 @@ function chMonth($find)
           },
           {
             "type": "text",
-            "text": "'.$med.'"
+            "text": "'.$med.' ",
+            "gravity": "center",
+            "flex": 4,
+            "size": "sm"
           }
         ],
         "spacing": "lg",
         "cornerRadius": "30px",
         "margin": "md"
       },
+
 
       {
         "type": "separator",
