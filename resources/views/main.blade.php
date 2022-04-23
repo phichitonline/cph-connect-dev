@@ -359,6 +359,7 @@
     <!-- End of Page Content-->
 
     @if ($pinlogin == "Y")
+    @if ($sessionpinok == "YES")
     <!-- Start PIN code login page -->
     <a href="#" data-menu="login-pin" data-timed-ad="0" data-auto-show-ad="0"> </a>
     <div id="login-pin" class="menu menu-box-modal menu-box-detached round-large" data-menu-width="100vw" data-menu-height="100vh" data-menu-effect="menu-over">
@@ -371,7 +372,7 @@
             </div>
             <div class="card-center text-center">
 
-                <form>
+                <form name="loginpin" id="loginpin" action="{{route('main')}}" method="GET">
                     <input type="password" id="password" /></br></br>
                     <input type="button" value="1" id="1" class="pinButton calc"/>
                     <input type="button" value="2" id="2" class="pinButton calc"/>
@@ -384,7 +385,7 @@
                     <input type="button" value="9" id="9" class="pinButton calc"/><br>
                     <input type="button" value="ลบ" id="clear" class="pinButton clear"/>
                     <input type="button" value="0" id="0 " class="pinButton calc"/>
-                    <input type="button" value="ตกลง" id="enter" class="pinButton enter"/>
+                    <input type="button" onclick="submitform()" value="ตกลง" id="enter" class="pinButton enter"/>
                 </form>
 
                 <a href="#" onclick="closed()" class="close-menu mr-3 ml-3 mt-5 btn btn-m btn-full rounded-s shadow-xl text-uppercase font-900 bg-red2-dark">ปิด</a>
@@ -397,6 +398,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="js/pinpad.js"></script>
     <!-- Start PIN code login page -->
+    @endif
     @endif
 
 

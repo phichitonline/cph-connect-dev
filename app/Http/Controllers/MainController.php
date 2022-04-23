@@ -13,7 +13,7 @@ class MainController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         session_start();
 
@@ -79,7 +79,7 @@ class MainController extends Controller
 
 
         if ($ext_q_status == "Y") {
-            
+
             $wait_qp = DB::connection('mysql_hos')->select('
             SELECT COUNT(*) AS waitq FROM web_queue
             WHERE room_code = "'.$room_code.'" AND `status` = "1" AND pt_priority <> "0"
@@ -162,9 +162,19 @@ class MainController extends Controller
             foreach($check_user as $data){
                 if ($data->que_app_flag == NULL) {
                     $user_flag =  ' ';
+                    $pincode = $data->pincode;
                 } else {
                     $user_flag =  'AND que_app_flag = "'.$data->que_app_flag.'" ';
+                    $pincode = $data->pincode;
                 }
+            }
+
+            if ($request->pincode == $pincode) {
+                ob_start();
+                $_SESSION["sessionpinok"] = "YES";
+                session_write_close();
+            } else {
+                $_SESSION["sessionpinok"] = "NO";
             }
 
             $oapp_wait_conf = DB::connection('mysql')->select('

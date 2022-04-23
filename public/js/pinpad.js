@@ -18,7 +18,9 @@ $(document).ready(function () {
     $("#clear").click(function () {
       input_value.val("");
     });
-    $("#enter").click(function () {
-      alert("รหัส PIN ของคุณคือ " + input_value.val() + " ");
-    });
+
   });
+
+function submitform() {
+    document.forms["loginpin"].submit();
+}
