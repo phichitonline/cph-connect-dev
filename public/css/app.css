@@ -21,12 +21,13 @@
 
   input[type="password"] {
     padding: 0 40px;
-    border-radius: 5px;
-    width: 200px;
+    border-radius: 35px;
+    width: 300px;
+    height: 55px;
     margin: auto;
     border: 1px solid rgb(228, 220, 220);
     outline: none;
-    font-size: 60px;
+    font-size: 160px;
     color: transparent;
     text-shadow: 0 0 0 rgb(71, 71, 71);
     text-align: center;
@@ -41,9 +42,9 @@
     background: #fff;
     font-size: 1.5em;
     border-radius: 50%;
-    height: 45px;
-    font-weight: 550;
-    width: 45px;
+    height: 75px;
+    font-weight: 750;
+    width: 75px;
     color: transparent;
     text-shadow: 0 0 0 rgb(102, 101, 101);
     margin: 7px 20px;
