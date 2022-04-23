@@ -217,7 +217,7 @@
         <div class="row text-center mb-0">
 
             @if ($module_1 == "Y")
-            <a href="{{ url('/') }}/card" data-menu="login-pin" data-timed-ad="0" data-auto-show-ad="0" class="col-6 pr-0">
+            <a href="{{ url('/') }}/card" class="col-6 pr-0">
                 <div class="card card-style mr-2 mb-3">
                     <img class="img-fluid" src="images/menu_v2_card.png">
                 </div>
