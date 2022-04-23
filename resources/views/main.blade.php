@@ -369,9 +369,9 @@
             <div class="card-top">
                 <span class="color-white bg-black font-10 opacity-70 pb-1 pt-1 pl-2 pr-2 ml-1">เข้าใช้งานด้วยรหัส PIN</span>
             </div>
-            <div class="card-center">
+            <div class="card-center text-center">
 
-                <form >
+                <form>
                     <input type="password" id="password" /></br></br>
                     <input type="button" value="1" id="1" class="pinButton calc"/>
                     <input type="button" value="2" id="2" class="pinButton calc"/>

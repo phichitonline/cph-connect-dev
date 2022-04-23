@@ -19,16 +19,6 @@
         @yield('header_script')
 
         <style>
-            form {
-              width: none;
-              margin: 0px auto;
-              background: none;
-              padding: 0px 0px;
-              text-align: center;
-              box-shadow: 0px 0px 0px -0px rgba(0, 0, 0, 0.3);
-              border-radius: 0px;
-            }
-
             input[type="password"] {
               padding: 0 40px;
               border-radius: 35px;
