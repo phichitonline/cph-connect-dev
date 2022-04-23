@@ -416,7 +416,7 @@
                 <span class="color-white bg-black font-10 opacity-70 pb-1 pt-1 pl-2 pr-2 ml-1">ตั้งรหัส PIN</span>
             </div>
             <div class="card-center text-center">
-                <h1 class="color-white text-center text-uppercase font-700 fa-3x mb-3">ตั้งรหัส PIN หลัก</h1>
+                <h1 class="color-white text-center text-uppercase font-700 fa-3x mb-3">ตั้งรหัส PIN</h1>
                 <form name="loginpin" id="loginpin" action="{{route('testpin')}}" method="GET">
                     <input type="password" name="pincode" id="password" /></br></br>
                     <input type="button" value="1" id="1" class="pinButton calc"/>
