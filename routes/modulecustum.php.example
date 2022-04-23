@@ -1,0 +1,7 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+Route::resource('/', 'ModulecustomController');
+
+Route::get('/test', 'ModulecustomController@test')->name('testpin');

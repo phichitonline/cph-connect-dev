@@ -169,15 +169,21 @@ class MainController extends Controller
                 }
             }
 
-            if ($request->pincode == $pincode) {
-                ob_start();
-                $_SESSION["sessionpinok"] = "YES";
-                session_write_close();
+            if ($pincode == NULL) {
+                $loginpincheck = "login-pin-register";
             } else {
-                ob_start();
-                $_SESSION["sessionpinok"] = "NO";
-                session_write_close();
+                $loginpincheck = "login-pin";
+                if ($pincode == $request->pincode) {
+                    ob_start();
+                    $_SESSION["sessionpinok"] = "YES";
+                    session_write_close();
+                } else {
+                    ob_start();
+                    $_SESSION["sessionpinok"] = "NO";
+                    session_write_close();
+                }
             }
+
 
             $oapp_wait_conf = DB::connection('mysql')->select('
             SELECT COUNT(*) AS cc FROM que_card WHERE `status` IS NULL '.$user_flag.'
@@ -276,6 +282,7 @@ class MainController extends Controller
             'time_complete' => $time_complete,
             'room_code' => $room_code,
             'oapp_wait_confirm' => $oapp_wait_confirm,
+            'loginpincheck' => $loginpincheck,
 
         ]);
     }
