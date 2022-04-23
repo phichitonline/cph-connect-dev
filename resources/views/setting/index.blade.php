@@ -67,6 +67,24 @@
         <div class="cal-schedule">
             <em>
                 <div class="fac fac-radio fac-green"><span></span>
+                    <input id="box905-fac-radio" type="radio" name="pinlogin" value="Y" @if ($data->pinlogin == "Y") checked @endif>
+                    <label for="box905-fac-radio">ใช้</label>
+                </div>
+                <div class="fac fac-radio fac-red"><span></span>
+                    <input id="box906-fac-radio" type="radio" name="pinlogin" value="N" @if ($data->pinlogin == "N") checked @endif>
+                    <label for="box906-fac-radio">ไม่ใช้</label>
+                </div>
+            </em>
+            @if ($data->pinlogin == "N")
+                <strong class="color-red2-dark">ใช้ระบบความปลอดภัยด้วย PIN login</strong>
+            @else
+                <strong>ใช้ระบบความปลอดภัยด้วย PIN login</strong>
+            @endif
+        </div>
+
+        <div class="cal-schedule">
+            <em>
+                <div class="fac fac-radio fac-green"><span></span>
                     <input id="box1-fac-radio" type="radio" name="slide_status" value="Y" @if ($data->slide_status == "Y") checked @endif>
                     <label for="box1-fac-radio">แสดง</label>
                 </div>
