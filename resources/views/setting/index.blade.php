@@ -76,9 +76,9 @@
                 </div>
             </em>
             @if ($data->pinlogin == "N")
-                <strong class="color-red2-dark">ใช้ระบบความปลอดภัยด้วย PIN login</strong>
+                <strong class="color-red2-dark">ระบบความปลอดภัยด้วย PIN login</strong>
             @else
-                <strong>ใช้ระบบความปลอดภัยด้วย PIN login</strong>
+                <strong>ระบบความปลอดภัยด้วย PIN login</strong>
             @endif
         </div>
 

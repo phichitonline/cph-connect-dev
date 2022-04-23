@@ -15,8 +15,78 @@
         <link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png">
 
         <script src="https://kit.fontawesome.com/f9113cb6bd.js" crossorigin="anonymous"></script>
-        
+
         @yield('header_script')
+
+        <style>
+            form {
+              width: none;
+              margin: 0px auto;
+              background: none;
+              padding: 0px 0px;
+              text-align: center;
+              box-shadow: 0px 0px 0px -0px rgba(0, 0, 0, 0.3);
+              border-radius: 0px;
+            }
+
+            input[type="password"] {
+              padding: 0 40px;
+              border-radius: 35px;
+              width: 300px;
+              height: 55px;
+              margin: auto;
+              border: 1px solid rgb(228, 220, 220);
+              outline: none;
+              font-size: 160px;
+              color: transparent;
+              text-shadow: 0 0 0 rgb(71, 71, 71);
+              text-align: center;
+            }
+
+            input:focus {
+              outline: none;
+            }
+
+            .pinButton {
+              border: #506ce8;
+              background: #fff;
+              font-size: 1.5em;
+              border-radius: 50%;
+              height: 75px;
+              font-weight: 750;
+              width: 75px;
+              color: transparent;
+              text-shadow: 0 0 0 rgb(102, 101, 101);
+              margin: 7px 20px;
+            }
+
+            .clear,
+            .enter {
+              font-size: 1em !important;
+            }
+
+            .pinButton:hover {
+              box-shadow: #506ce8 0 0 1px 1px;
+            }
+            .pinButton:active {
+              background: #506ce8;
+              color: #fff;
+            }
+            .clear:hover {
+              box-shadow: #ff3c41 0 0 1px 1px;
+            }
+            .clear:active {
+              background: #ff3c41;
+              color: #fff;
+            }
+            .enter:hover {
+              box-shadow: #47cf73 0 0 1px 1px;
+            }
+            .enter:active {
+              background: #47cf73;
+              color: #fff;
+            }
+          </style>
 
     </head>
     <body class="theme-light" data-background="none" data-highlight="red2">

@@ -2,7 +2,6 @@
 @section('menu-active-main','active-nav')
 @section('header_script')
 {{-- header --}}
-<link rel="stylesheet" href="css/app.css" />
 @endsection
 
 @section('content')
