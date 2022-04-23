@@ -215,7 +215,7 @@
             // ********************************************** //
 
         }
-        echo "ไม่มีนัด";
+        echo "No data";
     }
     catch(PDOException $e) {echo "Connection failed: " . $e->getMessage();}
 
