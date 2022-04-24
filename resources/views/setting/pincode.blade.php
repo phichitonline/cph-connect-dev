@@ -28,8 +28,6 @@
 </div>
 <!-- End of Page Content-->
 
-{{-- @if ($pincodeconfirm == "TRUE") --}}
-
     @if ($pincode1 || "")
 
     <!-- Start PIN code login page -->
@@ -112,6 +110,8 @@
     <!-- Start PIN code login page -->
     @endif
 
+@if ($pincodeconfirm == "TRUE")
+
     <!-- Start PIN code login page -->
     <a href="#" data-menu="login-pin-confirm" data-timed-ad="0" data-auto-show-ad="0"> </a>
     <div id="login-pin-confirm" class="menu menu-box-modal menu-box-detached round-large" data-menu-width="100vw" data-menu-height="100vh" data-menu-effect="menu-over">
@@ -136,7 +136,7 @@
     <script src="js/pinpad.js"></script>
     <!-- Start PIN code login page -->
 
-{{-- @endif --}}
+@endif
 
 @endsection
 
