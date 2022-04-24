@@ -176,11 +176,14 @@ class MainController extends Controller
                 session_write_close();
             } else {
                 if ($pincode == NULL) {
+                    $sessionpinok = "NO";
                     $loginpincheck = "login-pin-register";
                 } else {
                     if (isset($_SESSION["sessionpinok"])) {
+                        $sessionpinok = "YES";
                         $loginpincheck = "";
                     } else {
+                        $sessionpinok = "NO";
                         $loginpincheck = "login-pin";
                     }
                 }
@@ -284,7 +287,7 @@ class MainController extends Controller
             'room_code' => $room_code,
             'oapp_wait_confirm' => $oapp_wait_confirm,
             'loginpincheck' => $loginpincheck,
-            'sessionpinok' => $_SESSION["sessionpinok"],
+            'sessionpinok' => $sessionpinok,
 
         ]);
     }
