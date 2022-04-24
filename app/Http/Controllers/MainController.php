@@ -175,24 +175,22 @@ class MainController extends Controller
                 $_SESSION["sessionpinok"] = "YES";
                 session_write_close();
             } else {
-                $loginpincheck = "login-pin";
                 ob_start();
                 $_SESSION["sessionpinok"] = "NO";
                 session_write_close();
-            }
 
-
-            if ($pincode == NULL) {
-                $loginpincheck = "login-pin-register";
-            } else {
-                if (isset($_SESSION["sessionpinok"])) {
-                    $loginpincheck = "login-pin";
-                    // $sessionpinok = $_SESSION["sessionpinok"];
+                if ($pincode == NULL) {
+                    $loginpincheck = "login-pin-register";
                 } else {
-                    $loginpincheck = "";
-                    // $sessionpinok = "NO";
+                    if (isset($_SESSION["sessionpinok"])) {
+                        $loginpincheck = "login-pin";
+                    } else {
+                        $loginpincheck = "";
+                    }
                 }
             }
+
+
 
 
             $oapp_wait_conf = DB::connection('mysql')->select('
