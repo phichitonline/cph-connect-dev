@@ -363,7 +363,7 @@
     <!-- Setting -->
 @if ($pinlogin == "Y")
 
-    @if ($sessionpinok == "NO")
+    {{-- @if ($sessionpinok == "NO") --}}
 
         @if ($loginpincheck == "login-pin")
             <!-- Start PIN code login page -->
@@ -448,7 +448,7 @@
 
         @endif
 
-    @endif
+    {{-- @endif --}}
 
 @endif
 

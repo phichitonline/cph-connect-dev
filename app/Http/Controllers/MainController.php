@@ -169,26 +169,29 @@ class MainController extends Controller
                 }
             }
 
-            if (isset($_SESSION["sessionpinok"])) {
-                $sessionpinok = $_SESSION["sessionpinok"];
-                if ($pincode == NULL) {
-                    $loginpincheck = "login-pin-register";
-                } else {
-                    if ($pincode == $request->pinlogin) {
-                        $loginpincheck = "";
-                        ob_start();
-                        $_SESSION["sessionpinok"] = "YES";
-                        session_write_close();
-                    } else {
-                        $loginpincheck = "login-pin";
-                        ob_start();
-                        $_SESSION["sessionpinok"] = "NO";
-                        session_write_close();
-                    }
-                }
-            } else {
-                $sessionpinok = "NO";
+            if ($pincode == $request->pinlogin) {
                 $loginpincheck = "";
+                ob_start();
+                $_SESSION["sessionpinok"] = "YES";
+                session_write_close();
+            } else {
+                $loginpincheck = "login-pin";
+                ob_start();
+                $_SESSION["sessionpinok"] = "NO";
+                session_write_close();
+            }
+
+
+            if ($pincode == NULL) {
+                $loginpincheck = "login-pin-register";
+            } else {
+                if (isset($_SESSION["sessionpinok"])) {
+                    $loginpincheck = "login-pin";
+                    // $sessionpinok = $_SESSION["sessionpinok"];
+                } else {
+                    $loginpincheck = "";
+                    // $sessionpinok = "NO";
+                }
             }
 
 
@@ -290,7 +293,7 @@ class MainController extends Controller
             'room_code' => $room_code,
             'oapp_wait_confirm' => $oapp_wait_confirm,
             'loginpincheck' => $loginpincheck,
-            'sessionpinok' => $sessionpinok,
+            // 'sessionpinok' => $sessionpinok,
 
         ]);
     }
