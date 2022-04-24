@@ -170,31 +170,50 @@ class MainController extends Controller
             }
 
             if (isset($_SESSION["sessionpinok"])) {
-                $sessionpincheck = $_SESSION["sessionpinok"];
-            } else {
-                $sessionpincheck = "NO";
-            }
 
-            if ($pincode == $request->pinlogin) {
-                $loginpincheck = "";
-                ob_start();
-                $_SESSION["sessionpinok"] = "YES";
-                session_write_close();
-                $sessionpinok = $sessionpincheck;
-            } else {
-                if ($pincode == NULL) {
-                    $sessionpinok = $sessionpincheck;
-                    $loginpincheck = "login-pin-register";
+                if ($_SESSION["sessionpinok"] == "YES") {
+                    $sessionpinok = "YES";
+                    $loginpincheck = "loginok-NOT-login-pin";
                 } else {
-                    if (isset($_SESSION["sessionpinok"])) {
-                        $sessionpinok = $sessionpincheck;
-                        $loginpincheck = "";
+                    $sessionpinok = "NO";
+                    if ($pincode == NULL) {
+                        $loginpincheck = "login-pin-register";
                     } else {
-                        $sessionpinok = $sessionpincheck;
                         $loginpincheck = "login-pin";
                     }
                 }
+
+            } else {
+                $sessionpinok = "NO";
+
+                if ($pincode == NULL) {
+                    $loginpincheck = "login-pin-register";
+                } else {
+                    $loginpincheck = "login-pin";
+                }
+
             }
+
+            // if ($pincode == $request->pinlogin) {
+            //     $loginpincheck = "";
+            //     ob_start();
+            //     $_SESSION["sessionpinok"] = "YES";
+            //     session_write_close();
+            //     $sessionpinok = $sessionpincheck;
+            // } else {
+            //     if ($pincode == NULL) {
+            //         $sessionpinok = "NO";
+            //         $loginpincheck = "login-pin-register";
+            //     } else {
+            //         if (isset($_SESSION["sessionpinok"])) {
+            //             $sessionpinok = $sessionpincheck;
+            //             $loginpincheck = "";
+            //         } else {
+            //             $sessionpinok = $sessionpincheck;
+            //             $loginpincheck = "login-pin";
+            //         }
+            //     }
+            // }
 
             $oapp_wait_conf = DB::connection('mysql')->select('
             SELECT COUNT(*) AS cc FROM que_card WHERE `status` IS NULL '.$user_flag.'
