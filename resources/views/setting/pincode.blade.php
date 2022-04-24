@@ -42,7 +42,7 @@
             </div>
             <div class="card-center text-center">
                 <h1 class="color-white text-center text-uppercase font-700 fa-3x mb-3">ยืนยันรหัส PIN</h1>
-                <form name="loginpin" id="loginpin" action="{{ url('/') }}/pinconfirm" method="POST">
+                <form name="loginpin" id="loginpin" action="{{ url('/') }}/pinconfirm" method="GET">
                     <input type="hidden" name="pincode1" value="{{ $pincode1 }}">
                     <input type="password" name="pincode2" id="password" /></br></br>
                     <input type="button" value="1" id="1" class="pinButton calc"/>
