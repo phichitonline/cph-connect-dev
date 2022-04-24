@@ -169,21 +169,28 @@ class MainController extends Controller
                 }
             }
 
+            if (isset($_SESSION["sessionpinok"])) {
+                $sessionpincheck = $_SESSION["sessionpinok"];
+            } else {
+                $sessionpincheck = "NO";
+            }
+
             if ($pincode == $request->pinlogin) {
                 $loginpincheck = "";
                 ob_start();
                 $_SESSION["sessionpinok"] = "YES";
                 session_write_close();
+                $sessionpinok = $sessionpincheck;
             } else {
                 if ($pincode == NULL) {
-                    $sessionpinok = "NO";
+                    $sessionpinok = $sessionpincheck;
                     $loginpincheck = "login-pin-register";
                 } else {
                     if (isset($_SESSION["sessionpinok"])) {
-                        $sessionpinok = "YES";
+                        $sessionpinok = $sessionpincheck;
                         $loginpincheck = "";
                     } else {
-                        $sessionpinok = "NO";
+                        $sessionpinok = $sessionpincheck;
                         $loginpincheck = "login-pin";
                     }
                 }
