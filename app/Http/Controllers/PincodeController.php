@@ -20,6 +20,7 @@ class PincodeController extends Controller
 
     public function pinlogin(Request $request)
     {
+        session_start();
         $check_user = Patientuser::where('lineid', $_SESSION["lineid"])->get();
         foreach($check_user as $data){
             $pincode = $data->pincode;
