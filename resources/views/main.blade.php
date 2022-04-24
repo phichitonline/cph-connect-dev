@@ -361,8 +361,8 @@
     <!-- Setting -->
 @if ($pinlogin == "Y")
 
-    @if ($sessionpinok == "NO")
-
+    @if ($sessionpinok == "YES")
+    @else
         @if ($loginpincheck == "login-pin")
             <!-- Start PIN code login page -->
             <a href="#" data-menu="login-pin" data-timed-ad="0" data-auto-show-ad="0"> </a>
@@ -446,7 +446,6 @@
 
         @endif
 
-    @else
     @endif
 
 @endif
