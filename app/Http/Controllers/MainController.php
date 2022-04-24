@@ -293,7 +293,7 @@ class MainController extends Controller
             'room_code' => $room_code,
             'oapp_wait_confirm' => $oapp_wait_confirm,
             'loginpincheck' => $loginpincheck,
-            // 'sessionpinok' => $sessionpinok,
+            'sessionpinok' => $_SESSION["sessionpinok"],
 
         ]);
     }
