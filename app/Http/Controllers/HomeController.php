@@ -14,11 +14,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // session_start();
-        // session_destroy();
+        session_start();
+        session_destroy();
 
         if (isset($_GET["userId"])) {
-    
+
             $userid = $_GET["userId"];
             $email = $_GET["decodedIDToken2"];
 
@@ -48,7 +48,7 @@ class HomeController extends Controller
                     $email = $_GET["decodedIDToken2"];
                 }
             }
-            
+
         } else {
             $view_page = "error_close_app";
             $view_menu = "disable";
@@ -63,7 +63,7 @@ class HomeController extends Controller
         } else {
             DB::connection('mysql')->insert('INSERT INTO log_liffapp (id,userid,event,log_datetime) VALUES (NULL,"'.$userid.'","error",NOW())');
         }
-        
+
         return view($view_page, [
             'moduletitle' => "Home",
             'view_menu' => $view_menu,
