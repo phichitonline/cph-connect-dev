@@ -18,6 +18,16 @@ class PincodeController extends Controller
         //
     }
 
+    public function pinlogin(Request $request)
+    {
+        // session_start();
+        ob_start();
+        $_SESSION["sessionpinok"] = "YES";
+        session_write_close();
+
+        return redirect()->route('main')->with('session-alert','เข้าใช้งานด้วย PIN สำเร็จ');
+    }
+
     public function pinregister(Request $request)
     {
         session_start();

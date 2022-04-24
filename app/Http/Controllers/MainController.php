@@ -169,6 +169,16 @@ class MainController extends Controller
                 }
             }
 
+            if ($pincode == $request->pinlogin) {
+                ob_start();
+                $_SESSION["sessionpinok"] = "YES";
+                session_write_close();
+            } else {
+                ob_start();
+                $_SESSION["sessionpinok"] = "NO";
+                session_write_close();
+            }
+
             if (isset($_SESSION["sessionpinok"])) {
 
                 if ($_SESSION["sessionpinok"] == "YES") {
