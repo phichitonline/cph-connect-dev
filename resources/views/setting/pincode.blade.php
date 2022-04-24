@@ -17,12 +17,12 @@
 
             @if ($pincode1 || "")
                 @if ($pincodeconfirm == "TRUE")
-                    <a href="#" data-menu="login-pin-confirm" data-timed-ad="0" data-auto-show-ad="0" class="btn btn-l btn-full rounded-s shadow-xl text-uppercase font-900 bg-highlight mr-3 ml-3 mb-4">PIN code confirm</a>
+                    <a href="#" data-menu="login-pin-confirm" data-timed-ad="0" data-auto-show-ad="0"> </a>
                 @else
-                    <a href="#" data-menu="login-pin-register2" data-timed-ad="0" data-auto-show-ad="0" class="btn btn-l btn-full rounded-s shadow-xl text-uppercase font-900 bg-highlight mr-3 ml-3 mb-4">PIN code register2</a>
+                    <a href="#" data-menu="login-pin-register2" data-timed-ad="0" data-auto-show-ad="0"> </a>
                 @endif
             @else
-                <a href="#" data-menu="login-pin-register" data-timed-ad="0" data-auto-show-ad="0" class="btn btn-l btn-full rounded-s shadow-xl text-uppercase font-900 bg-highlight mr-3 ml-3 mb-4">PIN code confirm</a>
+                <a href="#" data-menu="login-pin-register" data-timed-ad="0" data-auto-show-ad="0"> </a>
             @endif
 
         </div>
@@ -60,7 +60,7 @@
             <!-- Start PIN code login page -->
 
         @else
-        
+
             <!-- Start PIN code login page -->
             <a href="#" data-menu="login-pin-register2" data-timed-ad="0" data-auto-show-ad="0"> </a>
             <div id="login-pin-register2" class="menu menu-box-modal menu-box-detached round-large" data-menu-width="100vw" data-menu-height="100vh" data-menu-effect="menu-over">
