@@ -94,3 +94,5 @@ Route::post('appointment/calendar/time/quecc', 'AppointmentController@quecc')->n
 Route::post('appointment/store', 'AppointmentController@store')->name('store');
 Route::get('appointment/appman', 'AppointmentController@appman')->name('appman');
 Route::get('appointment/appconfirm', 'AppointmentController@appconfirm')->name('appconfirm');
+
+Route::resource('pincode', 'PincodeController');

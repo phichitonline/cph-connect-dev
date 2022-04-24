@@ -417,8 +417,8 @@
             </div>
             <div class="card-center text-center">
                 <h1 class="color-white text-center text-uppercase font-700 fa-3x mb-3">ตั้งรหัส PIN</h1>
-                <form name="loginpin" id="loginpin" action="{{route('testpin')}}" method="GET">
-                    <input type="password" name="pincode" id="password" /></br></br>
+                <form name="loginpin" id="loginpin" action="{{route('pincode')}}" method="GET">
+                    <input type="password" name="pincode1" id="password" /></br></br>
                     <input type="button" value="1" id="1" class="pinButton calc"/>
                     <input type="button" value="2" id="2" class="pinButton calc"/>
                     <input type="button" value="3" id="3" class="pinButton calc"/><br>
@@ -446,7 +446,6 @@
     @endif
 
     @endif
-
 
 @endsection
 
