@@ -22,7 +22,6 @@ class PincodeController extends Controller
     {
         session_start();
 
-
         return view('setting.pincode', [
             'moduletitle' => "การตั้งค่ารหัส PIN",
             'pincode1' => $request->pincode1,
@@ -37,16 +36,15 @@ class PincodeController extends Controller
 
         if ($request->pincode1 == $request->pincode2) {
             $pincodeconfirm = "TRUE";
+            DB::connection('mysql')->update('UPDATE patientusers SET pincode = "'.$request->pincode2.'" WHERE lineid = "'.$_SESSION["lineid"].'" ');
         } else {
             $pincodeconfirm = "FALSE";
         }
-
 
         return view('setting.pincode', [
             'moduletitle' => "การตั้งค่ารหัส PIN",
             'pincode1' => $request->pincode1,
             'pincodeconfirm' => $pincodeconfirm,
-
         ]);
     }
 
