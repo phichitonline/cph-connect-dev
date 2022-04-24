@@ -20,7 +20,7 @@
             @else
                 <a href="#" data-menu="login-pin-register" data-timed-ad="0" data-auto-show-ad="0" class="btn btn-l btn-full rounded-s shadow-xl text-uppercase font-900 bg-highlight mr-3 ml-3 mb-4">PIN code confirm</a>
             @endif
-                <a href="#" data-menu="login-pin-confirm" data-timed-ad="0" data-auto-show-ad="0" class="btn btn-l btn-full rounded-s shadow-xl text-uppercase font-900 bg-highlight mr-3 ml-3 mb-4">PIN code confirm</a>
+                {{-- <a href="#" data-menu="login-pin-confirm" data-timed-ad="0" data-auto-show-ad="0" class="btn btn-l btn-full rounded-s shadow-xl text-uppercase font-900 bg-highlight mr-3 ml-3 mb-4">PIN code confirm</a> --}}
 
         </div>
     </div>
