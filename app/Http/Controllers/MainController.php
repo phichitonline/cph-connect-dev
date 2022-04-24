@@ -171,24 +171,23 @@ class MainController extends Controller
 
             if (isset($_SESSION["sessionpinok"])) {
                 $sessionpinok = $_SESSION["sessionpinok"];
+                if ($pincode == NULL) {
+                    $loginpincheck = "login-pin-register";
+                } else {
+                    if ($pincode == $request->pinlogin) {
+                        $loginpincheck = "login-ok";
+                        ob_start();
+                        $_SESSION["sessionpinok"] = "YES";
+                        session_write_close();
+                    } else {
+                        $loginpincheck = "login-pin";
+                        ob_start();
+                        $_SESSION["sessionpinok"] = "NO";
+                        session_write_close();
+                    }
+                }
             } else {
                 $sessionpinok = "NO";
-            }
-
-            if ($pincode == NULL) {
-                $loginpincheck = "login-pin-register";
-            } else {
-                if ($pincode == $request->pinlogin) {
-                    $loginpincheck = "login-ok";
-                    ob_start();
-                    $_SESSION["sessionpinok"] = "YES";
-                    session_write_close();
-                } else {
-                    $loginpincheck = "login-pin";
-                    ob_start();
-                    $_SESSION["sessionpinok"] = "NO";
-                    session_write_close();
-                }
             }
 
 
