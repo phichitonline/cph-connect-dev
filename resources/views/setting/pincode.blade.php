@@ -13,23 +13,14 @@
 <div class="page-content header-clear-small">
 
     <div class="card card-style">
-        <div class="d-flex content">
-            <div class="flex-grow-1">
-                <div>
-                    <h1 class="font-700 mb-1">TEST</h1>
-                    <p class="mb-0 pb-1 pr-3">
-                        ทดสอบ
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="card card-style">
         <div class="content mt-0 mb-0">
 
-
-        <a href="#" data-menu="login-pin-register2" data-timed-ad="0" data-auto-show-ad="0" class="btn btn-l btn-full rounded-s shadow-xl text-uppercase font-900 bg-highlight mr-3 ml-3 mb-4">PIN code confirm</a>
+            @if ($pincode1 || "")
+                <a href="#" data-menu="login-pin-register2" data-timed-ad="0" data-auto-show-ad="0" class="btn btn-l btn-full rounded-s shadow-xl text-uppercase font-900 bg-highlight mr-3 ml-3 mb-4">PIN code register2</a>
+            @else
+                <a href="#" data-menu="login-pin-register" data-timed-ad="0" data-auto-show-ad="0" class="btn btn-l btn-full rounded-s shadow-xl text-uppercase font-900 bg-highlight mr-3 ml-3 mb-4">PIN code confirm</a>
+            @endif
+                <a href="#" data-menu="login-pin-confirm" data-timed-ad="0" data-auto-show-ad="0" class="btn btn-l btn-full rounded-s shadow-xl text-uppercase font-900 bg-highlight mr-3 ml-3 mb-4">PIN code confirm</a>
 
         </div>
     </div>
@@ -37,7 +28,9 @@
 </div>
 <!-- End of Page Content-->
 
-@if ($pincodeconfirm == "TRUE")
+{{-- @if ($pincodeconfirm == "TRUE") --}}
+
+    @if ($pincode1 || "")
 
     <!-- Start PIN code login page -->
     <a href="#" data-menu="login-pin-register2" data-timed-ad="0" data-auto-show-ad="0"> </a>
@@ -51,8 +44,8 @@
             </div>
             <div class="card-center text-center">
                 <h1 class="color-white text-center text-uppercase font-700 fa-3x mb-3">ยืนยันรหัส PIN</h1>
-                <form name="loginpin" id="loginpin" action="{{route('pincode')}}" method="POST">
-                    <input type="hidden" name="pincode1" value="">
+                <form name="loginpin" id="loginpin" action="{{ url('/') }}/pinconfirm" method="POST">
+                    <input type="hidden" name="pincode1" value="{{ $pincode1 }}">
                     <input type="password" name="pincode2" id="password" /></br></br>
                     <input type="button" value="1" id="1" class="pinButton calc"/>
                     <input type="button" value="2" id="2" class="pinButton calc"/>
@@ -78,8 +71,72 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="js/pinpad.js"></script>
     <!-- Start PIN code login page -->
+    @else
+    <!-- Start PIN code login page -->
+    <a href="#" data-menu="login-pin-register" data-timed-ad="0" data-auto-show-ad="0"> </a>
+    <div id="login-pin-register" class="menu menu-box-modal menu-box-detached round-large" data-menu-width="100vw" data-menu-height="100vh" data-menu-effect="menu-over">
+        <div class="card bg-17" data-card-height="100vh">
+            <div class="card-top">
+                <a href="#" onclick="closed()" class="close-menu ad-time-close color-highlight"><i class="fa fa-times disabled"></i><span></span></a>
+            </div>
+            <div class="card-top">
+                <span class="color-white bg-black font-10 opacity-70 pb-1 pt-1 pl-2 pr-2 ml-1">ตั้งรหัส PIN</span>
+            </div>
+            <div class="card-center text-center">
+                <h1 class="color-white text-center text-uppercase font-700 fa-3x mb-3">ตั้งรหัส PIN</h1>
+                <form name="loginpin" id="loginpin" action="{{ url('/') }}/pinregister" method="GET">
+                    <input type="password" name="pincode1" id="password" /></br></br>
+                    <input type="button" value="1" id="1" class="pinButton calc"/>
+                    <input type="button" value="2" id="2" class="pinButton calc"/>
+                    <input type="button" value="3" id="3" class="pinButton calc"/><br>
+                    <input type="button" value="4" id="4" class="pinButton calc"/>
+                    <input type="button" value="5" id="5" class="pinButton calc"/>
+                    <input type="button" value="6" id="6" class="pinButton calc"/><br>
+                    <input type="button" value="7" id="7" class="pinButton calc"/>
+                    <input type="button" value="8" id="8" class="pinButton calc"/>
+                    <input type="button" value="9" id="9" class="pinButton calc"/><br>
+                    <input type="button" value="ลบ" id="clear" class="pinButton clear"/>
+                    <input type="button" value="0" id="0 " class="pinButton calc"/>
+                    <input type="button" onclick="submitform()" value="ตกลง" id="enter" class="pinButton enter"/>
+                </form>
 
-@endif
+                <a href="#" onclick="closed()" class="close-menu mr-3 ml-3 mt-5 btn btn-m btn-full rounded-s shadow-xl text-uppercase font-900 bg-red2-dark">ปิด</a>
+
+            </div>
+            <div class="card-overlay bg-black opacity-70"></div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="js/pinpad.js"></script>
+    <!-- Start PIN code login page -->
+    @endif
+
+    <!-- Start PIN code login page -->
+    <a href="#" data-menu="login-pin-confirm" data-timed-ad="0" data-auto-show-ad="0"> </a>
+    <div id="login-pin-confirm" class="menu menu-box-modal menu-box-detached round-large" data-menu-width="100vw" data-menu-height="100vh" data-menu-effect="menu-over">
+        <div class="card bg-17" data-card-height="100vh">
+            <div class="card-top">
+                <a href="#" onclick="closed()" class="close-menu ad-time-close color-highlight"><i class="fa fa-times disabled"></i><span></span></a>
+            </div>
+            <div class="card-top">
+                <span class="color-white bg-black font-10 opacity-70 pb-1 pt-1 pl-2 pr-2 ml-1">ตั้งรหัส PIN สำเร้จแล้ว</span>
+            </div>
+            <div class="card-center text-center">
+                <h1 class="color-white text-center text-uppercase font-700 fa-3x mb-3">ตั้งรหัส PIN สำเร้จแล้ว</h1>
+
+                <a href="#" onclick="closed()" class="close-menu mr-3 ml-3 mt-5 btn btn-m btn-full rounded-s shadow-xl text-uppercase font-900 bg-red2-dark">ปิด</a>
+
+            </div>
+            <div class="card-overlay bg-black opacity-70"></div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="js/pinpad.js"></script>
+    <!-- Start PIN code login page -->
+
+{{-- @endif --}}
 
 @endsection
 

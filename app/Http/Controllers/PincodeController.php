@@ -13,9 +13,41 @@ class PincodeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         //
+    }
+
+    public function pinregister(Request $request)
+    {
+        session_start();
+
+
+        return view('setting.pincode', [
+            'moduletitle' => "การตั้งค่ารหัส PIN",
+            'pincode1' => $request->pincode1,
+            'pincodeconfirm' => "FALSE",
+
+        ]);
+    }
+
+    public function pinconfirm(Request $request)
+    {
+        session_start();
+
+        if ($request->pincode1 == $request->pincode2) {
+            $pincodeconfirm = "TRUE";
+        } else {
+            $pincodeconfirm = "FALSE";
+        }
+
+
+        return view('setting.pincode', [
+            'moduletitle' => "การตั้งค่ารหัส PIN",
+            'pincode1' => $request->pincode1,
+            'pincodeconfirm' => $pincodeconfirm,
+
+        ]);
     }
 
     /**
