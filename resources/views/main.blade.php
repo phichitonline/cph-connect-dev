@@ -361,7 +361,7 @@
     <!-- Setting -->
     @if ($pinlogin == "Y")
 
-    @if ($_SESSION["sessionpinok"] == "NO")
+    @if ($sessionpinok == "NO")
 
         @if ($loginpincheck == "login-pin")
         <!-- Start PIN code login page -->
