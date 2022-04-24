@@ -10,25 +10,7 @@
 @section('content')
 
 <!-- Start Page Content-->
-<div class="page-content header-clear-small">
 
-    <div class="card card-style">
-        <div class="content mt-0 mb-0">
-
-            @if ($pincode1 || "")
-                @if ($pincodeconfirm == "TRUE")
-                    <a href="#" data-menu="login-pin-confirm" data-timed-ad="0" data-auto-show-ad="0"> </a>
-                @else
-                    <a href="#" data-menu="login-pin-register2" data-timed-ad="0" data-auto-show-ad="0"> </a>
-                @endif
-            @else
-                <a href="#" data-menu="login-pin-register" data-timed-ad="0" data-auto-show-ad="0"> </a>
-            @endif
-
-        </div>
-    </div>
-
-</div>
 <!-- End of Page Content-->
 
     @if ($pincode1 || "")
@@ -50,7 +32,7 @@
                         <div class="color-white text-center fa-1x mb-3">
                             กรุณาปิดและเข้าใช้งานอีกครั้ง
                         </div>
-                        
+
                         <a href="#" onclick="closed()" class="close-menu mr-3 ml-3 mt-5 btn btn-m btn-full rounded-s shadow-xl text-uppercase font-900 bg-red2-dark">ปิด</a>
 
                     </div>

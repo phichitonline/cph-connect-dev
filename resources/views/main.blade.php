@@ -361,9 +361,9 @@
     <!-- Setting -->
     @if ($pinlogin == "Y")
 
-    @if ($loginpincheck == "login-pin")
+    @if ($_SESSION["sessionpinok"] == "NO")
 
-        @if ($_SESSION["sessionpinok"] == "NO")
+        @if ($loginpincheck == "login-pin")
         <!-- Start PIN code login page -->
         <a href="#" data-menu="login-pin" data-timed-ad="0" data-auto-show-ad="0"> </a>
         <div id="login-pin" class="menu menu-box-modal menu-box-detached round-large" data-menu-width="100vw" data-menu-height="100vh" data-menu-effect="menu-over">
