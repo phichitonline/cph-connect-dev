@@ -175,10 +175,6 @@ class MainController extends Controller
                 $_SESSION["sessionpinok"] = "YES";
                 session_write_close();
             } else {
-                ob_start();
-                $_SESSION["sessionpinok"] = "NO";
-                session_write_close();
-
                 if ($pincode == NULL) {
                     $loginpincheck = "login-pin-register";
                 } else {
@@ -189,9 +185,6 @@ class MainController extends Controller
                     }
                 }
             }
-
-
-
 
             $oapp_wait_conf = DB::connection('mysql')->select('
             SELECT COUNT(*) AS cc FROM que_card WHERE `status` IS NULL '.$user_flag.'
