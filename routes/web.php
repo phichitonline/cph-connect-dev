@@ -96,3 +96,4 @@ Route::get('appointment/appman', 'AppointmentController@appman')->name('appman')
 Route::get('appointment/appconfirm', 'AppointmentController@appconfirm')->name('appconfirm');
 
 Route::resource('pincode', 'PincodeController');
+Route::get('pincode', 'PincodeController@index')->name('pincode');
