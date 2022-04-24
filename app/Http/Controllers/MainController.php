@@ -179,7 +179,7 @@ class MainController extends Controller
                 $loginpincheck = "login-pin-register";
             } else {
                 if ($sessionpinok = "YES") {
-
+                    $loginpincheck = "xxx";
                 } else {
                     $loginpincheck = "login-pin";
                     if ($pincode == $request->pinlogin) {
