@@ -173,7 +173,7 @@ class MainController extends Controller
                 $loginpincheck = "login-pin-register";
             } else {
                 $loginpincheck = "login-pin";
-                if ($pincode == $request->pincode) {
+                if ($pincode == $request->pinlogin) {
                     ob_start();
                     $_SESSION["sessionpinok"] = "YES";
                     session_write_close();
