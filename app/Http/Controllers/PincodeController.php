@@ -20,10 +20,20 @@ class PincodeController extends Controller
 
     public function pinlogin(Request $request)
     {
-        // session_start();
-        ob_start();
-        $_SESSION["sessionpinok"] = "YES";
-        session_write_close();
+        $check_user = Patientuser::where('lineid', $_SESSION["lineid"])->get();
+        foreach($check_user as $data){
+            $pincode = $data->pincode;
+        }
+
+        if ($pincode == $request->pinlogin) {
+            ob_start();
+            $_SESSION["sessionpinok"] = "YES";
+            session_write_close();
+        } else {
+            ob_start();
+            $_SESSION["sessionpinok"] = "NO";
+            session_write_close();
+        }
 
         return redirect()->route('main')->with('session-alert','เข้าใช้งานด้วย PIN สำเร็จ');
     }

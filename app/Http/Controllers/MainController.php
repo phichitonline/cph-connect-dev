@@ -160,23 +160,12 @@ class MainController extends Controller
             SELECT * FROM patientusers WHERE hn = "'.$hn.'"
             ');
             foreach($check_user as $data){
+                $pincode = $data->pincode;
                 if ($data->que_app_flag == NULL) {
                     $user_flag =  ' ';
-                    $pincode = $data->pincode;
                 } else {
                     $user_flag =  'AND que_app_flag = "'.$data->que_app_flag.'" ';
-                    $pincode = $data->pincode;
                 }
-            }
-
-            if ($pincode == $request->pinlogin) {
-                ob_start();
-                $_SESSION["sessionpinok"] = "YES";
-                session_write_close();
-            } else {
-                ob_start();
-                $_SESSION["sessionpinok"] = "NO";
-                session_write_close();
             }
 
             if (isset($_SESSION["sessionpinok"])) {

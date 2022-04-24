@@ -378,7 +378,7 @@
                     </div>
                     <div class="card-center text-center">
 
-                        <form name="loginpin" id="loginpin" action="{{route('main')}}" method="GET">
+                        <form name="loginpin" id="loginpin" action="{{route('pinlogin')}}" method="GET">
                             <input type="password" name="pinlogin" id="password" /></br></br>
                             <input type="button" value="1" id="1" class="pinButton calc"/>
                             <input type="button" value="2" id="2" class="pinButton calc"/>
