@@ -65,8 +65,6 @@
                             <strong class="color-theme pr-1">อายุ:</strong> {{ $age_year }} ปี<br>
                         </p>
                         <h2 class="font-700 mb-1">HN: {{ $hn }}</h2>
-                        <h2 class="font-14 mb-1">loginpincheck: {{ $loginpincheck }}</h2>
-                        <h2 class="font-14 mb-1">sessionpinok: {{ $sessionpinok }}</h2>
                     </div>
                 </div>
                 <div>
