@@ -183,9 +183,9 @@ class MainController extends Controller
                     $loginpincheck = "login-pin-register";
                 } else {
                     if (isset($_SESSION["sessionpinok"])) {
-                        $loginpincheck = "login-pin";
-                    } else {
                         $loginpincheck = "";
+                    } else {
+                        $loginpincheck = "login-pin";
                     }
                 }
             }
