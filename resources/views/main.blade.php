@@ -403,7 +403,7 @@
             <script src="js/pinpad.js"></script>
             <!-- Start PIN code login page -->
 
-        @else
+        @elseif ($loginpincheck == "login-pin-register")
 
             <!-- Start PIN code login page -->
             <a href="#" data-menu="login-pin-register" data-timed-ad="0" data-auto-show-ad="0"> </a>
@@ -444,6 +444,8 @@
             <script src="js/pinpad.js"></script>
             <!-- Start PIN code login page -->
 
+        @else
+        
         @endif
 
     @endif
