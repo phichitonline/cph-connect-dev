@@ -169,18 +169,16 @@ class MainController extends Controller
                 }
             }
 
-            if (isset($_SESSION["sessionpinok"])) {
-                $sessionpinok = $_SESSION["sessionpinok"];
-            } else {
-                $sessionpinok = "NO";
-            }
+            // if (isset($_SESSION["sessionpinok"])) {
+            //     $sessionpinok = $_SESSION["sessionpinok"];
+            // } else {
+            //     $sessionpinok = "NO";
+            // }
 
             if ($pincode == NULL) {
                 $loginpincheck = "login-pin-register";
             } else {
-                if ($sessionpinok = "YES") {
-                    $loginpincheck = "xxx";
-                } else {
+
                     $loginpincheck = "login-pin";
                     if ($pincode == $request->pinlogin) {
                         ob_start();
@@ -191,7 +189,7 @@ class MainController extends Controller
                         $_SESSION["sessionpinok"] = "NO";
                         session_write_close();
                     }
-                }
+
             }
 
 
@@ -293,7 +291,7 @@ class MainController extends Controller
             'room_code' => $room_code,
             'oapp_wait_confirm' => $oapp_wait_confirm,
             'loginpincheck' => $loginpincheck,
-            'sessionpinok' => $sessionpinok,
+            'sessionpinok' => $_SESSION["sessionpinok"],
 
         ]);
     }

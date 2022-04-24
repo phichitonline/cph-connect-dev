@@ -14,8 +14,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        session_start();
-        session_destroy();
+        // session_start();
+        // session_destroy();
 
         if (isset($_GET["userId"])) {
 
