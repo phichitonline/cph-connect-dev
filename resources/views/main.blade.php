@@ -404,9 +404,8 @@
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="js/pinpad.js"></script>
         <!-- Start PIN code login page -->
-        @endif
 
-    @else
+        @else
 
         <!-- Start PIN code login page -->
         <a href="#" data-menu="login-pin-register" data-timed-ad="0" data-auto-show-ad="0"> </a>
@@ -446,7 +445,8 @@
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="js/pinpad.js"></script>
         <!-- Start PIN code login page -->
-    @endif
+
+        @endif
 
     @endif
 
