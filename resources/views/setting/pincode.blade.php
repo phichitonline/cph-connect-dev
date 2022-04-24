@@ -43,11 +43,14 @@
                         <a href="#" onclick="closed()" class="close-menu ad-time-close color-highlight"><i class="fa fa-times disabled"></i><span></span></a>
                     </div>
                     <div class="card-top">
-                        <span class="color-white bg-black font-10 opacity-70 pb-1 pt-1 pl-2 pr-2 ml-1">ตั้งรหัส PIN สำเร้จแล้ว</span>
+                        <span class="color-white bg-black font-10 opacity-70 pb-1 pt-1 pl-2 pr-2 ml-1">ตั้งรหัส PIN สำเร็จ</span>
                     </div>
                     <div class="card-center text-center">
-                        <h1 class="color-white text-center text-uppercase font-700 fa-3x mb-3">ตั้งรหัส PIN สำเร้จแล้ว</h1>
-
+                        <h1 class="color-white text-center text-uppercase font-700 fa-3x mb-3">ตั้งรหัส PIN สำเร็จ</h1>
+                        <div class="color-white text-center fa-1x mb-3">
+                            กรุณาปิดและเข้าใช้งานอีกครั้ง
+                        </div>
+                        
                         <a href="#" onclick="closed()" class="close-menu mr-3 ml-3 mt-5 btn btn-m btn-full rounded-s shadow-xl text-uppercase font-900 bg-red2-dark">ปิด</a>
 
                     </div>
