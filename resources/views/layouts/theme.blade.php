@@ -22,7 +22,7 @@
             input[type="password"] {
               padding: 0 40px;
               border-radius: 35px;
-              width: 280px;
+              width: 220px;
               height: 55px;
               margin: auto;
               border: 1px solid rgb(228, 220, 220);
@@ -42,9 +42,9 @@
               background: #fff;
               font-size: 1.5em;
               border-radius: 50%;
-              height: 65px;
+              height: 45px;
               font-weight: 750;
-              width: 65px;
+              width: 45px;
               color: transparent;
               text-shadow: 0 0 0 rgb(102, 101, 101);
               margin: 7px 20px;
