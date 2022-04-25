@@ -62,7 +62,7 @@
         </a>
     </div> --}}
 
-        <div class="card card-style">
+        {{-- <div class="card card-style">
         <div class="content mb-0">
             <h4 class="font-700 text-uppercase font-12 opacity-30 mb-3 mt-n2">อาการสำคัญ</h4>
             <div class="row mb-3">
@@ -115,10 +115,17 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <div class="card card-style">
         <div class="content mb-0">
+            <h4 class="font-700 text-uppercase font-12 opacity-30 mb-3 mt-n2">อาการสำคัญ</h4>
+            <div class="row mb-3">
+                <div class="col-12"><p class="font-13 mb-0 font-500 color-theme text-left">
+                    {{ $data->cc }}
+                </p></div>
+                <div class="divider w-100 mb-2 mt-2"></div>
+            </div>
             <h4 class="font-700 text-uppercase font-12 opacity-30 mb-3 mt-n2">ตรวจร่างกาย</h4>
             <div class="d-flex">
                 <div class="pr-4 align-self-center">
