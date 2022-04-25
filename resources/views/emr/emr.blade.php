@@ -45,22 +45,90 @@
 @foreach ($visit_detail as $data)
 <div class="page-content header-clear-medium">
 
-    {{-- <div class="row text-center mb-0 mt-n2">
+    @if ($status_type == "CHK")
+
+    <div class="row text-center mb-0 mt-n2">
         <a href="#" data-menu="menu-transaction-transfer" class="col-6 pr-0">
             <div class="card card-style mr-2 mb-3">
-                <i class="fa fa-arrow-up color-magenta2-dark fa-2x mt-3"></i>
-                <h1 class="pt-2 font-18">Transfer</h1>
-                <p class="font-11 opacity-50 mt-n2 mb-3">Tap to Transfer Funds</p>
+                <i class="fa fa-arrow-up color-highlight fa-2x mt-3"></i>
+                <h1 class="pt-2 font-18">CHOLESTEROL</h1>
             </div>
         </a>
         <a href="#" data-menu="menu-transaction-request" class="col-6 pl-0">
             <div class="card card-style ml-2 mb-3">
-                <i class="fa fa-arrow-down color-highlight fa-2x mt-3"></i>
-                <h1 class="pt-2 font-18">Request</h1>
-                <p class="font-11 opacity-50 mt-n2 mb-3">Tap to Request Funds</p>
+                <i class="fa fa-arrow-down color-magenta2-dark fa-2x mt-3"></i>
+                <h1 class="pt-2 font-18">URIC ACID</h1>
             </div>
         </a>
-    </div> --}}
+    </div>
+
+    <div class="card card-style">
+        <div class="content mb-3">
+            <h4 class="font-700 text-uppercase font-12 opacity-30 mb-3 mt-n2">สุขภาพของคุณ</h4>
+            <div class="row mb-0">
+                <div class="col-6">
+                    <div class="chart-container mb-4" style="height:200px;">
+                        <canvas class="chart" id="wallet-chart"/>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <div class="progress mb-4" style="height:7px;">
+                            <div class="progress-bar bg-highlight" role="progressbar" style="width: 40%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="row mb-0">
+                            <div class="col-7">
+                                <h5 class="mt-n3 font-13">Expenses</h5>
+                            </div>
+                            <div class="col-5">
+                                <h5 class="mt-n3 font-13 text-right color-red2-dark">-20%</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="progress mb-4" style="height:7px;">
+                            <div class="progress-bar bg-green1-dark" role="progressbar" style="width: 60%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="row mb-0">
+                            <div class="col-7">
+                                <h5 class="mt-n3 font-13">Earnings</h5>
+                            </div>
+                            <div class="col-5">
+                                <h5 class="mt-n3 font-13 text-right color-green1-dark">+35%</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="progress mb-4" style="height:7px;">
+                            <div class="progress-bar bg-blue2-dark" role="progressbar" style="width: 80%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="row mb-0">
+                            <div class="col-7">
+                                <h5 class="mt-n3 font-13">Savings</h5>
+                            </div>
+                            <div class="col-5">
+                                <h5 class="mt-n3 font-13 text-right color-blue2-dark">+20%</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-0">
+                        <div class="progress mb-4" style="height:7px;">
+                            <div class="progress-bar bg-yellow1-dark" role="progressbar" style="width: 80%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="row mb-0">
+                            <div class="col-7">
+                                <h5 class="mt-n3 font-13">Goals</h5>
+                            </div>
+                            <div class="col-5">
+                                <h5 class="mt-n3 font-13 text-right color-yellow1-dark">+60%</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
 
         {{-- <div class="card card-style">
         <div class="content mb-0">
