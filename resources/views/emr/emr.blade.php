@@ -45,7 +45,7 @@
 @foreach ($visit_detail as $data)
 <div class="page-content header-clear-medium">
 
-    @if ($status_type == "CHK")
+    {{-- @if ($status_type == "CHK")
 
     <div class="row text-center mb-0 mt-n2">
         <a href="#" data-menu="menu-transaction-transfer" class="col-6 pr-0">
@@ -130,7 +130,7 @@
             </div>
         </div>
     </div>
-    @endif
+    @endif --}}
 
         {{-- <div class="card card-style">
         <div class="content mb-0">
