@@ -122,7 +122,7 @@
             <h4 class="font-700 text-uppercase font-12 opacity-30 mb-3 mt-n2">ตรวจร่างกาย</h4>
             <div class="d-flex">
                 <div class="pr-4 align-self-center">
-                    <p class="font-14 font-700">อุณหภูมิ(C)</p>
+                    <p class="font-14 font-700 mb-n1">อุณหภูมิ(C)</p>
                     <h1 class="@if ($data->temperature > $emr_temperature) {{ 'color-highlight' }} @else {{ 'color-blue2-dark' }} @endif mb-2">{{ $data->temperature }}</h1>
                 </div>
                 <div class="w-100 align-self-center pl-3">
