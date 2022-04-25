@@ -62,6 +62,52 @@
         </a>
     </div>
 
+    <div id="menu-transaction-transfer" class="menu menu-box-bottom menu-box-detached rounded-m" data-menu-height="390">
+        <div class="menu-title"><h1>Send Funds</h1><p class="color-highlight">Enter Transaction Details</p><a href="#" class="close-menu"><i class="fa fa-times"></i></a></div>
+        <div class="divider divider-margins mt-3 mb-3"></div>
+        <div class="content px-1">
+            <div class="input-style input-style-1 input-required">
+                <h5 class="font-700 font-11 opacity-30 text-uppercase mb-n3">Select Account</h5>
+                <em><i class="fa fa-angle-down"></i></em>
+                <select class="font-12">
+                    <option value="1" selected>Default Account</option>
+                    <option value="2">Savings Account</option>
+                </select>
+            </div>
+            <div class="input-style input-style-1 input-required">
+                <h5 class="font-700 font-11 opacity-30 text-uppercase mb-n3">Receiver Email</h5>
+                <em>(required)</em>
+                <input type="email" class="pl-0" placeholder="name@domain.com">
+            </div>
+
+            <div class="input-style input-style-1 input-required mb-4">
+                <h5 class="font-700 font-11 opacity-30 text-uppercase mb-n3">Amount in USD</h5>
+                <em>(required)</em>
+                <input type="name" class="form-control pl-0" placeholder="12,250" min="1" max="99999999999">
+            </div>
+            <a href="#" class="close-menu btn btn-full btn-m bg-green1-dark rounded-sm text-uppercase font-800">Send Funds</a>
+        </div>
+    </div>
+
+    <div id="menu-transaction-request" class="menu menu-box-bottom menu-box-detached rounded-m" data-menu-height="320">
+        <div class="menu-title"><h1>Request Funds</h1><p class="color-highlight">Enter Transaction Details</p><a href="#" class="close-menu"><i class="fa fa-times"></i></a></div>
+        <div class="divider divider-margins mt-3 mb-2"></div>
+        <div class="content px-1">
+            <div class="input-style input-style-1 input-required">
+                <h5 class="font-700 font-11 opacity-30 text-uppercase mb-n3">Request From</h5>
+                <em>(required)</em>
+                <input type="email" class="pl-0" placeholder="name@domain.com">
+            </div>
+            <div class="input-style input-style-1 input-required mb-4">
+                <h5 class="font-700 font-11 opacity-30 text-uppercase mb-n3">Enter amount</h5>
+                <em>(required)</em>
+                <input type="email" class="pl-0" placeholder="1000">
+            </div>
+            <a href="#" class="close-menu btn btn-full btn-m bg-blue2-dark rounded-sm text-uppercase font-800">Request Funds</a>
+        </div>
+    </div>
+
+ 
     <div class="card card-style">
         <div class="content mb-3">
             <h4 class="font-700 text-uppercase font-12 opacity-30 mb-3 mt-n2">สุขภาพของคุณ</h4>
