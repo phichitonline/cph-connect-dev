@@ -116,6 +116,45 @@
             </div>
         </div>
     </div>
+
+    <div class="card card-style">
+        <div class="content mb-0">
+            <h4 class="font-700 text-uppercase font-12 opacity-30 mb-3 mt-n2">ตรวจร่างกาย</h4>
+            <div class="d-flex">
+                <div class="pr-4 align-self-center">
+                    <p class="font-14 font-700 mb-n1">อุณหภูมิ(C)</p>
+                    <h1 class="@if ($data->temperature > $emr_temperature) {{ 'color-highlight' }} @else {{ 'color-blue2-dark' }} @endif mb-2">{{ $data->temperature }}</h1>
+                </div>
+                <div class="w-100 align-self-center pl-3">
+                    <h6 class="font-14 font-700">ความดัน<span class="@if ($data->bps > $emr_bps OR $data->bpd > $emr_bpd) {{ 'float-right color-highlight' }} @else {{ 'float-right color-blue2-dark' }} @endif">@if ($data->bps || "") {{ $data->bps }}/{{ $data->bpd }} @endif</span></h6>
+
+                    <div class="divider mb-2 mt-1"></div>
+                    <h6 class="font-14 font-700">ชีพจร<span class="@if ($data->pulse > $emr_pulse) {{ 'float-right color-highlight' }} @else {{ 'float-right color-blue2-dark' }} @endif">{{ $data->pulse }}</span></h6>
+                </div>
+            </div>
+            <div class="divider mt-2 mb-3"></div>
+            <div class="row mb-0">
+                <div class="col-4">
+                    <div class="mx-0 mb-3">
+                        <h6 class="font-12 font-800 text-uppercase opacity-30">น้ำหนัก(กก.)</h6>
+                        <h3 class="@if ($data->bw > $emr_bw) {{ 'color-highlight' }} @else {{ 'color-blue2-dark' }} @endif font-20 mb-0">{{ $data->bw }}</h3>
+                    </div>
+                </div>
+                <div class="col-4 text-center">
+                    <div class="mx-0 mb-3">
+                        <h6 class="font-12 font-800 text-uppercase opacity-30">ส่วนสูง(ซม.)</h6>
+                        <h3 class="@if ($data->height < $emr_height) {{ 'color-highlight' }} @else {{ 'color-blue2-dark' }} @endif font-20 mb-0">{{ $data->height }}</h3>
+                    </div>
+                </div>
+                <div class="col-4 pr-3 text-right">
+                    <div class="mx-0 mb-3">
+                        <h6 class="font-12 font-800 text-uppercase opacity-30">BMI</h6>
+                        <h3 class="@if ($data->bmi < $emr_bmi1 OR $data->bmi > $emr_bmi2) {{ 'color-highlight' }} @else {{ 'color-blue2-dark' }} @endif font-20 mb-0">{{ $data->bmi }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--<div class="card card-style">-->
     <!--    <div class="content mb-0">-->
     <!--        <h4 class="font-700 text-uppercase font-12 opacity-30 mb-3 mt-n2">วินิจฉัย</h4>-->
