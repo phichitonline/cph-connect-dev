@@ -48,7 +48,7 @@ class CreateQueAppFlagTable extends Migration
                         'depcode'=> '016',
                         'spclty'=> '01',
                         'doctor'=> '1298',
-                        'bgcolor'=> 'bg-magenta1-dark',
+                        'bgcolor'=> 'bg-magenta1-dark'
                     ],
                     [
                         'que_app_flag'=> 'D',
