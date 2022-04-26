@@ -93,7 +93,7 @@ class CreateSettingsTable extends Migration
                 'module_3'=> 'Y',
                 'module_2'=> 'Y',
                 'module_1'=> 'Y',
-                'hoslocation'=> ''
+                'hoslocation'=> '',
                 'modulecustom'=> 'N',
                 'pinlogin'=> 'N',
             )
