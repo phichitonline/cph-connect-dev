@@ -390,10 +390,10 @@
                             <input type="button" value="ลบ" id="clear" class="pinButton clear"/>
                             <input type="button" value="0" id="0 " class="pinButton calc"/>
                             <input type="button" onclick="submitform()" value="ตกลง" id="enter" class="pinButton enter"/>
-                            <a href="#" onclick="submitform()" class="close-menu mr-3 ml-3 mt-5 btn btn-m btn-full rounded-s shadow-xl text-uppercase font-900 bg-blue2-dark">ปิด</a>
+                            <a href="#" onclick="submitform()" class="close-menu mr-3 ml-3 mt-5 btn btn-m btn-full rounded-s shadow-xl text-uppercase font-900 bg-blue2-dark">ตกลง</a>
                         </form>
 
-                        <a href="#" onclick="closed()" class="close-menu mr-3 ml-3 mt-5 btn btn-m btn-full rounded-s shadow-xl text-uppercase font-900 bg-red2-dark">ปิด</a>
+                        {{-- <a href="#" onclick="closed()" class="close-menu mr-3 ml-3 mt-5 btn btn-m btn-full rounded-s shadow-xl text-uppercase font-900 bg-red2-dark">ยกเลิก</a> --}}
 
                     </div>
                     <div class="card-overlay bg-black opacity-70"></div>
@@ -432,9 +432,10 @@
                             <input type="button" value="ลบ" id="clear" class="pinButton clear"/>
                             <input type="button" value="0" id="0 " class="pinButton calc"/>
                             <input type="button" onclick="submitform()" value="ตกลง" id="enter" class="pinButton enter"/>
+                            <a href="#" onclick="submitform()" class="close-menu mr-3 ml-3 mt-5 btn btn-m btn-full rounded-s shadow-xl text-uppercase font-900 bg-blue2-dark">ตกลง</a>
                         </form>
 
-                        <a href="#" onclick="closed()" class="close-menu mr-3 ml-3 mt-5 btn btn-m btn-full rounded-s shadow-xl text-uppercase font-900 bg-red2-dark">ปิด</a>
+                        <a href="#" onclick="closed()" class="close-menu mr-3 ml-3 mt-5 btn btn-m btn-full rounded-s shadow-xl text-uppercase font-900 bg-red2-dark">ยกเลิก</a>
 
                     </div>
                     <div class="card-overlay bg-black opacity-70"></div>
