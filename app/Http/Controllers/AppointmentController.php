@@ -171,8 +171,15 @@ class AppointmentController extends Controller
         SELECT que_time,que_app_flag,que_time_name,que_time_start,que_time_end,limitcount FROM apptimes WHERE que_app_flag = "'.$request->flag.'" AND que_time = "'.$request->rad.'"
         ');
         foreach($check_q_time as $data){
-            $que_time = $data->que_time_name;
+            $que_time1 = $data->que_time_name;
+        }
+
+        if ($request->rad || "") {
+            $que_time = $que_time1;
             $que_time_c = "";
+        } else {
+            $que_time = "คุณยังไม่ได้เลือกเวลา<br>กรุณาย้อนกลับไปเลือกช่วงเวลาก่อนค่ะ";
+            $que_time_c = "color-highlight";
         }
 
         $que_date = $request->que_date;
