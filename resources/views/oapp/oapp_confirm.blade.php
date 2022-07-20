@@ -65,7 +65,7 @@
             "contents": {
 
                 "type": "bubble",
-                "size": "giga",
+                "size": "mega",
                 "body": {
                     "type": "box",
                     "layout": "vertical",
