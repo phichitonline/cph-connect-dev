@@ -37,6 +37,10 @@ Route::get('/ptvisit', function () {
     return view('oapp.ptvisit');
 });
 
+Route::get('/oappconfirm', function () {
+    return view('oapp.oapp_confirm');
+});
+
 Route::get('/ptresult', function () {
     return view('oapp.ptresult');
 });
