@@ -33,7 +33,7 @@
         $result = $myPDO->query($sql);
         foreach ($result AS $data) {
             $idline = $data['lineid'];
-            $cc = " ";
+            $note = $data['note'];
             $spcltyname = $data['spcltyname'];
             $vstdate = "วันที่ ".DateThaiFull($data['nextdate'])."";
             $vsttime = "เวลา ".TimeThai($data['nexttime'])." น.";
@@ -72,7 +72,7 @@
                     "contents": [
                     {
                         "type": "text",
-                        "text": "text_line_message0",
+                        "text": "ยืนยันการนัด",
                         "weight": "bold",
                         "size": "xxl",
                         "margin": "md",
@@ -80,18 +80,18 @@
                     },
                     {
                         "type": "text",
-                        "text": "text_line_message1",
+                        "text": "'.$ptname.'",
                         "size": "lg",
                         "weight": "bold"
                     },
                     {
                         "type": "text",
-                        "text": "text_line_message2",
+                        "text": "'.$vstdate.' '.$vsttime.'",
                         "wrap": true
                     },
                     {
                         "type": "text",
-                        "text": "text_line_message3"
+                        "text": "แผนก : '.$spcltyname.'"
                     },
                     {
                         "type": "separator",
@@ -105,10 +105,10 @@
                         "contents": [
                         {
                             "type": "text",
-                            "text": "text_line_message4",
+                            "text": "'.$note.'",
                             "color": "#ff0000",
                             "weight": "bold",
-                            "size": "xxl"
+                            "size": "xl"
                         }
                         ],
                         "justifyContent": "center",
@@ -125,13 +125,13 @@
                         "contents": [
                         {
                             "type": "text",
-                            "text": "รายละเอียดเพิ่มเติม",
+                            "text": "ตรวจสอบวันนัด และรายละเอียดเพิ่มเติม",
                             "size": "xs",
                             "color": "#aaaaaa",
                             "flex": 0,
                             "action": {
                             "type": "uri",
-                            "label": "รายละเอียดเพิ่มเติม",
+                            "label": "ตรวจสอบวันนัด และรายละเอียดเพิ่มเติม",
                             "uri": "'.$liff_url.'"
                             }
                         }
