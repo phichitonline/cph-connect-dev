@@ -28,6 +28,7 @@ class VaccineController extends Controller
         LEFT JOIN vaccine_manufacturer vm ON vl.vaccine_manufacturer_id = vm.vaccine_manufacturer_id
 		LEFT JOIN (SELECT * FROM doctor_cert_covid19 GROUP BY patient_cid) dc ON dc.patient_cid = p.cid
         WHERE o.hn = "'.$hn.'"
+        ORDER BY v.vn
         ORDER BY o.vstdate DESC
         ');
 

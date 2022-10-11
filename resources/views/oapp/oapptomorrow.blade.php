@@ -62,7 +62,7 @@
         "to": "'.$pushID.'",
         "messages": [{
         "type": "flex",
-        "altText": "วันนี้คุณมีนัด",
+        "altText": "พรุ่งนี้คุณมีนัด",
         "contents": {
 
 "type": "bubble",
@@ -95,7 +95,7 @@
       },
       {
         "type": "text",
-        "text": "วันนี้คุณมีนัด",
+        "text": "พรุ่งนี้คุณมีนัด",
         "color": "#FF0000",
         "margin": "md",
         "weight": "bold",
