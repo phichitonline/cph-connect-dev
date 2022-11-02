@@ -6,7 +6,7 @@
 
 @section('content')
 
-    <div class="header header-fixed header-logo-center {{ $module_color }}">
+    <div class="header header-fixed header-logo-center bg-{{ $module_color }}">
         <a href="#" onclick="goBack()" class="header-title color-white">ย้อนกลับ</a>
         <a href="#" data-back-button class="header-icon header-icon-1"><i class="fas fa-arrow-left"></i></a>
         <a href="#" data-toggle-theme class="header-icon header-icon-4"><i class="fas fa-bell"></i></a>
@@ -16,9 +16,9 @@
 
         <div class="card card-style bg-theme shadow-xl rounded-m">
             <div class="cal-footer">
-                <h4 class="cal-title text-center text-uppercase font-25 {{ $module_color }} color-white">{{ $module_name }}</h4>
+                <h4 class="cal-title text-center text-uppercase font-25 bg-bg-{{ $module_color }} color-white">{{ $module_name }}</h4>
                 <span class="cal-message mt-3 mb-3">
-                    <i class="fa fa-bell font-18 {{ $module_color }}"></i>
+                    <i class="fa fa-bell font-18 color-{{ $module_color }}"></i>
                     <strong class="color-gray-dark">- งดรับจองวันหยุดราชการและวันหยุดนักขัตฤกษ์</strong>
                     <strong class="color-gray-dark">- สามารถจองได้เพียงวันละ 1 คิวเท่านั้น</strong>
                 </span>
@@ -65,12 +65,12 @@
 
                 <div class="card card-style bg-theme shadow-xl rounded-m">
                     <div class="cal-header">
-                        <h4 class="cal-title text-center text-uppercase font-800 {{ $module_color }} color-white">{{ $monthNames[$cMonth - 1] . ' ' . $thaiyear }}</h4>
+                        <h4 class="cal-title text-center text-uppercase font-800 bg-{{ $module_color }} color-white">{{ $monthNames[$cMonth - 1] . ' ' . $thaiyear }}</h4>
                         <h6 class="cal-title-left color-white"><a class="color-white" href="{{ url('/') }}/bookcalendar/{{ "?qflag=".$qflag."&flag=".$flag."&month=" . $prev_month . "&year=" . $prev_year }}" data-ajax="false"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-left"></i></a></h6>
                         <h6 class="cal-title-right color-white"><a class="color-white" href="{{ url('/') }}/bookcalendar/{{ "?qflag=".$qflag."&flag=".$flag."&month=" . $next_month . "&year=" . $next_year }}" data-ajax="false"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></a></h6>
                     </div>
                     <div class="clearfix"></div>
-                    <div class="cal-days {{ $module_color }} opacity-80 bottom-0">
+                    <div class="cal-days bg-{{ $module_color }} opacity-80 bottom-0">
                         <a href="#">อา</a>
                         <a href="#">จ</a>
                         <a href="#">อ</a>
