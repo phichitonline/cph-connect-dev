@@ -5,8 +5,8 @@
 @endsection
 
 @section('content')
-				
-    <div class="header header-fixed header-logo-center bg-yellow1-dark">
+
+    <div class="header header-fixed header-logo-center bg-{{ $module_color }}">
         <a href="#" onclick="goBack()" class="header-title color-white">ย้อนกลับ</a>
         <a href="#" data-back-button class="header-icon header-icon-1"><i class="fas fa-arrow-left"></i></a>
         <a href="#" data-toggle-theme class="header-icon header-icon-4"><i class="fas fa-bell"></i></a>
@@ -15,12 +15,12 @@
     <div class="page-content header-clear-large">
 
 @php
-	
+
     $hostname_dbnurse = config('database.connections.mysql.host');
     $database_dbnurse = config('database.connections.mysql.database');
     $username_dbnurse = config('database.connections.mysql.username');
     $password_dbnurse = config('database.connections.mysql.password');
-    $dbnurse = mysqli_connect($hostname_dbnurse, $username_dbnurse, $password_dbnurse) or trigger_error(mysqli_error(),E_USER_ERROR); 
+    $dbnurse = mysqli_connect($hostname_dbnurse, $username_dbnurse, $password_dbnurse) or trigger_error(mysqli_error(),E_USER_ERROR);
     mysqli_select_db($dbnurse,$database_dbnurse);
     mysqli_set_charset($dbnurse,"utf8");
     date_default_timezone_set("Asia/Bangkok");
@@ -43,12 +43,12 @@
 				<form method="post" id="radio_time" action="{{ route('bookcc') }}" data-ajax="false" autocomplete="off" class="form-horizontal">
 					@csrf
 					@method('post')
-					<input type="hidden" name="que_date" value="{{ $que_date }}" readonly  /> 
-					<input type="hidden" name="que_time" value="" id="que_time" readonly  /> 
-					<input type="hidden" name="flag" value="{{ $flag }}" readonly  /> 
-					<input type="hidden" name="qflag" value="{{ $qflag }}" readonly  /> 
+					<input type="hidden" name="que_date" value="{{ $que_date }}" readonly  />
+					<input type="hidden" name="que_time" value="" id="que_time" readonly  />
+					<input type="hidden" name="flag" value="{{ $flag }}" readonly  />
+					<input type="hidden" name="qflag" value="{{ $qflag }}" readonly  />
 
-                    @php 
+                    @php
 							// $tbl="que_card";
 							$sql = "select count(*) AS cc from que_card WHERE que_app_flag = '{$qflag}' AND DATE(que_date) = '{$que_date}' AND que_time = '9';";
 							$query = mysqli_query($dbnurse,$sql ) or die(mysqli_error());
@@ -142,7 +142,7 @@
         </div>
 
     </div>
-    <!-- End of Page Content--> 
+    <!-- End of Page Content-->
 
 
 <script>

@@ -5,8 +5,8 @@
 @endsection
 
 @section('content')
-				
-    <div class="header header-fixed header-logo-center bg-yellow1-dark">
+
+    <div class="header header-fixed header-logo-center bg-{{ $module_color }}">
         <a href="#" onclick="goBack()" class="header-title color-white">ย้อนกลับ</a>
         <a href="#" data-back-button class="header-icon header-icon-1"><i class="fas fa-arrow-left"></i></a>
         <a href="#" data-toggle-theme class="header-icon header-icon-4"><i class="fas fa-bell"></i></a>
@@ -31,8 +31,8 @@
                 <form method="post" action="{{ route('bookstore') }}" autocomplete="off" class="form-horizontal">
                     @csrf
                     @method('post')
-                    <input type="hidden" name="que_time" value="{{ $que_rad }}" readonly  /> 
-					<input type="hidden" name="que_date" value="{{ $que_date }}" readonly  /> 
+                    <input type="hidden" name="que_time" value="{{ $que_rad }}" readonly  />
+					<input type="hidden" name="que_date" value="{{ $que_date }}" readonly  />
 					<input type="hidden" name="cid" value="{{ $_SESSION['cid'] }}" readonly  />
 					<input type="hidden" name="hn" value="{{ $_SESSION['hn'] }}" readonly  />
 					<input type="hidden" name="lid" value="{{ $_SESSION['lineid'] }}" readonly  />
@@ -64,7 +64,7 @@
         </div>
 
     </div>
-    <!-- End of Page Content--> 
+    <!-- End of Page Content-->
 
 @endsection
 
