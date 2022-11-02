@@ -18,7 +18,7 @@
             <div class="cal-footer">
                 <h4 class="cal-title text-center text-uppercase font-25 {{ $module_color }} color-white">{{ $module_name }}</h4>
                 <span class="cal-message mt-3 mb-3">
-                    <i class="fa fa-bell font-18 color-green1-dark"></i>
+                    <i class="fa fa-bell font-18 {{ $module_color }}"></i>
                     <strong class="color-gray-dark">- งดรับจองวันหยุดราชการและวันหยุดนักขัตฤกษ์</strong>
                     <strong class="color-gray-dark">- สามารถจองได้เพียงวันละ 1 คิวเท่านั้น</strong>
                 </span>
