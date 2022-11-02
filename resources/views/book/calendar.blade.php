@@ -16,7 +16,7 @@
 
         <div class="card card-style bg-theme shadow-xl rounded-m">
             <div class="cal-footer">
-                <h4 class="cal-title text-center text-uppercase font-25 bg-bg-{{ $module_color }} color-white">{{ $module_name }}</h4>
+                <h4 class="cal-title text-center text-uppercase font-25 bg-{{ $module_color }} color-white">{{ $module_name }}</h4>
                 <span class="cal-message mt-3 mb-3">
                     <i class="fa fa-bell font-18 color-{{ $module_color }}"></i>
                     <strong class="color-gray-dark">- งดรับจองวันหยุดราชการและวันหยุดนักขัตฤกษ์</strong>
