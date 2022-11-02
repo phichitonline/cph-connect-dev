@@ -17,7 +17,7 @@
 
         <div class="card card-style">
             <div class="cal-header">
-                <h4 class="cal-title text-center text-uppercase font-25 {{ $module_color }} color-white">{{ $module_name }}</h4>
+                <h4 class="cal-title text-center text-uppercase font-25 bg-{{ $module_color }} color-white">{{ $module_name }}</h4>
             </div>
             <div class="content mb-0">
             @if ($que_rad == "")
@@ -48,8 +48,8 @@
 					</div>
 					<div class="clearfix"></div>
 
-                    {{-- <a href="#" class="btn btn-m btn-full rounded-s shadow-l {{ $module_color }} text-uppercase font-900">บันทึกจองนัด</a> --}}
-                    <button class="btn btn-m btn-full btn-block rounded-s shadow-l {{ $module_color }} text-uppercase font-900" type="submit"  name="submit">บันทึกจองนัด</button>
+                    {{-- <a href="#" class="btn btn-m btn-full rounded-s shadow-l bg-{{ $module_color }} text-uppercase font-900">บันทึกจองนัด</a> --}}
+                    <button class="btn btn-m btn-full btn-block rounded-s shadow-l bg-{{ $module_color }} text-uppercase font-900" type="submit"  name="submit">บันทึกจองนัด</button>
 
                     <div class="clearfix"></div>
 
