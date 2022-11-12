@@ -56,6 +56,11 @@ class SessionregisterController extends Controller
         $birthday = $yyyy."-".$mm."-".$dd;
         $birthday = trim($birthday);
 
+        $check_setting = DB::connection('mysql')->select('SELECT * FROM settings WHERE id = 1');
+        foreach($check_setting as $data){
+            $active_ptregister = $data->active_ptregister;
+        }
+
         $check_opduser = DB::connection('mysql_hos')->select('
         SELECT COUNT(*) AS userregist,hn,cid,pname,fname,lname FROM patient
         WHERE cid = "'.$cid.'" AND birthday = "'.$birthday.'"
@@ -76,12 +81,23 @@ class SessionregisterController extends Controller
                 $model->create($request->merge(['hn' => $data->hn, 'cid' => $cid_encode])->all());
                 return redirect()->route('main')->with('session-alert', 'คุณลงทะเบียนใช้บริการออนไลน์สำเร็จแล้ว');
             } else {
-                session_start();
-                ob_start();
-                $_SESSION["lineid"] = $request->get('lineid');
-                $_SESSION["email"] = $request->get('email');
-                session_write_close();
-                return redirect()->route('ptregister.index')->with('session-alert', 'ไม่พบข้อมูลทะเบียนผู้ป่วยของคุณ หรือคุณอาจกรอกข้อมูลไม่ถูกต้อง ! กรุณาตรวจสอบเลขบัตรประชาชน และวันเดือนปีเกิดให้ถูกต้อง... หรือกรอกข้อมูลเพื่อลงทะเบียนทำบัตรใหม่');
+                // เปิดปิดโมดูลลงทะเบียนผู้ป่วยใหม่
+                if ($active_ptregister == "Y") {
+                    session_start();
+                    ob_start();
+                    $_SESSION["lineid"] = $request->get('lineid');
+                    $_SESSION["email"] = $request->get('email');
+                    session_write_close();
+                    return redirect()->route('ptregister.index')->with('session-alert', 'ไม่พบข้อมูลทะเบียนผู้ป่วยของคุณ หรือคุณอาจกรอกข้อมูลไม่ถูกต้อง ! กรุณาตรวจสอบเลขบัตรประชาชน และวันเดือนปีเกิดให้ถูกต้อง... หรือกรอกข้อมูลเพื่อลงทะเบียนทำบัตรใหม่');
+                } else {
+                    session_start();
+                    ob_start();
+                    $_SESSION["lineid"] = $request->get('lineid');
+                    $_SESSION["email"] = $request->get('email');
+                    session_write_close();
+                    return redirect()->route('homeregister')->with('session-alert', 'ไม่พบข้อมูลทะเบียนผู้ป่วยของคุณ หรือคุณอาจกรอกข้อมูลไม่ถูกต้อง ! กรุณาตรวจสอบเลขบัตรประชาชน และวันเดือนปีเกิดให้ถูกต้อง... กรุณาติดต่อเจ้าหน้าที่งานเวชระเบียน');
+                }
+
             }
         }
 

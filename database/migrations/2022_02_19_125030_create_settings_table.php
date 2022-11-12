@@ -54,6 +54,7 @@ class CreateSettingsTable extends Migration
             $table->string('hoslocation', 200);
             $table->string('modulecustom', 1);
             $table->string('pinlogin', 1);
+            $table->string('active_ptregister', 1);
 
             $table->timestamps();
         });
@@ -95,7 +96,8 @@ class CreateSettingsTable extends Migration
                 'module_1'=> 'Y',
                 'hoslocation'=> '',
                 'modulecustom'=> 'N',
-                'pinlogin'=> 'N'
+                'pinlogin'=> 'N',
+                'active_ptregister'=> 'N'
             )
         );
 
