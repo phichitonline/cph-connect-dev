@@ -95,7 +95,7 @@ class SessionregisterController extends Controller
                     $_SESSION["lineid"] = $request->get('lineid');
                     $_SESSION["email"] = $request->get('email');
                     session_write_close();
-                    return redirect()->route('homeregister')->with('session-alert', 'ไม่พบข้อมูลทะเบียนผู้ป่วยของคุณ หรือคุณอาจกรอกข้อมูลไม่ถูกต้อง ! กรุณาตรวจสอบเลขบัตรประชาชน และวันเดือนปีเกิดให้ถูกต้อง... กรุณาติดต่อเจ้าหน้าที่งานเวชระเบียน');
+                    return redirect()->route('homeregister')->with('session-alert', 'ไม่พบข้อมูลทะเบียนผู้ป่วยของคุณ หรือคุณอาจกรอกข้อมูลไม่ถูกต้อง ! กรุณาตรวจสอบเลขบัตรประชาชน และวันเดือนปีเกิดอีกครั้ง... หรือติดต่อเจ้าหน้าที่งานเวชระเบียน');
                 }
 
             }

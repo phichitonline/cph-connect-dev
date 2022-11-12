@@ -85,6 +85,24 @@
         <div class="cal-schedule">
             <em>
                 <div class="fac fac-radio fac-green"><span></span>
+                    <input id="box1005-fac-radio" type="radio" name="active_ptregister" value="Y" @if ($data->active_ptregister == "Y") checked @endif>
+                    <label for="box1005-fac-radio">ใช้</label>
+                </div>
+                <div class="fac fac-radio fac-red"><span></span>
+                    <input id="box1006-fac-radio" type="radio" name="active_ptregister" value="N" @if ($data->active_ptregister == "N") checked @endif>
+                    <label for="box1006-fac-radio">ไม่ใช้</label>
+                </div>
+            </em>
+            @if ($data->active_ptregister == "N")
+                <strong class="color-red2-dark">ระบบลงทะเบียนผู้ป่วยใหม่</strong>
+            @else
+                <strong>ระบบลงทะเบียนผู้ป่วยใหม่</strong>
+            @endif
+        </div>
+
+        <div class="cal-schedule">
+            <em>
+                <div class="fac fac-radio fac-green"><span></span>
                     <input id="box1-fac-radio" type="radio" name="slide_status" value="Y" @if ($data->slide_status == "Y") checked @endif>
                     <label for="box1-fac-radio">แสดง</label>
                 </div>
