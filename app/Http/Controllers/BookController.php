@@ -29,12 +29,12 @@ class BookController extends Controller
     {
         session_start();
 
-        $check_app_user = DB::connection('mysql')->select('
+        $check_app_flag = DB::connection('mysql')->select('
         SELECT f.*
         FROM que_app_flag f
         WHERE f.que_app_flag = "'.$_GET['flag'].'"
         ');
-        foreach ($check_app_user as $data) {
+        foreach ($check_app_flag as $data) {
             $module_color = $data->bgcolor;
             $module_name = $data->que_app_flag_name;
             $qflag = $_GET['flag'];
@@ -79,22 +79,15 @@ class BookController extends Controller
         $hn = $_SESSION["hn"];
         $que_date = $_GET['que_date'];
 
-        if ($_GET['flag'] == "T") {
-            $module_color = "green1-dark";
-            $module_name = "จองนัดแพทย์แผนไทย";
-            $qflag = "T";
-        } else if ($_GET['flag'] == "D") {
-            $module_color = "yellow2-dark";
-            $module_name = "จองนัดทันตกรรม";
-            $qflag = "D";
-        } else if ($_GET['flag'] == "C") {
-            $module_color = "magenta1-dark";
-            $module_name = "จองนัดตรวจสุขภาพ";
-            $qflag = "C";
-        } else {
-            $module_color = "blue1-dark";
-            $module_name = "จองนัดตรวจโรคทั่วไป";
-            $qflag = "A";
+        $check_app_flag = DB::connection('mysql')->select('
+        SELECT f.*
+        FROM que_app_flag f
+        WHERE f.que_app_flag = "'.$_GET['flag'].'"
+        ');
+        foreach ($check_app_flag as $data) {
+            $module_color = $data->bgcolor;
+            $module_name = $data->que_app_flag_name;
+            $qflag = $_GET['flag'];
         }
 
         $check_app_user = DB::connection('mysql')->select('
