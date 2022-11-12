@@ -85,6 +85,7 @@ class HomeController extends Controller
         } else {
             $view_page = "error_close_app";
             $view_menu = "disable";
+            $consent = "";
             $userid = "";
             $email = "";
         }
