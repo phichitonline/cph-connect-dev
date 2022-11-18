@@ -14,6 +14,7 @@
         $hos_url = $data->hos_url;
         $hos_tel = $data->hos_tel;
         $ext_q_status = $data->ext_q_status;
+        $active_checkin = $data->active_checkin;
     @endphp
     @endforeach
 
@@ -142,7 +143,9 @@
 						@if($oapp_status_color == "green")
 						@if (!isset($vn))
 
+                    @if ($active_checkin == "Y")
                     <div class="clear">
+
                         <form name="checkinform" id="checkinform" action="{{route('checkin')}}" method="GET">
                             {{-- @csrf --}}
                             {{-- <input type="text" class="text-center" name="gps_stamp1" id="locationPoint1" value="{{ old('gps_stamp') }}" placeholder="พิกัด GPS" disabled> --}}
@@ -159,15 +162,25 @@
 
                         </form>
                     </div>
+                    @endif
 
 
 
                         <h1 class="font-20 color-highlight text-center mt-4">คำแนะนำ</h1>
-                        <p class="footer-text mt-0">
-                            <span class="font-16">
-                                <br><b>ก่อนกดปุ่ม CHECKIN คุณต้องเตรียมความพร้อมเพื่อจะเข้ารับบริการ และอยู่ในโรงพยาบาลแล้วเท่านั้น</b>
-                            </span>
-                        </p>
+                        @if ($active_checkin == "Y")
+                            <p class="footer-text mt-0">
+                                <span class="font-16">
+                                    <br><b>ก่อนกดปุ่ม CHECKIN คุณต้องเตรียมความพร้อมเพื่อจะเข้ารับบริการ และอยู่ในโรงพยาบาลแล้วเท่านั้น</b>
+                                </span>
+                            </p>
+                        @else
+                            <p class="footer-text mt-0">
+                                <span class="font-16">
+                                    <br><b>แสดงข้อมูลการนัดต่อเจ้าหน้าที่ เพื่อเข้ารับบริการ</b>
+                                </span>
+                            </p>
+                        @endif
+
 						@else
                         @if ($ext_q_status == "Y")
 							<a href="{{ url('/') }}/statusq?oappid={{ $oappid }}" class="btn btn-m btn-full rounded-s shadow-l text-center text-uppercase font-25 bg-green2-dark color-white">
