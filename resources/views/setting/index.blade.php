@@ -103,6 +103,24 @@
         <div class="cal-schedule">
             <em>
                 <div class="fac fac-radio fac-green"><span></span>
+                    <input id="box1007-fac-radio" type="radio" name="active_checkin" value="Y" @if ($data->active_checkin == "Y") checked @endif>
+                    <label for="box1007-fac-radio">ใช้</label>
+                </div>
+                <div class="fac fac-radio fac-red"><span></span>
+                    <input id="box1008-fac-radio" type="radio" name="active_checkin" value="N" @if ($data->active_checkin == "N") checked @endif>
+                    <label for="box1008-fac-radio">ไม่ใช้</label>
+                </div>
+            </em>
+            @if ($data->active_checkin == "N")
+                <strong class="color-red2-dark">ระบบ Checkin เข้ารับบริการ (ออก visit)</strong>
+            @else
+                <strong>ระบบ Checkin เข้ารับบริการ (ออก visit)</strong>
+            @endif
+        </div>
+
+        <div class="cal-schedule">
+            <em>
+                <div class="fac fac-radio fac-green"><span></span>
                     <input id="box1-fac-radio" type="radio" name="slide_status" value="Y" @if ($data->slide_status == "Y") checked @endif>
                     <label for="box1-fac-radio">แสดง</label>
                 </div>
