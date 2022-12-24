@@ -40,24 +40,6 @@ class BookController extends Controller
             $qflag = $_GET['flag'];
         }
 
-        // if ($_GET['flag'] == "T") {
-        //     $module_color = "bg-green1-dark";
-        //     $module_name = "จองนัดแพทย์แผนไทย";
-        //     $qflag = "T";
-        // } else if ($_GET['flag'] == "D") {
-        //     $module_color = "bg-yellow2-dark";
-        //     $module_name = "จองนัดทันตกรรม";
-        //     $qflag = "D";
-        // } else if ($_GET['flag'] == "C") {
-        //     $module_color = "bg-magenta1-dark";
-        //     $module_name = "จองนัดตรวจสุขภาพ";
-        //     $qflag = "C";
-        // } else {
-        //     $module_color = "bg-blue1-dark";
-        //     $module_name = "จองนัดตรวจโรคทั่วไป";
-        //     $qflag = "A";
-        // }
-
         if (isset($_SESSION["lineid"])) {
             $view_page = "book.calendar";
         } else {

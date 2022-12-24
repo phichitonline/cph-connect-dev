@@ -39,7 +39,7 @@ class CreateQueAppFlagTable extends Migration
                         'depcode'=> '016',
                         'spclty'=> '01',
                         'doctor'=> '1298',
-                        'bgcolor'=> 'bg-blue1-dark'
+                        'bgcolor'=> 'blue1-dark'
                     ],
                     [
                         'que_app_flag'=> 'C',
@@ -48,7 +48,7 @@ class CreateQueAppFlagTable extends Migration
                         'depcode'=> '016',
                         'spclty'=> '01',
                         'doctor'=> '1298',
-                        'bgcolor'=> 'bg-magenta1-dark'
+                        'bgcolor'=> 'magenta1-dark'
                     ],
                     [
                         'que_app_flag'=> 'D',
@@ -57,7 +57,7 @@ class CreateQueAppFlagTable extends Migration
                         'depcode'=> '030',
                         'spclty'=> '11',
                         'doctor'=> '1029',
-                        'bgcolor'=> 'bg-yellow2-dark'
+                        'bgcolor'=> 'yellow2-dark'
                     ],
                     [
                         'que_app_flag'=> 'T',
@@ -66,7 +66,7 @@ class CreateQueAppFlagTable extends Migration
                         'depcode'=> '036',
                         'spclty'=> '16',
                         'doctor'=> '1025',
-                        'bgcolor'=> 'bg-green1-dark'
+                        'bgcolor'=> 'green1-dark'
                     ]
                 )
             );

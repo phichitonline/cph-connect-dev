@@ -83,7 +83,6 @@ class MainController extends Controller
             $wait_qp = DB::connection('mysql_hos')->select('
             SELECT COUNT(*) AS waitq FROM web_queue
             WHERE room_code = "'.$room_code.'" AND `status` = "1" AND pt_priority <> "0"
-            AND type IN ("A","S")
             ');
             foreach($wait_qp as $data){
                 $waitqp = $data->waitq;
@@ -119,7 +118,7 @@ class MainController extends Controller
             $wait_q = DB::connection('mysql_hos')->select('
             SELECT COUNT(*) AS waitq FROM web_queue
             WHERE room_code = "'.$room_code2.'" AND `status` = "1" AND pt_priority = "'.$priority.'"
-            AND type IN ("A","S") AND qnumber < '.$webqn2.'
+            AND qnumber < '.$webqn2.'
             ');
             foreach($wait_q as $data){
                 $waitq = $data->waitq+$waitqp2;
